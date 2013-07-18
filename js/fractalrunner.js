@@ -297,7 +297,7 @@ function setmode(newmode, newgame){
         buffer = 0;
         canvas = 0;
 
-        get('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><b>FractalRunner</b></div><hr><div class=c><ol><li><a onclick=setmode(1,1)>Walled Corridor</a></ol></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled size=3 style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=2 size=3 value='
+        get('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><b>FractalRunner</b></div><hr><div class=c><ul><li><a onclick=setmode(1,1)>Walled Corridor</a></ul></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled size=3 style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=2 size=3 value='
             + settings[3] + '>Move ←→<br><input id=restart-key maxlength=1 size=3 value='
             + settings[4] + '>Restart</div><hr><div class=c><input id=audio-volume max=1 min=0 step=.01 type=range value='
             + settings[0] + '>Audio<br><label><input '
@@ -334,10 +334,10 @@ var y = 0;
 setmode(0, 1);
 
 window.onkeydown = function(e){
-    i = window.event ? event : e;
-    i = i.charCode ? i.charCode : i.keyCode;
-
     if(mode > 0){
+        i = window.event ? event : e;
+        i = i.charCode ? i.charCode : i.keyCode;
+
         if(String.fromCharCode(i) === settings[3][0]){
             key_left = 1;
 
@@ -353,10 +353,6 @@ window.onkeydown = function(e){
             setmode(0, 1);
 
         }
-
-    // 1, menu hotkey for Walled Corridor
-    }else if(i === 49){
-        setmode(1,1);
     }
 };
 
