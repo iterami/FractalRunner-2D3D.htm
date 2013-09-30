@@ -172,6 +172,20 @@ function draw(){
     buffer.closePath();
     buffer.fill();
 
+    // if frame counter is enabled, draw current frame count
+    if(settings[3]){
+        frame_counter += 1;
+        buffer.fillStyle = '#fff';
+        buffer.font = '23pt sans-serif';
+        buffer.textAlign = 'left';
+        buffer.textBaseline = 'top';
+        buffer.fillText(
+            frame_counter,
+            5,
+            5
+        );
+    }
+
     if(settings[2]){// clear?
         canvas.clearRect(
             0,
@@ -229,30 +243,31 @@ function save(){
                 settings[i]
             );
         }
-    }while(i--);
 
-    settings[2] = get('clear').checked;
-    if(settings[2]){
-        ls.removeItem('fractalrunner-2');
-
-    }else{
-        ls.setItem(
-            'fractalrunner-2',
-            0
-        );
-    }
-
-    i = 1;
-    do{
-        if(get(['movement-keys', 'restart-key'][i]).value === ['AD', 'H'][i]){
-            ls.removeItem('fractalrunner-' + (i + 3));
-            settings[i + 3] = ['AD', 'H'][i];
+        settings[i+2] = get(['clear','frame-counter'][i]).checked;
+        if(settings[i+2]){
+            ls.removeItem('fractalrunner-'+(i+2));
 
         }else{
-            settings[i + 3] = get(['movement-keys', 'restart-key'][i]).value;
             ls.setItem(
-                'fractalrunner-' + (i + 3),
-                settings[i + 3]
+                'fractalrunner-'+(i+2),
+                0
+            );
+        }
+
+        j = [
+            'movement-keys',
+            'restart-key'
+        ][i];
+        if(get(j).value === ['AD', 'H'][i]){
+            ls.removeItem('fractalrunner-' + (i + 4));
+            settings[i + 4] = ['AD', 'H'][i];
+
+        }else{
+            settings[i + 4] = get(j).value;
+            ls.setItem(
+                'fractalrunner-' + (i + 4),
+                settings[i + 4]
             );
         }
     }while(i--);
@@ -278,6 +293,7 @@ function setmode(newmode, newgame){
             [ 50,  50, 25]
         ];
 
+        frame_counter = 0;    
         player_dx = 0;
         player_position = 0;
 
@@ -297,17 +313,18 @@ function setmode(newmode, newgame){
         buffer = 0;
         canvas = 0;
 
-        get('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><b>FractalRunner</b></div><hr><div class=c><ul><li><a onclick=setmode(1,1)>Walled Corridor</a></ul></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled size=3 style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=2 size=3 value='
-            + settings[3] + '>Move ←→<br><input id=restart-key maxlength=1 size=3 value='
-            + settings[4] + '>Restart</div><hr><div class=c><input id=audio-volume max=1 min=0 step=.01 type=range value='
+        get('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><b>FractalRunner</b></div><hr><div class=c><ul><li><a onclick=setmode(1,1)>Walled Corridor</a></ul></div><hr><div class=c><label><input'+(settings[3]?' checked':'')+' id=frame-counter type=checkbox>Frame Counter</label></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled size=3 style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=2 size=3 value='
+            + settings[4] + '>Move ←→<br><input id=restart-key maxlength=1 size=3 value='
+            + settings[5] + '>Restart</div><hr><div class=c><input id=audio-volume max=1 min=0 step=.01 type=range value='
             + settings[0] + '>Audio<br><label><input '
-            + (settings[2] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><a onclick="if(confirm(\'Reset settings?\')){get(\'clear\').checked=get(\'audio-volume\').value=1;get(\'movement-keys\').value=\'AD\';get(\'restart-key\').value=\'H\';get(\'ms-per-frame\').value=25;save();setmode(0,1)}">Reset Settings</a><br><a onclick="get(\'hz\').style.display=get(\'hz\').style.display===\'none\'?\'inline\':\'none\'">Hack</a><span id=hz style=display:none><br><br><input id=ms-per-frame size=1 value='
+            + (settings[2] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><a onclick="if(confirm(\'Reset settings?\')){get(\'clear\').checked=get(\'frame-counter\').checked=get(\'audio-volume\').value=1;get(\'movement-keys\').value=\'AD\';get(\'restart-key\').value=\'H\';get(\'ms-per-frame\').value=25;save();setmode(0,1)}">Reset Settings</a><br><a onclick="get(\'hz\').style.display=get(\'hz\').style.display===\'none\'?\'inline\':\'none\'">Hack</a><span id=hz style=display:none><br><br><input id=ms-per-frame size=1 value='
             + settings[1] + '>ms/Frame</span></div></div>';
     }
 }
 
 var buffer = 0;
 var canvas = 0;
+var frame_counter = 0;
 var height = 0;
 var i = 0;
 var interval = 0;
@@ -324,8 +341,9 @@ var settings = [
     ls.getItem('fractalrunner-0') === null ?    1 : parseFloat(ls.getItem('fractalrunner-0')),// audio volume
     ls.getItem('fractalrunner-1') === null ?   25 : parseFloat(ls.getItem('fractalrunner-1')),// milliseconds per frame
     ls.getItem('fractalrunner-2') === null,// clear?
-    ls.getItem('fractalrunner-3') === null ? 'AD' : ls.getItem('fractalrunner-3'),// movement keys
-    ls.getItem('fractalrunner-4') === null ?  'H' : ls.getItem('fractalrunner-4')// restart key
+    ls.getItem('fractalrunner-3') === null,// frame counter?
+    ls.getItem('fractalrunner-4') === null ? 'AD' : ls.getItem('fractalrunner-4'),// movement keys
+    ls.getItem('fractalrunner-5') === null ?  'H' : ls.getItem('fractalrunner-5')// restart key
 ];
 var width = 0;
 var x = 0;
@@ -338,14 +356,14 @@ window.onkeydown = function(e){
         i = window.event ? event : e;
         i = i.charCode ? i.charCode : i.keyCode;
 
-        if(String.fromCharCode(i) === settings[3][0]){
+        if(String.fromCharCode(i) === settings[4][0]){
             key_left = 1;
 
-        }else if(String.fromCharCode(i) === settings[3][1]){
+        }else if(String.fromCharCode(i) === settings[4][1]){
             key_right = 1;
 
         // new game
-        }else if(String.fromCharCode(i) === settings[4]){
+        }else if(String.fromCharCode(i) === settings[5]){
             setmode(mode, 0);
 
         // return to main menu
@@ -360,10 +378,10 @@ window.onkeyup = function(e){
     i = window.event ? event : e;
     i = i.charCode ? i.charCode : i.keyCode;
 
-    if(String.fromCharCode(i) === settings[3][0]){
+    if(String.fromCharCode(i) === settings[4][0]){
         key_left = 0;
 
-    }else if(String.fromCharCode(i) === settings[3][1]){
+    }else if(String.fromCharCode(i) === settings[4][1]){
         key_right = 0;
     }
 };
