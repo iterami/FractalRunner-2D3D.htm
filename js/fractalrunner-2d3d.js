@@ -282,10 +282,6 @@ function setmode(newmode, newgame){
 
     // new game mode
     if(mode > 0){
-        if(newgame){
-            save();
-        }
-
         splits = [
             [-50, -50, 25],
             [-50,  50, 25],
@@ -298,6 +294,8 @@ function setmode(newmode, newgame){
         player_position = 0;
 
         if(newgame){
+            save();
+
             get('page').innerHTML = '<canvas id=canvas></canvas>';
 
             buffer = get('buffer').getContext('2d');
