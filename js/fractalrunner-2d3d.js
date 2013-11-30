@@ -32,7 +32,7 @@ function draw(){
     buffer.fillStyle = '#131';
     buffer.fillRect(
         0,
-        y,
+        floor_position,
         width,
         y
     );
@@ -152,6 +152,7 @@ function draw(){
         buffer.closePath();
         buffer.fill();
     }
+
 
     // draw right wall further than split
     buffer.fillStyle = split_state[0] ? '#323232' : '#646464';
@@ -304,6 +305,8 @@ function setmode(newmode, newgame){
             resize();
         }
 
+        floor_position = y * (mode - 1);
+
         interval = setInterval('draw()', settings[1]);// milliseconds per frame
 
     // main menu mode
@@ -311,7 +314,7 @@ function setmode(newmode, newgame){
         buffer = 0;
         canvas = 0;
 
-        get('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><b>FractalRunner</b></div><hr><div class=c><ul><li><a onclick=setmode(1,1)>Walled Corridor</a></ul></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=2 value='
+        get('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><b>FractalRunner</b></div><hr><div class=c><ul><li><a onclick=setmode(1,1)>Cling to the Ground</a><li><a onclick=setmode(2,1)>Walled Corridor</a></ul></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=2 value='
             + settings[4] + '>Move ←→<br><input id=restart-key maxlength=1 value='
             + settings[5] + '>Restart</div><hr><div class=c><input id=audio-volume max=1 min=0 step=.01 type=range value='
             + settings[0] + '>Audio<br><label><input '
@@ -323,6 +326,7 @@ function setmode(newmode, newgame){
 
 var buffer = 0;
 var canvas = 0;
+var floor_position = 0;
 var frame_counter = 0;
 var height = 0;
 var i = 0;
