@@ -318,9 +318,9 @@ function setmode(newmode, newgame){
             + settings[4] + '>Move ←→<br><input id=restart-key maxlength=1 value='
             + settings[5] + '>Restart</div><hr><div class=c><input id=audio-volume max=1 min=0 step=.01 type=range value='
             + settings[0] + '>Audio<br><label><input '
-            + (settings[2] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><label><input '
-            + (settings[3] ? 'checked ' : '') + 'id=frame-counter type=checkbox>Frame Counter</label><br><a onclick="if(confirm(\'Reset settings?\')){get(\'clear\').checked=get(\'frame-counter\').checked=get(\'audio-volume\').value=1;get(\'movement-keys\').value=\'AD\';get(\'restart-key\').value=\'H\';get(\'ms-per-frame\').value=25;save();setmode(0,1)}">Reset Settings</a><br><a onclick="get(\'hz\').style.display=get(\'hz\').style.display===\'none\'?\'inline\':\'none\'">Hack</a><span id=hz style=display:none><br><br><input id=ms-per-frame value='
-            + settings[1] + '>ms/Frame</span></div></div>';
+            + (settings[2] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><input id=ms-per-frame value='
+            + settings[1] + '>ms/Frame<br><label><input '
+            + (settings[3] ? 'checked ' : '') + 'id=frame-counter type=checkbox>Frame Counter</label><br><a onclick="if(confirm(\'Reset settings?\')){get(\'clear\').checked=get(\'frame-counter\').checked=get(\'audio-volume\').value=1;get(\'movement-keys\').value=\'AD\';get(\'restart-key\').value=\'H\';get(\'ms-per-frame\').value=25;save();setmode(0,1)}">Reset Settings</a></div></div>';
     }
 }
 
