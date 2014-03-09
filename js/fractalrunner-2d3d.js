@@ -196,33 +196,41 @@ function draw(){
         );
     }
     canvas.drawImage(
-        get('buffer'),
+        document.getElementById('buffer'),
         0,
         0
     );
 }
 
-function get(i){
-    return document.getElementById(i);
+function random_number(i){
+    return Math.floor(Math.random() * i);
+}
+
+function reset(){
+    if(confirm('Reset settings?')){
+        document.getElementById('audio-volume').value = 1;
+        document.getElementById('clear').checked = 1;
+        document.getElementById('frame-counter').checked = 1;
+        document.getElementById('movement-keys').value = 'AD';
+        document.getElementById('ms-per-frame').value = 25;
+        document.getElementById('restart-key').value = 'H';
+        save();
+    }
 }
 
 function resize(){
     if(mode > 0){
         width = window.innerWidth;
-        get('buffer').width = width;
-        get('canvas').width = width;
+        document.getElementById('buffer').width = width;
+        document.getElementById('canvas').width = width;
 
         height = window.innerHeight;
-        get('buffer').height = height;
-        get('canvas').height = height;
+        document.getElementById('buffer').height = height;
+        document.getElementById('canvas').height = height;
 
         x = width / 2;
         y = height / 2;
     }
-}
-
-function random_number(i){
-    return Math.floor(Math.random() * i);
 }
 
 function save(){
@@ -232,20 +240,20 @@ function save(){
             'audio-volume',
             'ms-per-frame'
         ][i];
-        if(isNaN(get(j).value) || get(j).value === [1, 25][i]){
+        if(isNaN(document.getElementById(j).value) || document.getElementById(j).value === [1, 25][i]){
             ls.removeItem('fractalrunner-' + i);
             settings[i] = [1, 25][i];
-            get(j).value = settings[i];
+            document.getElementById(j).value = settings[i];
 
         }else{
-            settings[i] = parseFloat(get(j).value);
+            settings[i] = parseFloat(document.getElementById(j).value);
             ls.setItem(
                 'fractalrunner-' + i,
                 settings[i]
             );
         }
 
-        settings[i+2] = get(['clear','frame-counter'][i]).checked;
+        settings[i+2] = document.getElementById(['clear','frame-counter'][i]).checked;
         if(settings[i+2]){
             ls.removeItem('fractalrunner-'+(i+2));
 
@@ -260,12 +268,12 @@ function save(){
             'movement-keys',
             'restart-key'
         ][i];
-        if(get(j).value === ['AD', 'H'][i]){
+        if(document.getElementById(j).value === ['AD', 'H'][i]){
             ls.removeItem('fractalrunner-' + (i + 4));
             settings[i + 4] = ['AD', 'H'][i];
 
         }else{
-            settings[i + 4] = get(j).value;
+            settings[i + 4] = document.getElementById(j).value;
             ls.setItem(
                 'fractalrunner-' + (i + 4),
                 settings[i + 4]
@@ -297,10 +305,10 @@ function setmode(newmode, newgame){
         if(newgame){
             save();
 
-            get('page').innerHTML = '<canvas id=canvas></canvas>';
+            document.getElementById('page').innerHTML = '<canvas id=canvas></canvas>';
 
-            buffer = get('buffer').getContext('2d');
-            canvas = get('canvas').getContext('2d');
+            buffer = document.getElementById('buffer').getContext('2d');
+            canvas = document.getElementById('canvas').getContext('2d');
 
             resize();
         }
@@ -314,13 +322,13 @@ function setmode(newmode, newgame){
         buffer = 0;
         canvas = 0;
 
-        get('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><b>FractalRunner</b></div><hr><div class=c><ul><li><a onclick=setmode(1,1)>Cling to the Ground</a><li><a onclick=setmode(2,1)>Walled Corridor</a></ul></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=2 value='
+        document.getElementById('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><b>FractalRunner</b></div><hr><div class=c><ul><li><a onclick=setmode(1,1)>Cling to the Ground</a><li><a onclick=setmode(2,1)>Walled Corridor</a></ul></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=2 value='
             + settings[4] + '>Move ←→<br><input id=restart-key maxlength=1 value='
             + settings[5] + '>Restart</div><hr><div class=c><input id=audio-volume max=1 min=0 step=.01 type=range value='
             + settings[0] + '>Audio<br><label><input '
             + (settings[2] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><input id=ms-per-frame value='
             + settings[1] + '>ms/Frame<br><label><input '
-            + (settings[3] ? 'checked ' : '') + 'id=frame-counter type=checkbox>Frame Counter</label><br><a onclick="if(confirm(\'Reset settings?\')){get(\'clear\').checked=get(\'frame-counter\').checked=get(\'audio-volume\').value=1;get(\'movement-keys\').value=\'AD\';get(\'restart-key\').value=\'H\';get(\'ms-per-frame\').value=25;save();setmode(0,1)}">Reset Settings</a></div></div>';
+            + (settings[3] ? 'checked ' : '') + 'id=frame-counter type=checkbox>Frame Counter</label><br><a onclick=reset()>Reset Settings</a></div></div>';
     }
 }
 
