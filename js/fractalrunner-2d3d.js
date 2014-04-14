@@ -364,35 +364,37 @@ setmode(0, 1);
 
 window.onkeydown = function(e){
     if(mode > 0){
-        i = window.event ? event : e;
-        i = i.charCode ? i.charCode : i.keyCode;
+        var key = window.event ? event : e;
+        key = key.charCode ? key.charCode : key.keyCode;
 
-        if(String.fromCharCode(i) === settings[4][0]){
-            key_left = 1;
+        if(key === 27){// ESC
+            setmode(0, 1); // main menu
 
-        }else if(String.fromCharCode(i) === settings[4][1]){
-            key_right = 1;
+        }else{
+            key = String.fromCharCode(key);
 
-        // new game
-        }else if(String.fromCharCode(i) === settings[5]){
-            setmode(mode, 0);
+            if(key === settings[4][0]){
+                key_left = 1;
 
-        // return to main menu
-        }else if(i === 27){// ESC
-            setmode(0, 1);
+            }else if(key === settings[4][1]){
+                key_right = 1;
 
+            }else if(key === settings[5]){
+                setmode(mode, 0); // new game
+
+            }
         }
     }
 };
 
 window.onkeyup = function(e){
-    i = window.event ? event : e;
-    i = i.charCode ? i.charCode : i.keyCode;
+    var key = window.event ? event : e;
+    key = String.fromCharCode(key.charCode ? key.charCode : key.keyCode);
 
-    if(String.fromCharCode(i) === settings[4][0]){
+    if(key === settings[4][0]){
         key_left = 0;
 
-    }else if(String.fromCharCode(i) === settings[4][1]){
+    }else if(key === settings[4][1]){
         key_right = 0;
     }
 };
