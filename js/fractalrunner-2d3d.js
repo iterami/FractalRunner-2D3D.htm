@@ -1,10 +1,10 @@
 function draw(){
     if(settings[2]){// clear?
         buffer.clearRect(
-            0,
-            0,
-            width,
-            height
+          0,
+          0,
+          width,
+          height
         );
     }
 
@@ -31,10 +31,10 @@ function draw(){
     // draw ground grass
     buffer.fillStyle = '#131';
     buffer.fillRect(
-        0,
-        floor_position,
-        width,
-        y
+      0,
+      floor_position,
+      width,
+      y
     );
 
     // move player forward by moving splits closer
@@ -59,7 +59,9 @@ function draw(){
         split_state[0] = !split_state[0];
     }
 
-    buffer.fillStyle = split_state[0] ? '#323232' : '#646464';
+    buffer.fillStyle = split_state[0]
+      ? '#323232'
+      : '#646464';
 
     // precalculate left wall split position
     var precalc = (splits[0][0] * (1 / splits[0][2])) + x;
@@ -67,10 +69,10 @@ function draw(){
     // draw left wall extra bit
     if(player_position > 0){
         buffer.fillRect(
-            0,
-            0,
-            1 + (player_position >= precalc ? precalc : player_position),
-            height
+          0,
+          0,
+          1 + (player_position >= precalc ? precalc : player_position),
+          height
         );
     }
 
@@ -78,44 +80,48 @@ function draw(){
     if(player_position < precalc){
         buffer.beginPath();
         buffer.moveTo(
-            player_position,
-            y - x
+          player_position,
+          y - x
         );
         buffer.lineTo(
-            precalc,
-            (splits[0][1] * (1 / splits[0][2])) + y
+          precalc,
+          (splits[0][1] * (1 / splits[0][2])) + y
         );
         buffer.lineTo(
-            precalc,
-            (splits[1][1] * (1 / splits[1][2])) + y
+          precalc,
+          (splits[1][1] * (1 / splits[1][2])) + y
         );
         buffer.lineTo(
-            player_position,
-            y + x
+          player_position,
+          y + x
         );
         buffer.closePath();
         buffer.fill();
     }
 
     // draw left wall further than split
-    buffer.fillStyle = split_state[0] ? '#646464' : '#323232';
+    buffer.fillStyle = split_state[0]
+      ? '#646464'
+      : '#323232';
     buffer.beginPath();
     buffer.moveTo(
-        precalc,
-        (splits[0][1] * (1 / splits[0][2])) + y
+      precalc,
+      (splits[0][1] * (1 / splits[0][2])) + y
     );
     buffer.lineTo(
-        x,
-        y
+      x,
+      y
     );
     buffer.lineTo(
-        precalc,
-        (splits[1][1] * (1 / splits[1][2])) + y
+      precalc,
+      (splits[1][1] * (1 / splits[1][2])) + y
     );
     buffer.closePath();
     buffer.fill();
 
-    buffer.fillStyle = split_state[0] ? '#646464' : '#323232';
+    buffer.fillStyle = split_state[0]
+      ? '#646464'
+      : '#323232';
 
     // precalculate right wall split position
     precalc = (splits[2][0] * (1 / splits[2][2])) + x;
@@ -123,10 +129,10 @@ function draw(){
     // draw right wall extra bit
     if(player_position < 0){
         buffer.fillRect(
-            width + player_position < precalc ? precalc - 1 : width + player_position - 1,
-            0,
-            -player_position,
-            height
+          width + player_position < precalc ? precalc - 1 : width + player_position - 1,
+          0,
+          -player_position,
+          height
         );
     }
 
@@ -134,20 +140,20 @@ function draw(){
     if(width + player_position > precalc){
         buffer.beginPath();
         buffer.moveTo(
-            width + player_position,
-            y - x
+          width + player_position,
+          y - x
         );
         buffer.lineTo(
-            precalc,
-            (splits[2][1] * (1 / splits[2][2])) + y
+          precalc,
+          (splits[2][1] * (1 / splits[2][2])) + y
         );
         buffer.lineTo(
-            precalc,
-            (splits[3][1] * (1 / splits[3][2])) + y
+          precalc,
+          (splits[3][1] * (1 / splits[3][2])) + y
         );
         buffer.lineTo(
-            width + player_position,
-            y + x
+          width + player_position,
+          y + x
         );
         buffer.closePath();
         buffer.fill();
@@ -155,20 +161,22 @@ function draw(){
 
 
     // draw right wall further than split
-    buffer.fillStyle = split_state[0] ? '#323232' : '#646464';
+    buffer.fillStyle = split_state[0]
+      ? '#323232'
+      : '#646464';
 
     buffer.beginPath();
     buffer.moveTo(
-        precalc,
-        (splits[2][1] * (1 / splits[2][2])) + y
+      precalc,
+      (splits[2][1] * (1 / splits[2][2])) + y
     );
     buffer.lineTo(
-        x,
-        y
+      x,
+      y
     );
     buffer.lineTo(
-        precalc,
-        (splits[3][1] * (1 / splits[3][2])) + y
+      precalc,
+      (splits[3][1] * (1 / splits[3][2])) + y
     );
     buffer.closePath();
     buffer.fill();
@@ -181,24 +189,24 @@ function draw(){
         buffer.textAlign = 'left';
         buffer.textBaseline = 'top';
         buffer.fillText(
-            frame_counter,
-            5,
-            5
+          frame_counter,
+          5,
+          5
         );
     }
 
     if(settings[2]){// clear?
         canvas.clearRect(
-            0,
-            0,
-            width,
-            height
+          0,
+          0,
+          width,
+          height
         );
     }
     canvas.drawImage(
-        document.getElementById('buffer'),
-        0,
-        0
+      document.getElementById('buffer'),
+      0,
+      0
     );
 }
 
@@ -220,16 +228,15 @@ function reset(){
 
 function resize(){
     if(mode > 0){
-        width = window.innerWidth;
-        document.getElementById('buffer').width = width;
-        document.getElementById('canvas').width = width;
-
         height = window.innerHeight;
         document.getElementById('buffer').height = height;
         document.getElementById('canvas').height = height;
-
-        x = width / 2;
         y = height / 2;
+
+        width = window.innerWidth;
+        document.getElementById('buffer').width = width;
+        document.getElementById('canvas').width = width;
+        x = width / 2;
     }
 }
 
@@ -237,46 +244,50 @@ function save(){
     i = 1;
     do{
         j = [
-            'audio-volume',
-            'ms-per-frame'
+          'audio-volume',
+          'ms-per-frame'
         ][i];
-        if(isNaN(document.getElementById(j).value) || document.getElementById(j).value === [1, 25][i]){
-            ls.removeItem('fractalrunner-' + i);
+        if(isNaN(document.getElementById(j).value)
+          || document.getElementById(j).value === [1, 25][i]){
+            window.localStorage.removeItem('fractalrunner-' + i);
             settings[i] = [1, 25][i];
             document.getElementById(j).value = settings[i];
 
         }else{
             settings[i] = parseFloat(document.getElementById(j).value);
-            ls.setItem(
-                'fractalrunner-' + i,
-                settings[i]
+            window.localStorage.setItem(
+              'fractalrunner-' + i,
+              settings[i]
             );
         }
 
-        settings[i+2] = document.getElementById(['clear','frame-counter'][i]).checked;
-        if(settings[i+2]){
-            ls.removeItem('fractalrunner-'+(i+2));
+        settings[i + 2] = document.getElementById(['clear', 'frame-counter'][i]).checked;
+        if(settings[i + 2]){
+            window.localStorage.removeItem('fractalrunner-' + (i + 2));
 
         }else{
-            ls.setItem(
-                'fractalrunner-'+(i+2),
-                0
+            window.localStorage.setItem(
+              'fractalrunner-' + (i + 2),
+              0
             );
         }
 
         j = [
-            'movement-keys',
-            'restart-key'
+          'movement-keys',
+          'restart-key'
         ][i];
         if(document.getElementById(j).value === ['AD', 'H'][i]){
-            ls.removeItem('fractalrunner-' + (i + 4));
-            settings[i + 4] = ['AD', 'H'][i];
+            window.localStorage.removeItem('fractalrunner-' + (i + 4));
+            settings[i + 4] = [
+              'AD',
+              'H'
+            ][i];
 
         }else{
             settings[i + 4] = document.getElementById(j).value;
-            ls.setItem(
-                'fractalrunner-' + (i + 4),
-                settings[i + 4]
+            window.localStorage.setItem(
+              'fractalrunner-' + (i + 4),
+              settings[i + 4]
             );
         }
     }while(i--);
@@ -315,20 +326,23 @@ function setmode(newmode, newgame){
 
         floor_position = y * (mode - 1);
 
-        interval = setInterval('draw()', settings[1]);// milliseconds per frame
+        interval = setInterval(
+          'draw()',
+          settings[1]// milliseconds per frame
+        );
 
     // main menu mode
     }else{
         buffer = 0;
         canvas = 0;
 
-        document.getElementById('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><b>FractalRunner</b></div><hr><div class=c><ul><li><a onclick=setmode(1,1)>Cling to the Ground</a><li><a onclick=setmode(2,1)>Walled Corridor</a></ul></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=2 value='
-            + settings[4] + '>Move ←→<br><input id=restart-key maxlength=1 value='
-            + settings[5] + '>Restart</div><hr><div class=c><input id=audio-volume max=1 min=0 step=.01 type=range value='
-            + settings[0] + '>Audio<br><label><input '
-            + (settings[2] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><input id=ms-per-frame value='
-            + settings[1] + '>ms/Frame<br><label><input '
-            + (settings[3] ? 'checked ' : '') + 'id=frame-counter type=checkbox>Frame Counter</label><br><a onclick=reset()>Reset Settings</a></div></div>';
+        document.getElementById('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><b>FractalRunner-2D3D</b></div><hr><div class=c><ul><li><a onclick=setmode(1,1)>Cling to the Ground</a><li><a onclick=setmode(2,1)>Walled Corridor</a></ul></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=2 value='
+          + settings[4] + '>Move ←→<br><input id=restart-key maxlength=1 value='
+          + settings[5] + '>Restart</div><hr><div class=c><input id=audio-volume max=1 min=0 step=.01 type=range value='
+          + settings[0] + '>Audio<br><label><input '
+          + (settings[2] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><input id=ms-per-frame value='
+          + settings[1] + '>ms/Frame<br><label><input '
+          + (settings[3] ? 'checked ' : '') + 'id=frame-counter type=checkbox>Frame Counter</label><br><a onclick=reset()>Reset Settings</a></div></div>';
     }
 }
 
@@ -342,19 +356,26 @@ var interval = 0;
 var j = 0;
 var key_left = 0;
 var key_right = 0;
-var ls = window.localStorage;
 var player_dx = 0;
 var player_position = 0;
 var mode = 0;
 var split_state = [];
 var splits = [];
 var settings = [
-    ls.getItem('fractalrunner-0') === null ?    1 : parseFloat(ls.getItem('fractalrunner-0')),// audio volume
-    ls.getItem('fractalrunner-1') === null ?   25 : parseFloat(ls.getItem('fractalrunner-1')),// milliseconds per frame
-    ls.getItem('fractalrunner-2') === null,// clear?
-    ls.getItem('fractalrunner-3') === null,// frame counter?
-    ls.getItem('fractalrunner-4') === null ? 'AD' : ls.getItem('fractalrunner-4'),// movement keys
-    ls.getItem('fractalrunner-5') === null ?  'H' : ls.getItem('fractalrunner-5')// restart key
+  window.localStorage.getItem('fractalrunner-0') === null
+    ? 1
+    : parseFloat(window.localStorage.getItem('fractalrunner-0')),// audio volume
+  window.localStorage.getItem('fractalrunner-1') === null
+    ? 25
+    : parseFloat(window.localStorage.getItem('fractalrunner-1')),// milliseconds per frame
+  window.localStorage.getItem('fractalrunner-2') === null,// clear?
+  window.localStorage.getItem('fractalrunner-3') === null,// frame counter?
+  window.localStorage.getItem('fractalrunner-4') === null
+    ? 'AD'
+    : window.localStorage.getItem('fractalrunner-4'),// movement keys
+  window.localStorage.getItem('fractalrunner-5') === null
+    ? 'H'
+    : window.localStorage.getItem('fractalrunner-5')// restart key
 ];
 var width = 0;
 var x = 0;
