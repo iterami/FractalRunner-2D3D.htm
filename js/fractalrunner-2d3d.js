@@ -38,16 +38,16 @@ function draw(){
     );
 
     // move player forward by moving splits closer
-    i = splits.length - 1;
+    var loop_counter = splits.length - 1;
     do{
-        splits[i][2] -= .05;
+        splits[loop_counter][2] -= .05;
 
         // if splits reach player, reset splits
-        if(splits[i][2] < 0){
-            splits[i][2] = 25;
+        if(splits[loop_counter][2] < 0){
+            splits[loop_counter][2] = 25;
             split_state[1] = 1;
         }
-    }while(i--);
+    }while(loop_counter--);
 
     // if it is time to reset split
     if(split_state[1]){
@@ -241,33 +241,36 @@ function resize(){
 }
 
 function save(){
-    i = 1;
+    var loop_counter = 1;
     do{
         j = [
           'audio-volume',
           'ms-per-frame'
-        ][i];
+        ][loop_counter];
         if(isNaN(document.getElementById(j).value)
-          || document.getElementById(j).value === [1, 25][i]){
-            window.localStorage.removeItem('fractalrunner-' + i);
-            settings[i] = [1, 25][i];
-            document.getElementById(j).value = settings[i];
+          || document.getElementById(j).value === [1, 25][loop_counter]){
+            window.localStorage.removeItem('fractalrunner-' + loop_counter);
+            settings[i] = [
+              1,
+              25
+            ][loop_counter];
+            document.getElementById(j).value = settings[loop_counter];
 
         }else{
-            settings[i] = parseFloat(document.getElementById(j).value);
+            settings[loop_counter] = parseFloat(document.getElementById(j).value);
             window.localStorage.setItem(
-              'fractalrunner-' + i,
-              settings[i]
+              'fractalrunner-' + loop_counter,
+              settings[loop_counter]
             );
         }
 
-        settings[i + 2] = document.getElementById(['clear', 'frame-counter'][i]).checked;
-        if(settings[i + 2]){
-            window.localStorage.removeItem('fractalrunner-' + (i + 2));
+        settings[loop_counter + 2] = document.getElementById(['clear', 'frame-counter'][loop_counter]).checked;
+        if(settings[loop_counter + 2]){
+            window.localStorage.removeItem('fractalrunner-' + (loop_counter + 2));
 
         }else{
             window.localStorage.setItem(
-              'fractalrunner-' + (i + 2),
+              'fractalrunner-' + (loop_counter + 2),
               0
             );
         }
@@ -275,22 +278,22 @@ function save(){
         j = [
           'movement-keys',
           'restart-key'
-        ][i];
-        if(document.getElementById(j).value === ['AD', 'H'][i]){
-            window.localStorage.removeItem('fractalrunner-' + (i + 4));
-            settings[i + 4] = [
+        ][loop_counter];
+        if(document.getElementById(j).value === ['AD', 'H'][loop_counter]){
+            window.localStorage.removeItem('fractalrunner-' + (loop_counter + 4));
+            settings[loop_counter + 4] = [
               'AD',
               'H'
-            ][i];
+            ][loop_counter];
 
         }else{
-            settings[i + 4] = document.getElementById(j).value;
+            settings[loop_counter + 4] = document.getElementById(j).value;
             window.localStorage.setItem(
-              'fractalrunner-' + (i + 4),
+              'fractalrunner-' + (loop_counter + 4),
               settings[i + 4]
             );
         }
-    }while(i--);
+    }while(loop_counter--);
 }
 
 function setmode(newmode, newgame){
@@ -351,7 +354,6 @@ var canvas = 0;
 var floor_position = 0;
 var frame_counter = 0;
 var height = 0;
-var i = 0;
 var interval = 0;
 var j = 0;
 var key_left = 0;
@@ -381,7 +383,7 @@ var width = 0;
 var x = 0;
 var y = 0;
 
-setmode(0, 1);
+setmode(0, 1); // main menu
 
 window.onkeydown = function(e){
     if(mode > 0){
