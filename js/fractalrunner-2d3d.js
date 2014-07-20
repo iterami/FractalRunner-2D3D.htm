@@ -210,10 +210,6 @@ function draw(){
     );
 }
 
-function random_number(i){
-    return Math.floor(Math.random() * i);
-}
-
 function reset(){
     if(confirm('Reset settings?')){
         document.getElementById('audio-volume').value = 1;
