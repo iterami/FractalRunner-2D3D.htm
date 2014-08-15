@@ -213,8 +213,8 @@ function draw(){
 function reset(){
     if(confirm('Reset settings?')){
         document.getElementById('audio-volume').value = 1;
-        document.getElementById('clear').checked = 1;
-        document.getElementById('frame-counter').checked = 1;
+        document.getElementById('clear').checked = true;
+        document.getElementById('frame-counter').checked = true;
         document.getElementById('movement-keys').value = 'AD';
         document.getElementById('ms-per-frame').value = 25;
         document.getElementById('restart-key').value = 'H';
