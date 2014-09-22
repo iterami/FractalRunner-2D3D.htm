@@ -302,10 +302,10 @@ function setmode(newmode, newgame){
     // new game mode
     if(mode > 0){
         splits = [
-            [-50, -50, 25],
-            [-50,  50, 25],
-            [ 50, -50, 25],
-            [ 50,  50, 25]
+          [-50, -50, 25],
+          [-50,  50, 25],
+          [ 50, -50, 25],
+          [ 50,  50, 25]
         ];
 
         frame_counter = 0;    
