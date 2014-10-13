@@ -1,12 +1,10 @@
 function draw(){
-    if(settings[2]){// clear?
-        buffer.clearRect(
-          0,
-          0,
-          width,
-          height
-        );
-    }
+    buffer.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
 
     // get player movement
     player_dx = 0;
@@ -182,7 +180,7 @@ function draw(){
     buffer.fill();
 
     // if frame counter is enabled, draw current frame count
-    if(settings[3]){
+    if(settings[2]){
         frame_counter += 1;
         buffer.fillStyle = '#fff';
         buffer.font = '23pt sans-serif';
@@ -195,14 +193,12 @@ function draw(){
         );
     }
 
-    if(settings[2]){// clear?
-        canvas.clearRect(
-          0,
-          0,
-          width,
-          height
-        );
-    }
+    canvas.clearRect(
+      0,
+      0,
+      width,
+      height
+    );
     canvas.drawImage(
       document.getElementById('buffer'),
       0,
@@ -213,7 +209,6 @@ function draw(){
 function reset(){
     if(confirm('Reset settings?')){
         document.getElementById('audio-volume').value = 1;
-        document.getElementById('clear').checked = true;
         document.getElementById('frame-counter').checked = true;
         document.getElementById('movement-keys').value = 'AD';
         document.getElementById('ms-per-frame').value = 25;
@@ -260,17 +255,6 @@ function save(){
             );
         }
 
-        settings[loop_counter + 2] = document.getElementById(['clear', 'frame-counter'][loop_counter]).checked;
-        if(settings[loop_counter + 2]){
-            window.localStorage.removeItem('fractalrunner-' + (loop_counter + 2));
-
-        }else{
-            window.localStorage.setItem(
-              'fractalrunner-' + (loop_counter + 2),
-              0
-            );
-        }
-
         j = [
           'movement-keys',
           'restart-key'
@@ -286,10 +270,21 @@ function save(){
             settings[loop_counter + 4] = document.getElementById(j).value;
             window.localStorage.setItem(
               'fractalrunner-' + (loop_counter + 4),
-              settings[i + 4]
+              settings[loop_counter + 4]
             );
         }
     }while(loop_counter--);
+
+    settings[2] = document.getElementById('frame-counter').checked;
+    if(settings[2]){
+        window.localStorage.removeItem('fractalrunner-2');
+
+    }else{
+        window.localStorage.setItem(
+          'fractalrunner-2',
+          0
+        );
+    }
 }
 
 function setmode(newmode, newgame){
@@ -336,12 +331,11 @@ function setmode(newmode, newgame){
         canvas = 0;
 
         document.getElementById('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><b>FractalRunner-2D3D.htm</b></div><hr><div class=c><ul><li><a onclick=setmode(1,1)>Cling to the Ground</a><li><a onclick=setmode(2,1)>Walled Corridor</a></ul></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=2 value='
-          + settings[4] + '>Move ←→<br><input id=restart-key maxlength=1 value='
-          + settings[5] + '>Restart</div><hr><div class=c><input id=audio-volume max=1 min=0 step=.01 type=range value='
-          + settings[0] + '>Audio<br><label><input '
-          + (settings[2] ? 'checked ' : '') + 'id=clear type=checkbox>Clear</label><br><input id=ms-per-frame value='
+          + settings[3] + '>Move ←→<br><input id=restart-key maxlength=1 value='
+          + settings[4] + '>Restart</div><hr><div class=c><input id=audio-volume max=1 min=0 step=.01 type=range value='
+          + settings[0] + '>Audio<br><input id=ms-per-frame value='
           + settings[1] + '>ms/Frame<br><label><input '
-          + (settings[3] ? 'checked ' : '') + 'id=frame-counter type=checkbox>Frame Counter</label><br><a onclick=reset()>Reset Settings</a></div></div>';
+          + (settings[2] ? 'checked ' : '') + 'id=frame-counter type=checkbox>Frame Counter</label><br><a onclick=reset()>Reset Settings</a></div></div>';
     }
 }
 
@@ -366,14 +360,13 @@ var settings = [
   window.localStorage.getItem('fractalrunner-1') === null
     ? 25
     : parseFloat(window.localStorage.getItem('fractalrunner-1')),// milliseconds per frame
-  window.localStorage.getItem('fractalrunner-2') === null,// clear?
-  window.localStorage.getItem('fractalrunner-3') === null,// frame counter?
-  window.localStorage.getItem('fractalrunner-4') === null
+  window.localStorage.getItem('fractalrunner-2') === null,// frame counter?
+  window.localStorage.getItem('fractalrunner-3') === null
     ? 'AD'
-    : window.localStorage.getItem('fractalrunner-4'),// movement keys
-  window.localStorage.getItem('fractalrunner-5') === null
+    : window.localStorage.getItem('fractalrunner-3'),// movement keys
+  window.localStorage.getItem('fractalrunner-4') === null
     ? 'H'
-    : window.localStorage.getItem('fractalrunner-5')// restart key
+    : window.localStorage.getItem('fractalrunner-4')// restart key
 ];
 var width = 0;
 var x = 0;
@@ -392,13 +385,13 @@ window.onkeydown = function(e){
         }else{
             key = String.fromCharCode(key);
 
-            if(key === settings[4][0]){
+            if(key === settings[3][0]){
                 key_left = 1;
 
-            }else if(key === settings[4][1]){
+            }else if(key === settings[3][1]){
                 key_right = 1;
 
-            }else if(key === settings[5]){
+            }else if(key === settings[4]){
                 setmode(mode, 0); // new game
 
             }
@@ -410,10 +403,10 @@ window.onkeyup = function(e){
     var key = window.event ? event : e;
     key = String.fromCharCode(key.charCode ? key.charCode : key.keyCode);
 
-    if(key === settings[4][0]){
+    if(key === settings[3][0]){
         key_left = 0;
 
-    }else if(key === settings[4][1]){
+    }else if(key === settings[3][1]){
         key_right = 0;
     }
 };
