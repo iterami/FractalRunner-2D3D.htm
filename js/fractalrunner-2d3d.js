@@ -180,7 +180,7 @@ function draw(){
     buffer.fill();
 
     // if frame counter is enabled, draw current frame count
-    if(settings[2]){
+    if(settings['frame-counter']){
         frame_counter += 1;
         buffer.fillStyle = '#fff';
         buffer.font = '23pt sans-serif';
@@ -232,57 +232,71 @@ function resize(){
 }
 
 function save(){
-    var loop_counter = 1;
-    do{
-        j = [
-          'audio-volume',
-          'ms-per-frame'
-        ][loop_counter];
-        if(isNaN(document.getElementById(j).value)
-          || document.getElementById(j).value === [1, 25][loop_counter]){
-            window.localStorage.removeItem('fractalrunner-' + loop_counter);
-            settings[i] = [
-              1,
-              25
-            ][loop_counter];
-            document.getElementById(j).value = settings[loop_counter];
-
-        }else{
-            settings[loop_counter] = parseFloat(document.getElementById(j).value);
-            window.localStorage.setItem(
-              'fractalrunner-' + loop_counter,
-              settings[loop_counter]
-            );
-        }
-
-        j = [
-          'movement-keys',
-          'restart-key'
-        ][loop_counter];
-        if(document.getElementById(j).value === ['AD', 'H'][loop_counter]){
-            window.localStorage.removeItem('fractalrunner-' + (loop_counter + 4));
-            settings[loop_counter + 4] = [
-              'AD',
-              'H'
-            ][loop_counter];
-
-        }else{
-            settings[loop_counter + 4] = document.getElementById(j).value;
-            window.localStorage.setItem(
-              'fractalrunner-' + (loop_counter + 4),
-              settings[loop_counter + 4]
-            );
-        }
-    }while(loop_counter--);
-
-    settings[2] = document.getElementById('frame-counter').checked;
-    if(settings[2]){
-        window.localStorage.removeItem('fractalrunner-2');
+    // Save audio-volume setting.
+    if(document.getElementById('audio-volume').value === 1){
+        window.localStorage.removeItem('FractalRunner-2D3D.htm-audio-volume');
+        settings['audio-volume'] = 1;
 
     }else{
+        settings['audio-volume'] = parseFloat(document.getElementById('audio-volume').value);
         window.localStorage.setItem(
-          'fractalrunner-2',
-          0
+          'FractalRunner-2D3D.htm-audio-volume',
+          settings['audio-volume']
+        );
+    }
+
+    // Save frame-counter setting.
+    if(document.getElementById('frame-counter').checked){
+        window.localStorage.removeItem('FractalRunner-2D3D.htm-frame-counter');
+        settings['frame-counter'] = false;
+
+    }else{
+        settings['frame-counter'] = true;
+        window.localStorage.setItem(
+          'FractalRunner-2D3D.htm-frame-counter',
+          1
+        );
+    }
+
+    // Save movement-keys setting.
+    if(document.getElementById('movement-keys').value == 'AD'){
+        window.localStorage.removeItem('FractalRunner-2D3D.htm-movement-keys');
+        settings['movement-keys'] = 'AD';
+
+    }else{
+        settings['movement-keys'] = document.getElementById('movement-keys').value;
+        window.localStorage.setItem(
+          'FractalRunner-2D3D.htm-movement-keys',
+          settings['movement-keys']
+        );
+    }
+
+    // Save ms-per-frame setting.
+    if(document.getElementById('ms-per-frame').value == 25
+      || isNaN(document.getElementById('ms-per-frame').value)
+      || document.getElementById('ms-per-frame').value < 1){
+        window.localStorage.removeItem('FractalRunner-2D3D.htm-ms-per-frame');
+        document.getElementById('ms-per-frame').value = 25;
+        settings['ms-per-frame'] = 25;
+
+    }else{
+        settings['ms-per-frame'] = parseInt(document.getElementById('ms-per-frame').value);
+        window.localStorage.setItem(
+          'FractalRunner-2D3D.htm-ms-per-frame',
+          settings['ms-per-frame']
+        );
+    }
+
+    // Save restart-key setting.
+    if(document.getElementById('restart-key').value == 'AD'){
+        window.localStorage.removeItem('FractalRunner-2D3D.htm-restart-key');
+        settings['restart-key'] = 'H';
+
+    }else{
+        settings['restart-key'] = document.getElementById('restart-key').value;
+        window.localStorage.setItem(
+          'FractalRunner-2D3D.htm-restart-key',
+          settings['restart-key']
         );
     }
 }
@@ -322,7 +336,7 @@ function setmode(newmode, newgame){
 
         interval = setInterval(
           'draw()',
-          settings[1]// milliseconds per frame
+          settings['ms-per-frame']
         );
 
     // main menu mode
@@ -331,11 +345,11 @@ function setmode(newmode, newgame){
         canvas = 0;
 
         document.getElementById('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><b>FractalRunner-2D3D.htm</b></div><hr><div class=c><ul><li><a onclick=setmode(1,1)>Cling to the Ground</a><li><a onclick=setmode(2,1)>Walled Corridor</a></ul></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=2 value='
-          + settings[3] + '>Move ←→<br><input id=restart-key maxlength=1 value='
-          + settings[4] + '>Restart</div><hr><div class=c><input id=audio-volume max=1 min=0 step=.01 type=range value='
-          + settings[0] + '>Audio<br><input id=ms-per-frame value='
-          + settings[1] + '>ms/Frame<br><label><input '
-          + (settings[2] ? 'checked ' : '') + 'id=frame-counter type=checkbox>Frame Counter</label><br><a onclick=reset()>Reset Settings</a></div></div>';
+          + settings['movement-keys'] + '>Move ←→<br><input id=restart-key maxlength=1 value='
+          + settings['restart-key'] + '>Restart</div><hr><div class=c><input id=audio-volume max=1 min=0 step=.01 type=range value='
+          + settings['audio-volume'] + '>Audio<br><input id=ms-per-frame value='
+          + settings['ms-per-frame'] + '>ms/Frame<br><label><input '
+          + (settings['frame-counter'] ? 'checked ' : '') + 'id=frame-counter type=checkbox>Frame Counter</label><br><a onclick=reset()>Reset Settings</a></div></div>';
     }
 }
 
@@ -353,21 +367,21 @@ var player_position = 0;
 var mode = 0;
 var split_state = [];
 var splits = [];
-var settings = [
-  window.localStorage.getItem('fractalrunner-0') === null
+var settings = {
+  'audio-volume': window.localStorage.getItem('FractalRunner-2D3D.htm-audio-volume') === null
     ? 1
-    : parseFloat(window.localStorage.getItem('fractalrunner-0')),// audio volume
-  window.localStorage.getItem('fractalrunner-1') === null
-    ? 25
-    : parseFloat(window.localStorage.getItem('fractalrunner-1')),// milliseconds per frame
-  window.localStorage.getItem('fractalrunner-2') === null,// frame counter?
-  window.localStorage.getItem('fractalrunner-3') === null
+    : parseFloat(window.localStorage.getItem('FractalRunner-2D3D.htm-audio-volume')),
+  'frame-counter': window.localStorage.getItem('FractalRunner-2D3D.htm-frame-counter') === null,
+  'movement-keys': window.localStorage.getItem('FractalRunner-2D3D.htm-movement-keys') === null
     ? 'AD'
-    : window.localStorage.getItem('fractalrunner-3'),// movement keys
-  window.localStorage.getItem('fractalrunner-4') === null
+    : window.localStorage.getItem('FractalRunner-2D3D.htm-movement-keys'),
+  'ms-per-frame': window.localStorage.getItem('FractalRunner-2D3D.htm-ms-per-frame') === null
+    ? 25
+    : parseFloat(window.localStorage.getItem('FractalRunner-2D3D.htm-ms-per-frame')),
+  'restart-key': window.localStorage.getItem('FractalRunner-2D3D.htm-restart-key') === null
     ? 'H'
-    : window.localStorage.getItem('fractalrunner-4')// restart key
-];
+    : window.localStorage.getItem('FractalRunner-2D3D.htm-restart-key'),
+};
 var width = 0;
 var x = 0;
 var y = 0;
@@ -385,13 +399,13 @@ window.onkeydown = function(e){
         }else{
             key = String.fromCharCode(key);
 
-            if(key === settings[3][0]){
+            if(key === settings['movement-keys'][0]){
                 key_left = 1;
 
-            }else if(key === settings[3][1]){
+            }else if(key === settings['movement-keys'][1]){
                 key_right = 1;
 
-            }else if(key === settings[4]){
+            }else if(key === settings['restart-key']){
                 setmode(mode, 0); // new game
 
             }
@@ -403,10 +417,10 @@ window.onkeyup = function(e){
     var key = window.event ? event : e;
     key = String.fromCharCode(key.charCode ? key.charCode : key.keyCode);
 
-    if(key === settings[3][0]){
+    if(key === settings['movement-keys'][0]){
         key_left = 0;
 
-    }else if(key === settings[3][1]){
+    }else if(key === settings['movement-keys'][1]){
         key_right = 0;
     }
 };
