@@ -6,7 +6,7 @@ function draw(){
       height
     );
 
-    // get player movement
+    // Get player movement.
     player_dx = 0;
     if(key_left){
         player_dx += x / 20;
@@ -15,10 +15,10 @@ function draw(){
         player_dx -= x / 20;
     }
 
-    // update player position
+    // Update player position.
     player_position += player_dx;
 
-    // make sure player stays in bounds
+    // Make sure player stays in bounds.
     if(player_position > x / 1.5){
         player_position = x / 1.5;
 
@@ -26,7 +26,7 @@ function draw(){
         player_position = -x / 1.5;
     }
 
-    // draw ground grass
+    // Draw ground grass.
     buffer.fillStyle = '#131';
     buffer.fillRect(
       0,
@@ -35,24 +35,24 @@ function draw(){
       y
     );
 
-    // move player forward by moving splits closer
+    // Move player forward by moving splits closer.
     var loop_counter = splits.length - 1;
     do{
         splits[loop_counter][2] -= .05;
 
-        // if splits reach player, reset splits
+        // If splits reach player, reset splits.
         if(splits[loop_counter][2] < 0){
             splits[loop_counter][2] = 25;
             split_state[1] = 1;
         }
     }while(loop_counter--);
 
-    // if it is time to reset split
+    // If it is time to reset split.
     if(split_state[1]){
-        // reset player position to start of new section
+        // Reset player position to start of new section.
         player_position = 0;
 
-        // switch split
+        // Switch split.
         split_state[1] = 0;
         split_state[0] = !split_state[0];
     }
@@ -61,10 +61,10 @@ function draw(){
       ? '#323232'
       : '#646464';
 
-    // precalculate left wall split position
+    // Precalculate left wall split position.
     var precalc = (splits[0][0] * (1 / splits[0][2])) + x;
 
-    // draw left wall extra bit
+    // Draw left wall extra bit.
     if(player_position > 0){
         buffer.fillRect(
           0,
@@ -74,7 +74,7 @@ function draw(){
         );
     }
 
-    // draw left wall closer than split
+    // Draw left wall closer than split.
     if(player_position < precalc){
         buffer.beginPath();
         buffer.moveTo(
@@ -97,7 +97,7 @@ function draw(){
         buffer.fill();
     }
 
-    // draw left wall further than split
+    // Draw left wall further than split.
     buffer.fillStyle = split_state[0]
       ? '#646464'
       : '#323232';
@@ -121,10 +121,10 @@ function draw(){
       ? '#646464'
       : '#323232';
 
-    // precalculate right wall split position
+    // Precalculate right wall split position.
     precalc = (splits[2][0] * (1 / splits[2][2])) + x;
 
-    // draw right wall extra bit
+    // Draw right wall extra bit.
     if(player_position < 0){
         buffer.fillRect(
           width + player_position < precalc ? precalc - 1 : width + player_position - 1,
@@ -134,7 +134,7 @@ function draw(){
         );
     }
 
-    // draw right wall closer than split
+    // Draw right wall closer than split.
     if(width + player_position > precalc){
         buffer.beginPath();
         buffer.moveTo(
@@ -158,7 +158,7 @@ function draw(){
     }
 
 
-    // draw right wall further than split
+    // Draw right wall further than split.
     buffer.fillStyle = split_state[0]
       ? '#323232'
       : '#646464';
@@ -179,7 +179,7 @@ function draw(){
     buffer.closePath();
     buffer.fill();
 
-    // if frame counter is enabled, draw current frame count
+    // If frame counter is enabled, draw current frame count.
     if(settings['frame-counter']){
         frame_counter += 1;
         buffer.fillStyle = '#fff';
@@ -207,28 +207,35 @@ function draw(){
 }
 
 function reset(){
-    if(confirm('Reset settings?')){
-        document.getElementById('audio-volume').value = 1;
-        document.getElementById('frame-counter').checked = true;
-        document.getElementById('movement-keys').value = 'AD';
-        document.getElementById('ms-per-frame').value = 25;
-        document.getElementById('restart-key').value = 'H';
-        save();
+    if(!confirm('Reset settings?')){
+        return;
     }
+
+    document.getElementById('audio-volume').value = 1;
+    document.getElementById('frame-counter').checked = true;
+    document.getElementById('movement-keys').value = 'AD';
+    document.getElementById('ms-per-frame').value = 25;
+    document.getElementById('restart-key').value = 'H';
+    save();
 }
 
 function resize(){
-    if(mode > 0){
-        height = window.innerHeight;
-        document.getElementById('buffer').height = height;
-        document.getElementById('canvas').height = height;
-        y = height / 2;
-
-        width = window.innerWidth;
-        document.getElementById('buffer').width = width;
-        document.getElementById('canvas').width = width;
-        x = width / 2;
+    if(mode <= 0){
+        return;
     }
+
+    height = window.innerHeight;
+    document.getElementById('buffer').height = height;
+    document.getElementById('canvas').height = height;
+    y = height / 2;
+
+    floor_position = y * (mode - 1);
+
+    width = window.innerWidth;
+    document.getElementById('buffer').width = width;
+    document.getElementById('canvas').width = width;
+    x = width / 2;
+
 }
 
 function save(){
@@ -308,13 +315,13 @@ function setmode(newmode, newgame){
 
     mode = newmode;
 
-    // new game mode
+    // New game mode.
     if(mode > 0){
         splits = [
           [-50, -50, 25],
           [-50,  50, 25],
           [ 50, -50, 25],
-          [ 50,  50, 25]
+          [ 50,  50, 25],
         ];
 
         frame_counter = 0;    
@@ -332,14 +339,12 @@ function setmode(newmode, newgame){
             resize();
         }
 
-        floor_position = y * (mode - 1);
-
         interval = setInterval(
           'draw()',
           settings['ms-per-frame']
         );
 
-    // main menu mode
+    // Main menu mode.
     }else{
         buffer = 0;
         canvas = 0;
@@ -386,29 +391,32 @@ var width = 0;
 var x = 0;
 var y = 0;
 
-setmode(0, 1); // main menu
+setmode(0, 1);
 
 window.onkeydown = function(e){
-    if(mode > 0){
-        var key = window.event ? event : e;
-        key = key.charCode ? key.charCode : key.keyCode;
+    if(mode <= 0){
+        return;
+    }
 
-        if(key === 27){// ESC
-            setmode(0, 1); // main menu
+    var key = window.event ? event : e;
+    key = key.charCode ? key.charCode : key.keyCode;
 
-        }else{
-            key = String.fromCharCode(key);
+    // ESC: return to main menu.
+    if(key === 27){
+        setmode(0, 1);
 
-            if(key === settings['movement-keys'][0]){
-                key_left = 1;
+    }else{
+        key = String.fromCharCode(key);
 
-            }else if(key === settings['movement-keys'][1]){
-                key_right = 1;
+        if(key === settings['movement-keys'][0]){
+            key_left = 1;
 
-            }else if(key === settings['restart-key']){
-                setmode(mode, 0); // new game
+        }else if(key === settings['movement-keys'][1]){
+            key_right = 1;
 
-            }
+        }else if(key === settings['restart-key']){
+            setmode(mode, 0); // new game
+
         }
     }
 };
