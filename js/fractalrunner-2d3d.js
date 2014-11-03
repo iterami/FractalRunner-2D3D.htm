@@ -216,6 +216,7 @@ function reset(){
     document.getElementById('movement-keys').value = 'AD';
     document.getElementById('ms-per-frame').value = 25;
     document.getElementById('restart-key').value = 'H';
+
     save();
 }
 
@@ -255,10 +256,10 @@ function save(){
     // Save frame-counter setting.
     if(document.getElementById('frame-counter').checked){
         window.localStorage.removeItem('FractalRunner-2D3D.htm-frame-counter');
-        settings['frame-counter'] = false;
+        settings['frame-counter'] = true;
 
     }else{
-        settings['frame-counter'] = true;
+        settings['frame-counter'] = false;
         window.localStorage.setItem(
           'FractalRunner-2D3D.htm-frame-counter',
           1
