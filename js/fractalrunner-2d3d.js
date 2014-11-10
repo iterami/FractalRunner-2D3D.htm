@@ -366,8 +366,8 @@ var frame_counter = 0;
 var height = 0;
 var interval = 0;
 var j = 0;
-var key_left = 0;
-var key_right = 0;
+var key_left = false;
+var key_right = false;
 var player_dx = 0;
 var player_position = 0;
 var mode = 0;
@@ -410,10 +410,10 @@ window.onkeydown = function(e){
         key = String.fromCharCode(key);
 
         if(key === settings['movement-keys'][0]){
-            key_left = 1;
+            key_left = true;
 
         }else if(key === settings['movement-keys'][1]){
-            key_right = 1;
+            key_right = true;
 
         }else if(key === settings['restart-key']){
             setmode(mode, 0); // new game
@@ -427,10 +427,10 @@ window.onkeyup = function(e){
     key = String.fromCharCode(key.charCode ? key.charCode : key.keyCode);
 
     if(key === settings['movement-keys'][0]){
-        key_left = 0;
+        key_left = false;
 
     }else if(key === settings['movement-keys'][1]){
-        key_right = 0;
+        key_right = false;
     }
 };
 
