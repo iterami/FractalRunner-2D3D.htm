@@ -365,14 +365,11 @@ var floor_position = 0;
 var frame_counter = 0;
 var height = 0;
 var interval = 0;
-var j = 0;
 var key_left = false;
 var key_right = false;
+var mode = 0;
 var player_dx = 0;
 var player_position = 0;
-var mode = 0;
-var split_state = [];
-var splits = [];
 var settings = {
   'audio-volume': window.localStorage.getItem('FractalRunner-2D3D.htm-audio-volume') === null
     ? 1
@@ -388,6 +385,8 @@ var settings = {
     ? 'H'
     : window.localStorage.getItem('FractalRunner-2D3D.htm-restart-key'),
 };
+var split_state = [];
+var splits = [];
 var width = 0;
 var x = 0;
 var y = 0;
