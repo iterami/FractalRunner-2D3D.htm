@@ -6,26 +6,6 @@ function draw(){
       height
     );
 
-    // Get player movement.
-    player_dx = 0;
-    if(key_left){
-        player_dx += x / 20;
-    }
-    if(key_right){
-        player_dx -= x / 20;
-    }
-
-    // Update player position.
-    player_position += player_dx;
-
-    // Make sure player stays in bounds.
-    if(player_position > x / 1.5){
-        player_position = x / 1.5;
-
-    }else if(player_position < -x / 1.5){
-        player_position = -x / 1.5;
-    }
-
     // Draw ground grass.
     buffer.fillStyle = '#131';
     buffer.fillRect(
@@ -34,28 +14,6 @@ function draw(){
       width,
       y
     );
-
-    // Move player forward by moving splits closer.
-    var loop_counter = splits.length - 1;
-    do{
-        splits[loop_counter][2] -= .05;
-
-        // If splits reach player, reset splits.
-        if(splits[loop_counter][2] < 0){
-            splits[loop_counter][2] = 25;
-            split_state[1] = 1;
-        }
-    }while(loop_counter--);
-
-    // If it is time to reset split.
-    if(split_state[1]){
-        // Reset player position to start of new section.
-        player_position = 0;
-
-        // Switch split.
-        split_state[1] = 0;
-        split_state[0] = !split_state[0];
-    }
 
     buffer.fillStyle = split_state[0]
       ? '#323232'
@@ -157,7 +115,6 @@ function draw(){
         buffer.fill();
     }
 
-
     // Draw right wall further than split.
     buffer.fillStyle = split_state[0]
       ? '#323232'
@@ -204,6 +161,52 @@ function draw(){
       0,
       0
     );
+
+    window.requestAnimationFrame(draw);
+}
+
+function logic(){
+    // Get player movement.
+    player_dx = 0;
+    if(key_left){
+        player_dx += x / 20;
+    }
+    if(key_right){
+        player_dx -= x / 20;
+    }
+
+    // Update player position.
+    player_position += player_dx;
+
+    // Make sure player stays in bounds.
+    if(player_position > x / 1.5){
+        player_position = x / 1.5;
+
+    }else if(player_position < -x / 1.5){
+        player_position = -x / 1.5;
+    }
+
+    // Move player forward by moving splits closer.
+    var loop_counter = splits.length - 1;
+    do{
+        splits[loop_counter][2] -= .05;
+
+        // If splits reach player, reset splits.
+        if(splits[loop_counter][2] < 0){
+            splits[loop_counter][2] = 25;
+            split_state[1] = 1;
+        }
+    }while(loop_counter--);
+
+    // If it is time to reset split.
+    if(split_state[1]){
+        // Reset player position to start of new section.
+        player_position = 0;
+
+        // Switch split.
+        split_state[1] = 0;
+        split_state[0] = !split_state[0];
+    }
 }
 
 function reset(){
@@ -340,8 +343,9 @@ function setmode(newmode, newgame){
             resize();
         }
 
+        window.requestAnimationFrame(draw);
         interval = setInterval(
-          'draw()',
+          'logic()',
           settings['ms-per-frame']
         );
 
