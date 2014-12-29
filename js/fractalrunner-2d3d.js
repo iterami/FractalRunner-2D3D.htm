@@ -162,7 +162,7 @@ function draw(){
       0
     );
 
-    window.requestAnimationFrame(draw);
+    animationFrame = window.requestAnimationFrame(draw);
 }
 
 function logic(){
@@ -313,6 +313,7 @@ function save(){
 }
 
 function setmode(newmode, newgame){
+    window.cancelAnimationFrame(animationFrame);
     clearInterval(interval);
 
     split_state = [0, 0];
@@ -343,7 +344,7 @@ function setmode(newmode, newgame){
             resize();
         }
 
-        window.requestAnimationFrame(draw);
+        animationFrame = window.requestAnimationFrame(draw);
         interval = setInterval(
           'logic()',
           settings['ms-per-frame']
@@ -363,6 +364,7 @@ function setmode(newmode, newgame){
     }
 }
 
+var animationFrame = 0;
 var buffer = 0;
 var canvas = 0;
 var floor_position = 0;
