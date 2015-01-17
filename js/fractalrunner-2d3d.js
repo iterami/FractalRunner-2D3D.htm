@@ -138,7 +138,6 @@ function draw(){
 
     // If frame counter is enabled, draw current frame count.
     if(settings['frame-counter']){
-        frame_counter += 1;
         buffer.fillStyle = '#fff';
         buffer.font = '23pt sans-serif';
         buffer.textAlign = 'left';
@@ -166,6 +165,8 @@ function draw(){
 }
 
 function logic(){
+    frame_counter += 1;
+
     // Get player movement.
     player_dx = 0;
     if(key_left){
