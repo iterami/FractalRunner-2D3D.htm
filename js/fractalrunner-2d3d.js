@@ -315,7 +315,7 @@ function save(){
 
 function setmode(newmode, newgame){
     window.cancelAnimationFrame(animationFrame);
-    clearInterval(interval);
+    window.clearInterval(interval);
 
     split_state = [0, 0];
 
@@ -346,7 +346,7 @@ function setmode(newmode, newgame){
         }
 
         animationFrame = window.requestAnimationFrame(draw);
-        interval = setInterval(
+        interval = window.setInterval(
           'logic()',
           settings['ms-per-frame']
         );
