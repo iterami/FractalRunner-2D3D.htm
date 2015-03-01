@@ -188,16 +188,15 @@ function logic(){
     }
 
     // Move player forward by moving splits closer.
-    var loop_counter = splits.length - 1;
-    do{
-        splits[loop_counter][2] -= .05;
+    for(var id in splits){
+        splits[id][2] -= .05;
 
         // If splits reach player, reset splits.
-        if(splits[loop_counter][2] < 0){
-            splits[loop_counter][2] = 25;
+        if(splits[id][2] < 0){
+            splits[id][2] = 25;
             split_state[1] = 1;
         }
-    }while(loop_counter--);
+    }
 
     // If it is time to reset split.
     if(split_state[1]){
