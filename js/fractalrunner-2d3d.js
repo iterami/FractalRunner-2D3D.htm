@@ -242,8 +242,8 @@ function resize(){
 
 }
 
+// Save settings into window.localStorage if they differ from default.
 function save(){
-    // Save audio-volume setting.
     if(document.getElementById('audio-volume').value === 1){
         window.localStorage.removeItem('FractalRunner-2D3D.htm-audio-volume');
         settings['audio-volume'] = 1;
@@ -256,7 +256,6 @@ function save(){
         );
     }
 
-    // Save frame-counter setting.
     if(document.getElementById('frame-counter').checked){
         window.localStorage.removeItem('FractalRunner-2D3D.htm-frame-counter');
         settings['frame-counter'] = true;
@@ -269,7 +268,6 @@ function save(){
         );
     }
 
-    // Save movement-keys setting.
     if(document.getElementById('movement-keys').value == 'AD'){
         window.localStorage.removeItem('FractalRunner-2D3D.htm-movement-keys');
         settings['movement-keys'] = 'AD';
@@ -282,12 +280,10 @@ function save(){
         );
     }
 
-    // Save ms-per-frame setting.
     if(document.getElementById('ms-per-frame').value == 25
       || isNaN(document.getElementById('ms-per-frame').value)
       || document.getElementById('ms-per-frame').value < 1){
         window.localStorage.removeItem('FractalRunner-2D3D.htm-ms-per-frame');
-        document.getElementById('ms-per-frame').value = 25;
         settings['ms-per-frame'] = 25;
 
     }else{
@@ -298,7 +294,6 @@ function save(){
         );
     }
 
-    // Save restart-key setting.
     if(document.getElementById('restart-key').value == 'AD'){
         window.localStorage.removeItem('FractalRunner-2D3D.htm-restart-key');
         settings['restart-key'] = 'H';
@@ -355,7 +350,7 @@ function setmode(newmode, newgame){
         buffer = 0;
         canvas = 0;
 
-        document.getElementById('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><b>FractalRunner-2D3D.htm</b></div><hr><div class=c><ul><li><a onclick=setmode(1,1)>Cling to the Ground</a><li><a onclick=setmode(2,1)>Walled Corridor</a></ul></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=2 value='
+        document.getElementById('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><ul><li><a onclick=setmode(1,1)>Cling to the Ground</a><li><a onclick=setmode(2,1)>Walled Corridor</a></ul></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=2 value='
           + settings['movement-keys'] + '>Move ←→<br><input id=restart-key maxlength=1 value='
           + settings['restart-key'] + '>Restart</div><hr><div class=c><input id=audio-volume max=1 min=0 step=.01 type=range value='
           + settings['audio-volume'] + '>Audio<br><input id=ms-per-frame value='
