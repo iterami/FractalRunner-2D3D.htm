@@ -244,7 +244,7 @@ function resize(){
 
 // Save settings into window.localStorage if they differ from default.
 function save(){
-    if(document.getElementById('audio-volume').value === 1){
+    if(document.getElementById('audio-volume').value == 1){
         window.localStorage.removeItem('FractalRunner-2D3D.htm-audio-volume');
         settings['audio-volume'] = 1;
 
@@ -294,7 +294,7 @@ function save(){
         );
     }
 
-    if(document.getElementById('restart-key').value == 'AD'){
+    if(document.getElementById('restart-key').value === 'H'){
         window.localStorage.removeItem('FractalRunner-2D3D.htm-restart-key');
         settings['restart-key'] = 'H';
 
