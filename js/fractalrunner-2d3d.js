@@ -372,19 +372,11 @@ var mode = 0;
 var player_dx = 0;
 var player_position = 0;
 var settings = {
-  'audio-volume': window.localStorage.getItem('FractalRunner-2D3D.htm-audio-volume') === null
-    ? 1
-    : parseFloat(window.localStorage.getItem('FractalRunner-2D3D.htm-audio-volume')),
+  'audio-volume': parseFloat(window.localStorage.getItem('FractalRunner-2D3D.htm-audio-volume')) || 1,
   'frame-counter': window.localStorage.getItem('FractalRunner-2D3D.htm-frame-counter') === null,
-  'movement-keys': window.localStorage.getItem('FractalRunner-2D3D.htm-movement-keys') === null
-    ? 'AD'
-    : window.localStorage.getItem('FractalRunner-2D3D.htm-movement-keys'),
-  'ms-per-frame': window.localStorage.getItem('FractalRunner-2D3D.htm-ms-per-frame') === null
-    ? 25
-    : parseFloat(window.localStorage.getItem('FractalRunner-2D3D.htm-ms-per-frame')),
-  'restart-key': window.localStorage.getItem('FractalRunner-2D3D.htm-restart-key') === null
-    ? 'H'
-    : window.localStorage.getItem('FractalRunner-2D3D.htm-restart-key'),
+  'movement-keys': window.localStorage.getItem('FractalRunner-2D3D.htm-movement-keys') || 'AD',
+  'ms-per-frame': parseFloat(window.localStorage.getItem('FractalRunner-2D3D.htm-ms-per-frame')) || 25,
+  'restart-key': window.localStorage.getItem('FractalRunner-2D3D.htm-restart-key') || 'H',
 };
 var split_state = [];
 var splits = [];
