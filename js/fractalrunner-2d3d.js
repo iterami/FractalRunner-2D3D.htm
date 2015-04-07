@@ -85,7 +85,9 @@ function draw(){
     // Draw right wall extra bit.
     if(player_position < 0){
         buffer.fillRect(
-          width + player_position < precalc ? precalc - 1 : width + player_position - 1,
+          width + player_position < precalc
+            ? precalc - 1
+            : width + player_position - 1,
           0,
           -player_position,
           height
@@ -194,7 +196,7 @@ function logic(){
         // If splits reach player, reset splits.
         if(splits[id][2] < 0){
             splits[id][2] = 25;
-            split_state[1] = 1;
+            split_state[1] = true;
         }
     }
 
@@ -204,7 +206,7 @@ function logic(){
         player_position = 0;
 
         // Switch split.
-        split_state[1] = 0;
+        split_state[1] = false;
         split_state[0] = !split_state[0];
     }
 }
@@ -311,7 +313,10 @@ function setmode(newmode, newgame){
     window.cancelAnimationFrame(animationFrame);
     window.clearInterval(interval);
 
-    split_state = [0, 0];
+    split_state = [
+      false,
+      false,
+    ];
 
     mode = newmode;
 
@@ -319,9 +324,9 @@ function setmode(newmode, newgame){
     if(mode > 0){
         splits = [
           [-50, -50, 25],
-          [-50,  50, 25],
-          [ 50, -50, 25],
-          [ 50,  50, 25],
+          [-50, 50, 25],
+          [50, -50, 25],
+          [50, 50, 25],
         ];
 
         frame_counter = 0;    
@@ -406,7 +411,7 @@ window.onkeydown = function(e){
         key_right = true;
 
     }else if(key === settings['restart-key']){
-        setmode(mode, 0); // new game
+        setmode(mode, 0);
     }
 };
 
