@@ -149,6 +149,11 @@ function draw(){
           5,
           5
         );
+        buffer.fillText(
+          best,
+          5,
+          32
+        );
     }
 
     canvas.clearRect(
@@ -223,6 +228,20 @@ function reset(){
     document.getElementById('restart-key').value = 'H';
 
     save();
+}
+
+function reset_best(){
+    if(!window.confirm('Reset best?')){
+        return;
+    }
+
+    best = 0;
+    frame_counter = 0;
+    update_best();
+    setmode(
+      0,
+      true
+    );
 }
 
 function resize(){
@@ -357,7 +376,9 @@ function setmode(newmode, newgame){
     buffer = 0;
     canvas = 0;
 
-    document.getElementById('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><ul><li><a onclick="setmode(1, true)">Cling to the Ground</a><li><a onclick="setmode(2, true)">Walled Corridor</a></ul></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=2 value='
+    document.getElementById('page').innerHTML = '<div style=display:inline-block;text-align:left;vertical-align:top><div class=c><ul><li><a onclick="setmode(1, true)">Cling to the Ground</a><li><a onclick="setmode(2, true)">Walled Corridor</a></ul></div><hr><div class=c>Best: '
+      + best
+      + '<br><a onclick=reset_best()>Reset Best</a></div></div><div style="border-left:8px solid #222;display:inline-block;text-align:left"><div class=c><input disabled style=border:0 value=ESC>Main Menu<br><input id=movement-keys maxlength=2 value='
       + settings['movement-keys'] + '>Move ←→<br><input id=restart-key maxlength=1 value='
       + settings['restart-key'] + '>Restart</div><hr><div class=c><input id=audio-volume max=1 min=0 step=.01 type=range value='
       + settings['audio-volume'] + '>Audio<br><input id=ms-per-frame value='
@@ -365,7 +386,26 @@ function setmode(newmode, newgame){
       + (settings['frame-counter'] ? 'checked ' : '') + 'id=frame-counter type=checkbox>Frame Counter</label><br><a onclick=reset()>Reset Settings</a></div></div>';
 }
 
+function update_best(){
+    if(frame_counter > best){
+        best = frame_counter;
+    }
+
+    if(best > 0){
+        window.localStorage.setItem(
+          'FractalRunner-2D3D.htm-best',
+          best
+        );
+
+    }else{
+        window.localStorage.removeItem('FractalRunner-2D3D.htm-best');
+    }
+}
+
 var animationFrame = 0;
+var best = window.localStorage.getItem('FractalRunner-2D3D.htm-best') === null
+  ? 0
+  : parseInt(window.localStorage.getItem('FractalRunner-2D3D.htm-best'));
 var buffer = 0;
 var canvas = 0;
 var floor_position = 0;
@@ -399,6 +439,7 @@ window.onkeydown = function(e){
 
     // ESC: return to main menu.
     if(key === 27){
+        update_best();
         setmode(
           0,
           true
@@ -415,6 +456,7 @@ window.onkeydown = function(e){
         key_right = true;
 
     }else if(key === settings['restart-key']){
+        update_best();
         setmode(
           mode,
           false
