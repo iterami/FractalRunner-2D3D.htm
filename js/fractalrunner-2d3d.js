@@ -143,16 +143,15 @@ function draw(){
         buffer.fillStyle = '#fff';
         buffer.font = '23pt sans-serif';
         buffer.textAlign = 'left';
-        buffer.textBaseline = 'top';
         buffer.fillText(
           frame_counter,
           5,
-          5
+          25
         );
         buffer.fillText(
           best,
           5,
-          32
+          50
         );
     }
 
