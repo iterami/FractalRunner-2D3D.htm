@@ -142,7 +142,6 @@ function draw(){
     if(settings['frame-counter']){
         buffer.fillStyle = '#fff';
         buffer.font = '23pt sans-serif';
-        buffer.textAlign = 'left';
         buffer.fillText(
           frame_counter,
           5,
