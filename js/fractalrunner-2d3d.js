@@ -401,9 +401,7 @@ function update_best(){
 }
 
 var animationFrame = 0;
-var best = window.localStorage.getItem('FractalRunner-2D3D.htm-best') === null
-  ? 0
-  : parseInt(window.localStorage.getItem('FractalRunner-2D3D.htm-best'));
+var best = parseInt(window.localStorage.getItem('FractalRunner-2D3D.htm-best')) || 0;
 var buffer = 0;
 var canvas = 0;
 var floor_position = 0;
