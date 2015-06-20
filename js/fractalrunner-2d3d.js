@@ -414,7 +414,9 @@ var mode = 0;
 var player_dx = 0;
 var player_position = 0;
 var settings = {
-  'audio-volume': parseFloat(window.localStorage.getItem('FractalRunner-2D3D.htm-audio-volume')) || 1,
+  'audio-volume': window.localStorage.getItem('FractalRunner-2D3D.htm-audio-volume') != null
+    ? parseFloat(window.localStorage.getItem('FractalRunner-2D3D.htm-audio-volume'))
+    : 1,
   'frame-counter': window.localStorage.getItem('FractalRunner-2D3D.htm-frame-counter') === null,
   'movement-keys': window.localStorage.getItem('FractalRunner-2D3D.htm-movement-keys') || 'AD',
   'ms-per-frame': parseFloat(window.localStorage.getItem('FractalRunner-2D3D.htm-ms-per-frame')) || 25,
