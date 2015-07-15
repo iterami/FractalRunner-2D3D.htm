@@ -175,7 +175,7 @@ function logic(){
     frame_counter += 1;
 
     // Get player movement.
-    player_dx = 0;
+    var player_dx = 0;
     if(key_left){
         player_dx += x / 20;
     }
@@ -349,7 +349,6 @@ function setmode(newmode, newgame){
         ];
 
         frame_counter = 0;    
-        player_dx = 0;
         player_position = 0;
 
         if(newgame){
@@ -413,7 +412,6 @@ var interval = 0;
 var key_left = false;
 var key_right = false;
 var mode = 0;
-var player_dx = 0;
 var player_position = 0;
 var settings = {
   'audio-volume': window.localStorage.getItem('FractalRunner-2D3D.htm-audio-volume') != null
