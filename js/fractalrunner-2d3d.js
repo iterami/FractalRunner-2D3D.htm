@@ -289,7 +289,7 @@ function save(){
         );
     }
 
-    if(document.getElementById('movement-keys').value == 'AD'){
+    if(document.getElementById('movement-keys').value === 'AD'){
         window.localStorage.removeItem('FractalRunner-2D3D.htm-movement-keys');
         settings['movement-keys'] = 'AD';
 
