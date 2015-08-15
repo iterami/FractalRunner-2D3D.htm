@@ -356,12 +356,17 @@ function setmode(newmode, newgame){
 
             document.getElementById('page').innerHTML = '<canvas id=canvas></canvas><canvas id=buffer></canvas>';
 
-            buffer = document.getElementById('buffer').getContext('2d', {
+            var contextAttributes = {
               'alpha': false,
-            });
-            canvas = document.getElementById('canvas').getContext('2d', {
-              'alpha': false,
-            });
+            };
+            buffer = document.getElementById('buffer').getContext(
+              '2d',
+              contextAttributes
+            );
+            canvas = document.getElementById('canvas').getContext(
+              '2d',
+              contextAttributes
+            );
 
             resize();
         }
