@@ -35,6 +35,9 @@ input{
     text-align: center;
     width: 75px;
 }
+input[disabled]{
+    border: 0;
+}
 input[type=checkbox],
 input[type=range]{
     cursor: pointer;
