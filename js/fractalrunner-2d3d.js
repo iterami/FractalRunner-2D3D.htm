@@ -354,7 +354,7 @@ function setmode(newmode, newgame){
         if(newgame){
             save();
 
-            document.getElementById('page').innerHTML =
+            document.body.innerHTML =
               '<canvas id=canvas></canvas><canvas id=buffer></canvas>';
 
             var contextAttributes = {
@@ -385,7 +385,7 @@ function setmode(newmode, newgame){
     buffer = 0;
     canvas = 0;
 
-    document.getElementById('page').innerHTML = '<div><div><ul><li><a onclick="setmode(1, true)">Cling to the Ground</a><li><a onclick="setmode(2, true)">Walled Corridor</a></ul></div><hr><div>Best: '
+    document.body.innerHTML = '<div><div><ul><li><a onclick="setmode(1, true)">Cling to the Ground</a><li><a onclick="setmode(2, true)">Walled Corridor</a></ul></div><hr><div>Best: '
       + best
       + '<br><a onclick=reset_best()>Reset Best</a></div></div><div class=right><div><input disabled value=ESC>Main Menu<br><input id=movement-keys maxlength=2 value='
       + settings['movement-keys'] + '>Move ←→<br><input id=restart-key maxlength=1 value='
