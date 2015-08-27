@@ -143,7 +143,6 @@ function draw(){
     // If frame counter is enabled, draw current frame count.
     if(settings['frame-counter']){
         buffer.fillStyle = '#fff';
-        buffer.font = '23pt sans-serif';
         buffer.fillText(
           frame_counter,
           5,
@@ -261,6 +260,7 @@ function resize(){
     document.getElementById('canvas').width = width;
     x = width / 2;
 
+    buffer.font = '23pt sans-serif';
 }
 
 // Save settings into window.localStorage if they differ from default.
