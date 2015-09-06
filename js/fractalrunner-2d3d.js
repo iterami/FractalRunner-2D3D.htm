@@ -424,7 +424,7 @@ var key_right = false;
 var mode = 0;
 var player_position = 0;
 var settings = {
-  'audio-volume': window.localStorage.getItem('FractalRunner-2D3D.htm-audio-volume') != null
+  'audio-volume': window.localStorage.getItem('FractalRunner-2D3D.htm-audio-volume') !== null
     ? parseFloat(window.localStorage.getItem('FractalRunner-2D3D.htm-audio-volume'))
     : 1,
   'frame-counter': window.localStorage.getItem('FractalRunner-2D3D.htm-frame-counter') === null,
