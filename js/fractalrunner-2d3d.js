@@ -220,11 +220,16 @@ function reset(){
         return;
     }
 
-    document.getElementById('audio-volume').value = 1;
+    var ids = {
+      'audio-volume': 1,
+      'movement-keys': 'AD',
+      'ms-per-frame': 25,
+      'restart-key': 'H',
+    };
+    for(var id in ids){
+        document.getElementById(id).value = ids[id];
+    }
     document.getElementById('frame-counter').checked = true;
-    document.getElementById('movement-keys').value = 'AD';
-    document.getElementById('ms-per-frame').value = 25;
-    document.getElementById('restart-key').value = 'H';
 
     save();
 }
@@ -290,17 +295,23 @@ function save(){
         );
     }
 
-    var movement_keys = document.getElementById('movement-keys').value;
-    if(movement_keys === 'AD'){
-        window.localStorage.removeItem('FractalRunner-2D3D.htm-movement-keys');
-        settings['movement-keys'] = 'AD';
+    var ids = {
+      'movement-keys': 'AD',
+      'restart-key': 'H',
+    };
+    for(var id in ids){
+        var value = document.getElementById(id).value;
+        if(value === ids[id]){
+            window.localStorage.removeItem('FractalRunner-2D3D.htm-' + id);
+            settings[id] = ids[id];
 
-    }else{
-        settings['movement-keys'] = movement_keys;
-        window.localStorage.setItem(
-          'FractalRunner-2D3D.htm-movement-keys',
-          settings['movement-keys']
-        );
+        }else{
+            settings[id] = value;
+            window.localStorage.setItem(
+              'FractalRunner-2D3D.htm-' + id,
+              value
+            );
+        }
     }
 
     var ms_per_frame = document.getElementById('ms-per-frame').value;
@@ -315,19 +326,6 @@ function save(){
         window.localStorage.setItem(
           'FractalRunner-2D3D.htm-ms-per-frame',
           settings['ms-per-frame']
-        );
-    }
-
-    var restart_key = document.getElementById('restart-key').value;
-    if(restart_key === 'H'){
-        window.localStorage.removeItem('FractalRunner-2D3D.htm-restart-key');
-        settings['restart-key'] = 'H';
-
-    }else{
-        settings['restart-key'] = restart_key;
-        window.localStorage.setItem(
-          'FractalRunner-2D3D.htm-restart-key',
-          settings['restart-key']
         );
     }
 }
