@@ -271,24 +271,22 @@ function resize(){
 // Save settings into window.localStorage if they differ from default.
 function save(){
     var audio_volume = document.getElementById('audio-volume').value;
+    settings['audio-volume'] = parseFloat(audio_volume);
     if(audio_volume == 1){
         window.localStorage.removeItem('FractalRunner-2D3D.htm-audio-volume');
-        settings['audio-volume'] = 1;
 
     }else{
-        settings['audio-volume'] = parseFloat(audio_volume);
         window.localStorage.setItem(
           'FractalRunner-2D3D.htm-audio-volume',
           settings['audio-volume']
         );
     }
 
-    if(document.getElementById('frame-counter').checked){
+    settings['frame-counter'] = document.getElementById('frame-counter').checked;
+    if(settings['frame-counter']){
         window.localStorage.removeItem('FractalRunner-2D3D.htm-frame-counter');
-        settings['frame-counter'] = true;
 
     }else{
-        settings['frame-counter'] = false;
         window.localStorage.setItem(
           'FractalRunner-2D3D.htm-frame-counter',
           1
@@ -301,12 +299,12 @@ function save(){
     };
     for(var id in ids){
         var value = document.getElementById(id).value;
+        settings[id] = value;
+
         if(value === ids[id]){
             window.localStorage.removeItem('FractalRunner-2D3D.htm-' + id);
-            settings[id] = ids[id];
 
         }else{
-            settings[id] = value;
             window.localStorage.setItem(
               'FractalRunner-2D3D.htm-' + id,
               value
@@ -315,14 +313,13 @@ function save(){
     }
 
     var ms_per_frame = document.getElementById('ms-per-frame').value;
+    settings['ms-per-frame'] = parseInt(ms_per_frame);
     if(ms_per_frame == 25
       || isNaN(ms_per_frame)
       || ms_per_frame < 1){
         window.localStorage.removeItem('FractalRunner-2D3D.htm-ms-per-frame');
-        settings['ms-per-frame'] = 25;
 
     }else{
-        settings['ms-per-frame'] = parseInt(ms_per_frame);
         window.localStorage.setItem(
           'FractalRunner-2D3D.htm-ms-per-frame',
           settings['ms-per-frame']
