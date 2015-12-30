@@ -297,10 +297,9 @@ function save(){
       'restart-key': 'H',
     };
     for(var id in ids){
-        var value = document.getElementById(id).value;
-        settings[id] = value;
+        settings[id] = document.getElementById(id).value;
 
-        if(value === ids[id]){
+        if(settings[id] === ids[id]){
             window.localStorage.removeItem('FractalRunner-2D3D.htm-' + id);
 
         }else{
