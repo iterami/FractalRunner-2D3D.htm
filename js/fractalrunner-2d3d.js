@@ -345,7 +345,7 @@ function setmode(newmode, newgame){
           [50, 50, 25],
         ];
 
-        frame_counter = 0;    
+        frame_counter = 0;
         player_position = 0;
 
         if(newgame){
@@ -393,6 +393,10 @@ function setmode(newmode, newgame){
 }
 
 function update_best(){
+    if(!settings['frame_counter']){
+        return;
+    }
+
     if(frame_counter > best){
         best = frame_counter;
     }
