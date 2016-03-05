@@ -10,3 +10,8 @@ Action              | Key
 Restart             | H
 Return to Main Menu | ESC
 Strafe              | AD
+
+---
+
+Requires:
+* [iterami/common](https://github.com/iterami/common)
