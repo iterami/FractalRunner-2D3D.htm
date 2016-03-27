@@ -1,5 +1,5 @@
-FractalRunner-2D3D.htm
-----------------------
+iterami/FractalRunner-2D3D.htm
+------------------------------
 
 A fractal-based runner game.
 
