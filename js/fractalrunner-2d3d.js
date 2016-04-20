@@ -311,7 +311,10 @@ function save(){
     }
 
     var ms_per_frame = document.getElementById('ms-per-frame').value;
-    settings['ms-per-frame'] = parseInt(ms_per_frame);
+    settings['ms-per-frame'] = parseInt(
+      ms_per_frame,
+      10
+    );
     if(ms_per_frame == 25
       || isNaN(ms_per_frame)
       || ms_per_frame < 1){
@@ -413,7 +416,10 @@ function update_best(){
 }
 
 var animationFrame = 0;
-var best = parseInt(window.localStorage.getItem('FractalRunner-2D3D.htm-best')) || 0;
+var best = parseInt(
+  window.localStorage.getItem('FractalRunner-2D3D.htm-best'),
+  10
+) || 0;
 var buffer = 0;
 var canvas = 0;
 var floor_position = 0;
