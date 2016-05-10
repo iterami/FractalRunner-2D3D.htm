@@ -194,25 +194,6 @@ function logic(){
     }
 }
 
-function reset(){
-    if(!window.confirm('Reset settings?')){
-        return;
-    }
-
-    var ids = {
-      'audio-volume': 1,
-      'movement-keys': 'AD',
-      'ms-per-frame': 25,
-      'restart-key': 'H',
-    };
-    for(var id in ids){
-        document.getElementById(id).value = ids[id];
-    }
-    document.getElementById('frame-counter').checked = true;
-
-    save();
-}
-
 function reset_best(){
     if(!window.confirm('Reset best?')){
         return;
@@ -229,66 +210,6 @@ function reset_best(){
 
 function resize_logic(){
     buffer.font = '23pt sans-serif';
-}
-
-// Save settings into window.localStorage if they differ from default.
-function save(){
-    settings['audio-volume'] = parseFloat(document.getElementById('audio-volume').value);
-    if(settings['audio-volume'] === 1){
-        window.localStorage.removeItem('FractalRunner-2D3D.htm-audio-volume');
-
-    }else{
-        window.localStorage.setItem(
-          'FractalRunner-2D3D.htm-audio-volume',
-          settings['audio-volume']
-        );
-    }
-
-    settings['frame-counter'] = document.getElementById('frame-counter').checked;
-    if(settings['frame-counter']){
-        window.localStorage.removeItem('FractalRunner-2D3D.htm-frame-counter');
-
-    }else{
-        window.localStorage.setItem(
-          'FractalRunner-2D3D.htm-frame-counter',
-          1
-        );
-    }
-
-    var ids = {
-      'movement-keys': 'AD',
-      'restart-key': 'H',
-    };
-    for(var id in ids){
-        settings[id] = document.getElementById(id).value;
-
-        if(settings[id] === ids[id]){
-            window.localStorage.removeItem('FractalRunner-2D3D.htm-' + id);
-
-        }else{
-            window.localStorage.setItem(
-              'FractalRunner-2D3D.htm-' + id,
-              settings[id]
-            );
-        }
-    }
-
-    var ms_per_frame = document.getElementById('ms-per-frame').value;
-    settings['ms-per-frame'] = parseInt(
-      ms_per_frame,
-      10
-    );
-    if(ms_per_frame == 25
-      || isNaN(ms_per_frame)
-      || ms_per_frame < 1){
-        window.localStorage.removeItem('FractalRunner-2D3D.htm-ms-per-frame');
-
-    }else{
-        window.localStorage.setItem(
-          'FractalRunner-2D3D.htm-ms-per-frame',
-          settings['ms-per-frame']
-        );
-    }
 }
 
 function setmode_logic(newgame){
@@ -355,15 +276,6 @@ var frame_counter = 0;
 var key_left = false;
 var key_right = false;
 var player_position = 0;
-var settings = {
-  'audio-volume': window.localStorage.getItem('FractalRunner-2D3D.htm-audio-volume') !== null
-    ? parseFloat(window.localStorage.getItem('FractalRunner-2D3D.htm-audio-volume'))
-    : 1,
-  'frame-counter': window.localStorage.getItem('FractalRunner-2D3D.htm-frame-counter') === null,
-  'movement-keys': window.localStorage.getItem('FractalRunner-2D3D.htm-movement-keys') || 'AD',
-  'ms-per-frame': parseFloat(window.localStorage.getItem('FractalRunner-2D3D.htm-ms-per-frame')) || 25,
-  'restart-key': window.localStorage.getItem('FractalRunner-2D3D.htm-restart-key') || 'H',
-};
 var split_state = [];
 var splits = [];
 
@@ -409,4 +321,16 @@ window.onkeyup = function(e){
     }
 };
 
-window.onload = init_canvas;
+window.onload = function(){
+    init_settings(
+      'FractalRunner-2D3D.htm-',
+      {
+        'audio-volume':  1,
+        'frame-counter': true,
+        'movement-keys': 'AD',
+        'ms-per-frame': 25,
+        'restart-key': 'H',
+      }
+    );
+    init_canvas();
+};
