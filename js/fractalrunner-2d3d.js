@@ -220,14 +220,18 @@ function setmode_logic(newgame){
 
     // Main menu mode.
     if(mode === 0){
-        document.body.innerHTML = '<div><div><ul><li><a onclick="setmode(1, true)">Cling to the Ground</a><li><a onclick="setmode(2, true)">Walled Corridor</a></ul></div><hr><div>Best: '
-          + best
-          + '<br><a onclick=reset_best()>Reset Best</a></div></div><div class=right><div><input disabled value=ESC>Main Menu<br><input id=movement-keys maxlength=2 value='
-          + settings['movement-keys'] + '>Move ←→<br><input id=restart-key maxlength=1 value='
-          + settings['restart-key'] + '>Restart</div><hr><div><input id=audio-volume max=1 min=0 step=0.01 type=range value='
-          + settings['audio-volume'] + '>Audio<br><input id=ms-per-frame value='
-          + settings['ms-per-frame'] + '>ms/Frame<br><label><input '
-          + (settings['frame-counter'] ? 'checked ' : '') + 'id=frame-counter type=checkbox>Frame Counter</label><br><a onclick=reset()>Reset Settings</a></div></div>';
+        document.body.innerHTML = '<div><div><ul><li><a onclick="setmode(1, true)">Cling to the Ground</a>'
+          + '<li><a onclick="setmode(2, true)">Walled Corridor</a></ul></div><hr>'
+          + '<div>Best: ' + best + '<br>'
+          + '<a onclick=reset_best()>Reset Best</a></div></div>'
+          + '<div class=right><div><input disabled value=ESC>Main Menu<br>'
+          + '<input id=movement-keys maxlength=2>Move ←→<br>'
+          + '<input id=restart-key maxlength=1>Restart</div><hr>'
+          + '<div><input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br>'
+          + '<input id=ms-per-frame>ms/Frame<br>'
+          + '<label><input id=frame-counter type=checkbox>Frame Counter</label><br>'
+          + '<a onclick=reset()>Reset Settings</a></div></div>';
+        update_settings();
 
     // New game mode.
     }else{
