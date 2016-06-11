@@ -133,20 +133,18 @@ function draw_logic(){
     buffer.closePath();
     buffer.fill();
 
-    // If frame counter is enabled, draw current frame count.
-    if(settings['frame-counter']){
-        buffer.fillStyle = '#fff';
-        buffer.fillText(
-          frame_counter,
-          5,
-          25
-        );
-        buffer.fillText(
-          best,
-          5,
-          50
-        );
-    }
+    // Draw current frame count.
+    buffer.fillStyle = '#fff';
+    buffer.fillText(
+      frame_counter,
+      5,
+      25
+    );
+    buffer.fillText(
+      best,
+      5,
+      50
+    );
 }
 
 function logic(){
@@ -194,20 +192,6 @@ function logic(){
     }
 }
 
-function reset_best(){
-    if(!window.confirm('Reset best?')){
-        return;
-    }
-
-    best = 0;
-    frame_counter = 0;
-    update_best();
-    setmode(
-      0,
-      true
-    );
-}
-
 function resize_logic(){
     buffer.font = '23pt sans-serif';
 }
@@ -223,13 +207,12 @@ function setmode_logic(newgame){
         document.body.innerHTML = '<div><div><ul><li><a onclick="setmode(1, true)">Cling to the Ground</a>'
           + '<li><a onclick="setmode(2, true)">Walled Corridor</a></ul></div><hr>'
           + '<div>Best: ' + best + '<br>'
-          + '<a onclick=reset_best()>Reset Best</a></div></div>'
+          + '<a onclick=reset_best();setmode(0)>Reset Best</a></div></div>'
           + '<div class=right><div><input disabled value=ESC>Main Menu<br>'
           + '<input id=movement-keys maxlength=2>Move ←→<br>'
           + '<input id=restart-key maxlength=1>Restart</div><hr>'
           + '<div><input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br>'
           + '<input id=ms-per-frame>ms/Frame<br>'
-          + '<label><input id=frame-counter type=checkbox>Frame Counter</label><br>'
           + '<a onclick=reset()>Reset Settings</a></div></div>';
         update_settings();
 
@@ -251,30 +234,6 @@ function setmode_logic(newgame){
     }
 }
 
-function update_best(){
-    if(!settings['frame-counter']){
-        return;
-    }
-
-    if(frame_counter > best){
-        best = frame_counter;
-    }
-
-    if(best > 0){
-        window.localStorage.setItem(
-          'FractalRunner-2D3D.htm-best',
-          best
-        );
-
-    }else{
-        window.localStorage.removeItem('FractalRunner-2D3D.htm-best');
-    }
-}
-
-var best = parseInt(
-  window.localStorage.getItem('FractalRunner-2D3D.htm-best'),
-  10
-) || 0;
 var floor_position = 0;
 var frame_counter = 0;
 var key_left = false;
@@ -292,7 +251,7 @@ window.onkeydown = function(e){
 
     // ESC: return to main menu.
     if(key === 27){
-        update_best();
+        update_best(frame_counter);
         setmode(
           0,
           true
@@ -309,7 +268,7 @@ window.onkeydown = function(e){
         key_right = true;
 
     }else if(key === settings['restart-key']){
-        update_best();
+        update_best(frame_counter);
         setmode(mode);
     }
 };
@@ -326,11 +285,11 @@ window.onkeyup = function(e){
 };
 
 window.onload = function(){
+    init_bests('FractalRunner-2D3D.htm-');
     init_settings(
       'FractalRunner-2D3D.htm-',
       {
         'audio-volume':  1,
-        'frame-counter': true,
         'movement-keys': 'AD',
         'ms-per-frame': 25,
         'restart-key': 'H',
