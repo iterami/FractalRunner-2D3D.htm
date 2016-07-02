@@ -192,6 +192,10 @@ function logic(){
     }
 }
 
+function resize_logic(){
+    floor_position = y * (mode - 1);
+}
+
 function setmode_logic(newgame){
     split_state = [
       false,
