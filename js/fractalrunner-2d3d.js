@@ -141,7 +141,7 @@ function draw_logic(){
       25
     );
     buffer.fillText(
-      best,
+      bests_bests['score'],
       5,
       50
     );
@@ -206,8 +206,8 @@ function setmode_logic(newgame){
     if(mode === 0){
         document.body.innerHTML = '<div><div><ul><li><a onclick="setmode(1, true)">Cling to the Ground</a>'
           + '<li><a onclick="setmode(2, true)">Walled Corridor</a></ul></div><hr>'
-          + '<div>Best: ' + best + '<br>'
-          + '<a onclick=reset_best();setmode(0)>Reset Best</a></div></div>'
+          + '<div>Best: ' + bests_bests['score'] + '<br>'
+          + '<a onclick=bests_reset();setmode(0)>Reset Best</a></div></div>'
           + '<div class=right><div><input disabled value=ESC>Main Menu<br>'
           + '<input id=movement-keys maxlength=2>Move ←→<br>'
           + '<input id=restart-key maxlength=1>Restart</div><hr>'
@@ -251,7 +251,10 @@ window.onkeydown = function(e){
 
     // ESC: return to main menu.
     if(key === 27){
-        update_best(frame_counter);
+        bests_update(
+          'score',
+          frame_counter
+        );
         setmode(
           0,
           true
@@ -268,7 +271,10 @@ window.onkeydown = function(e){
         key_right = true;
 
     }else if(key === settings['restart-key']){
-        update_best(frame_counter);
+        bests_update(
+          'score',
+          frame_counter
+        );
         setmode(mode);
     }
 };
@@ -285,7 +291,12 @@ window.onkeyup = function(e){
 };
 
 window.onload = function(){
-    init_bests('FractalRunner-2D3D.htm-');
+    bests_init(
+      'FractalRunner-2D3D.htm-',
+      {
+        'score': 0,
+      }
+    );
     init_settings(
       'FractalRunner-2D3D.htm-',
       {
