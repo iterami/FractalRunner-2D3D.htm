@@ -213,13 +213,13 @@ function setmode_logic(newgame){
           + '<input id=restart-key maxlength=1>Restart</div><hr>'
           + '<div><input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br>'
           + '<input id=ms-per-frame>ms/Frame<br>'
-          + '<a onclick=reset()>Reset Settings</a></div></div>';
-        update_settings();
+          + '<a onclick=settings_reset()>Reset Settings</a></div></div>';
+        settings_update();
 
     // New game mode.
     }else{
         if(newgame){
-            save();
+            settings_save();
         }
 
         splits = [
@@ -264,13 +264,13 @@ window.onkeydown = function(e){
 
     key = String.fromCharCode(key);
 
-    if(key === settings['movement-keys'][0]){
+    if(key === settings_settings['movement-keys'][0]){
         key_left = true;
 
-    }else if(key === settings['movement-keys'][1]){
+    }else if(key === settings_settings['movement-keys'][1]){
         key_right = true;
 
-    }else if(key === settings['restart-key']){
+    }else if(key === settings_settings['restart-key']){
         bests_update(
           'score',
           frame_counter
@@ -282,10 +282,10 @@ window.onkeydown = function(e){
 window.onkeyup = function(e){
     var key = String.fromCharCode(e.keyCode || e.which);
 
-    if(key === settings['movement-keys'][0]){
+    if(key === settings_settings['movement-keys'][0]){
         key_left = false;
 
-    }else if(key === settings['movement-keys'][1]){
+    }else if(key === settings_settings['movement-keys'][1]){
         key_right = false;
     }
 };
@@ -297,7 +297,7 @@ window.onload = function(){
         'score': 0,
       }
     );
-    init_settings(
+    settings_init(
       'FractalRunner-2D3D.htm-',
       {
         'audio-volume':  1,
