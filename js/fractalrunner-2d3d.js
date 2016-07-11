@@ -2,145 +2,145 @@
 
 function draw_logic(){
     // Draw ground grass.
-    buffer.fillStyle = '#131';
-    buffer.fillRect(
+    canvas_buffer.fillStyle = '#131';
+    canvas_buffer.fillRect(
       0,
       floor_position,
-      width,
-      y
+      canvas_width,
+      canvas_y
     );
 
-    buffer.fillStyle = split_state[0]
+    canvas_buffer.fillStyle = split_state[0]
       ? '#323232'
       : '#646464';
 
     // Precalculate left wall split position.
-    var precalc = (splits[0][0] * (1 / splits[0][2])) + x;
+    var precalc = (splits[0][0] * (1 / splits[0][2])) + canvas_x;
 
     // Draw left wall extra bit.
     if(player_position > 0){
-        buffer.fillRect(
+        canvas_buffer.fillRect(
           0,
           0,
           1 + (player_position >= precalc ? precalc : player_position),
-          height
+          canvas_height
         );
     }
 
     // Draw left wall closer than split.
     if(player_position < precalc){
-        buffer.beginPath();
-        buffer.moveTo(
+        canvas_buffer.beginPath();
+        canvas_buffer.moveTo(
           player_position,
-          y - x
+          canvas_y - canvas_x
         );
-        buffer.lineTo(
+        canvas_buffer.lineTo(
           precalc,
-          (splits[0][1] * (1 / splits[0][2])) + y
+          (splits[0][1] * (1 / splits[0][2])) + canvas_y
         );
-        buffer.lineTo(
+        canvas_buffer.lineTo(
           precalc,
-          (splits[1][1] * (1 / splits[1][2])) + y
+          (splits[1][1] * (1 / splits[1][2])) + canvas_y
         );
-        buffer.lineTo(
+        canvas_buffer.lineTo(
           player_position,
-          y + x
+          canvas_y + canvas_x
         );
-        buffer.closePath();
-        buffer.fill();
+        canvas_buffer.closePath();
+        canvas_buffer.fill();
     }
 
     // Draw left wall further than split.
-    buffer.fillStyle = split_state[0]
+    canvas_buffer.fillStyle = split_state[0]
       ? '#646464'
       : '#323232';
-    buffer.beginPath();
-    buffer.moveTo(
+    canvas_buffer.beginPath();
+    canvas_buffer.moveTo(
       precalc,
-      (splits[0][1] * (1 / splits[0][2])) + y
+      (splits[0][1] * (1 / splits[0][2])) + canvas_y
     );
-    buffer.lineTo(
-      x,
-      y
+    canvas_buffer.lineTo(
+      canvas_x,
+      canvas_y
     );
-    buffer.lineTo(
+    canvas_buffer.lineTo(
       precalc,
-      (splits[1][1] * (1 / splits[1][2])) + y
+      (splits[1][1] * (1 / splits[1][2])) + canvas_y
     );
-    buffer.closePath();
-    buffer.fill();
+    canvas_buffer.closePath();
+    canvas_buffer.fill();
 
-    buffer.fillStyle = split_state[0]
+    canvas_buffer.fillStyle = split_state[0]
       ? '#646464'
       : '#323232';
 
     // Precalculate right wall split position.
-    precalc = (splits[2][0] * (1 / splits[2][2])) + x;
+    precalc = (splits[2][0] * (1 / splits[2][2])) + canvas_x;
 
     // Draw right wall extra bit.
     if(player_position < 0){
-        buffer.fillRect(
-          width + player_position < precalc
+        canvas_buffer.fillRect(
+          canvas_width + player_position < precalc
             ? precalc - 1
-            : width + player_position - 1,
+            : canvas_width + player_position - 1,
           0,
           -player_position,
-          height
+          canvas_height
         );
     }
 
     // Draw right wall closer than split.
-    if(width + player_position > precalc){
-        buffer.beginPath();
-        buffer.moveTo(
-          width + player_position,
-          y - x
+    if(canvas_width + player_position > precalc){
+        canvas_buffer.beginPath();
+        canvas_buffer.moveTo(
+          canvas_width + player_position,
+          canvas_y - canvas_x
         );
-        buffer.lineTo(
+        canvas_buffer.lineTo(
           precalc,
-          (splits[2][1] * (1 / splits[2][2])) + y
+          (splits[2][1] * (1 / splits[2][2])) + canvas_y
         );
-        buffer.lineTo(
+        canvas_buffer.lineTo(
           precalc,
-          (splits[3][1] * (1 / splits[3][2])) + y
+          (splits[3][1] * (1 / splits[3][2])) + canvas_y
         );
-        buffer.lineTo(
-          width + player_position,
-          y + x
+        canvas_buffer.lineTo(
+          canvas_width + player_position,
+          canvas_y + canvas_x
         );
-        buffer.closePath();
-        buffer.fill();
+        canvas_buffer.closePath();
+        canvas_buffer.fill();
     }
 
     // Draw right wall further than split.
-    buffer.fillStyle = split_state[0]
+    canvas_buffer.fillStyle = split_state[0]
       ? '#323232'
       : '#646464';
 
-    buffer.beginPath();
-    buffer.moveTo(
+    canvas_buffer.beginPath();
+    canvas_buffer.moveTo(
       precalc,
-      (splits[2][1] * (1 / splits[2][2])) + y
+      (splits[2][1] * (1 / splits[2][2])) + canvas_y
     );
-    buffer.lineTo(
-      x,
-      y
+    canvas_buffer.lineTo(
+      canvas_x,
+      canvas_y
     );
-    buffer.lineTo(
+    canvas_buffer.lineTo(
       precalc,
-      (splits[3][1] * (1 / splits[3][2])) + y
+      (splits[3][1] * (1 / splits[3][2])) + canvas_y
     );
-    buffer.closePath();
-    buffer.fill();
+    canvas_buffer.closePath();
+    canvas_buffer.fill();
 
     // Draw current frame count.
-    buffer.fillStyle = '#fff';
-    buffer.fillText(
+    canvas_buffer.fillStyle = '#fff';
+    canvas_buffer.fillText(
       frame_counter,
       5,
       25
     );
-    buffer.fillText(
+    canvas_buffer.fillText(
       bests_bests['score'],
       5,
       50
@@ -153,21 +153,21 @@ function logic(){
     // Get player movement.
     var player_dx = 0;
     if(key_left){
-        player_dx += x / 20;
+        player_dx += canvas_x / 20;
     }
     if(key_right){
-        player_dx -= x / 20;
+        player_dx -= canvas_x / 20;
     }
 
     // Update player position.
     player_position += player_dx;
 
     // Make sure player stays in bounds.
-    if(player_position > x / 1.5){
-        player_position = x / 1.5;
+    if(player_position > canvas_x / 1.5){
+        player_position = canvas_x / 1.5;
 
-    }else if(player_position < -x / 1.5){
-        player_position = -x / 1.5;
+    }else if(player_position < -canvas_x / 1.5){
+        player_position = -canvas_x / 1.5;
     }
 
     // Move player forward by moving splits closer.
@@ -193,7 +193,7 @@ function logic(){
 }
 
 function resize_logic(){
-    floor_position = y * (mode - 1);
+    floor_position = canvas_y * (canvas_mode - 1);
 }
 
 function setmode_logic(newgame){
@@ -203,11 +203,11 @@ function setmode_logic(newgame){
     ];
 
     // Main menu mode.
-    if(mode === 0){
-        document.body.innerHTML = '<div><div><ul><li><a onclick="setmode(1, true)">Cling to the Ground</a>'
-          + '<li><a onclick="setmode(2, true)">Walled Corridor</a></ul></div><hr>'
+    if(canvas_mode === 0){
+        document.body.innerHTML = '<div><div><ul><li><a onclick="canvas_setmode(1, true)">Cling to the Ground</a>'
+          + '<li><a onclick="canvas_setmode(2, true)">Walled Corridor</a></ul></div><hr>'
           + '<div>Best: ' + bests_bests['score'] + '<br>'
-          + '<a onclick=bests_reset();setmode(0)>Reset Best</a></div></div>'
+          + '<a onclick=bests_reset();canvas_setmode(0)>Reset Best</a></div></div>'
           + '<div class=right><div><input disabled value=ESC>Main Menu<br>'
           + '<input id=movement-keys maxlength=2>Move ←→<br>'
           + '<input id=restart-key maxlength=1>Restart</div><hr>'
@@ -243,7 +243,7 @@ var split_state = [];
 var splits = [];
 
 window.onkeydown = function(e){
-    if(mode <= 0){
+    if(canvas_mode <= 0){
         return;
     }
 
@@ -255,7 +255,7 @@ window.onkeydown = function(e){
           'score',
           frame_counter
         );
-        setmode(
+        canvas_setmode(
           0,
           true
         );
@@ -275,7 +275,7 @@ window.onkeydown = function(e){
           'score',
           frame_counter
         );
-        setmode(mode);
+        canvas_setmode(mode);
     }
 };
 
@@ -306,5 +306,5 @@ window.onload = function(){
         'restart-key': 'H',
       }
     );
-    init_canvas();
+    canvas_init();
 };
