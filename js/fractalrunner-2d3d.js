@@ -148,6 +148,10 @@ function draw_logic(){
 }
 
 function logic(){
+    if(canvas_menu){
+        return;
+    }
+
     frame_counter += 1;
 
     // Get player movement.
@@ -204,11 +208,15 @@ function setmode_logic(newgame){
 
     // Main menu mode.
     if(canvas_mode === 0){
+        bests_update(
+          'score',
+          frame_counter
+        );
         document.body.innerHTML = '<div><div><ul><li><a onclick="canvas_setmode(1, true)">Cling to the Ground</a>'
           + '<li><a onclick="canvas_setmode(2, true)">Walled Corridor</a></ul></div><hr>'
           + '<div>Best: ' + bests_bests['score'] + '<br>'
           + '<a onclick=bests_reset();canvas_setmode(0)>Reset Best</a></div></div>'
-          + '<div class=right><div><input disabled value=ESC>Main Menu<br>'
+          + '<div class=right><div><input disabled value=ESC>Menu<br>'
           + '<input id=movement-keys maxlength=2>Move ←→<br>'
           + '<input id=restart-key maxlength=1>Restart</div><hr>'
           + '<div><input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br>'
@@ -249,16 +257,9 @@ window.onkeydown = function(e){
 
     var key = e.keyCode || e.which;
 
-    // ESC: return to main menu.
+    // ESC: menu.
     if(key === 27){
-        bests_update(
-          'score',
-          frame_counter
-        );
-        canvas_setmode(
-          0,
-          true
-        );
+        canvas_menu_toggle();
         return;
     }
 
@@ -276,6 +277,9 @@ window.onkeydown = function(e){
           frame_counter
         );
         canvas_setmode(mode);
+
+    }else if(key === 'Q'){
+        canvas_menu_quit();
     }
 };
 
