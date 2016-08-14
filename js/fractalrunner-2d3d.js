@@ -2,7 +2,7 @@
 
 function draw_logic(){
     // Draw ground grass.
-    canvas_buffer.fillStyle = '#131';
+    canvas_buffer.fillStyle = colors[2];
     canvas_buffer.fillRect(
       0,
       floor_position,
@@ -11,8 +11,8 @@ function draw_logic(){
     );
 
     canvas_buffer.fillStyle = split_state[0]
-      ? '#323232'
-      : '#646464';
+      ? colors[0]
+      : colors[1];
 
     // Precalculate left wall split position.
     var precalc = (splits[0][0] * (1 / splits[0][2])) + canvas_x;
@@ -52,8 +52,8 @@ function draw_logic(){
 
     // Draw left wall further than split.
     canvas_buffer.fillStyle = split_state[0]
-      ? '#646464'
-      : '#323232';
+      ? colors[1]
+      : colors[0];
     canvas_buffer.beginPath();
     canvas_buffer.moveTo(
       precalc,
@@ -71,8 +71,8 @@ function draw_logic(){
     canvas_buffer.fill();
 
     canvas_buffer.fillStyle = split_state[0]
-      ? '#646464'
-      : '#323232';
+      ? colors[1]
+      : colors[0];
 
     // Precalculate right wall split position.
     precalc = (splits[2][0] * (1 / splits[2][2])) + canvas_x;
@@ -114,8 +114,8 @@ function draw_logic(){
 
     // Draw right wall further than split.
     canvas_buffer.fillStyle = split_state[0]
-      ? '#323232'
-      : '#646464';
+      ? colors[0]
+      : colors[1];
 
     canvas_buffer.beginPath();
     canvas_buffer.moveTo(
@@ -242,6 +242,11 @@ function setmode_logic(newgame){
     }
 }
 
+var colors = [
+  '#333',
+  '#666',
+  '#131',
+];
 var floor_position = 0;
 var frame_counter = 0;
 var key_left = false;
