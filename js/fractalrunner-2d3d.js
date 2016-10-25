@@ -29,46 +29,53 @@ function draw_logic(){
 
     // Draw left wall closer than split.
     if(player_position < precalc){
-        canvas_buffer.beginPath();
-        canvas_buffer.moveTo(
-          player_position,
-          canvas_y - canvas_x
+        canvas_draw_path(
+          [
+            {
+              'type': 'moveTo',
+              'x': player_position,
+              'y': canvas_y - canvas_x,
+            },
+            {
+              'x': precalc,
+              'y': (splits[0][1] * (1 / splits[0][2])) + canvas_y,
+            },
+            {
+              'x': precalc,
+              'y': (splits[1][1] * (1 / splits[1][2])) + canvas_y,
+            },
+            {
+              'x': player_position,
+              'y': canvas_y + canvas_x,
+            },
+          ],
+          {}
         );
-        canvas_buffer.lineTo(
-          precalc,
-          (splits[0][1] * (1 / splits[0][2])) + canvas_y
-        );
-        canvas_buffer.lineTo(
-          precalc,
-          (splits[1][1] * (1 / splits[1][2])) + canvas_y
-        );
-        canvas_buffer.lineTo(
-          player_position,
-          canvas_y + canvas_x
-        );
-        canvas_buffer.closePath();
-        canvas_buffer.fill();
     }
 
     // Draw left wall further than split.
-    canvas_buffer.fillStyle = split_state[0]
-      ? colors[1]
-      : colors[0];
-    canvas_buffer.beginPath();
-    canvas_buffer.moveTo(
-      precalc,
-      (splits[0][1] * (1 / splits[0][2])) + canvas_y
+    canvas_draw_path(
+      [
+        {
+          'type': 'moveTo',
+          'x': precalc,
+          'y': (splits[0][1] * (1 / splits[0][2])) + canvas_y,
+        },
+        {
+          'x': canvas_x,
+          'y': canvas_y,
+        },
+        {
+          'x': precalc,
+          'y': (splits[1][1] * (1 / splits[1][2])) + canvas_y,
+        },
+      ],
+      {
+        'fillStyle': split_state[0]
+          ? colors[1]
+          : colors[0],
+      }
     );
-    canvas_buffer.lineTo(
-      canvas_x,
-      canvas_y
-    );
-    canvas_buffer.lineTo(
-      precalc,
-      (splits[1][1] * (1 / splits[1][2])) + canvas_y
-    );
-    canvas_buffer.closePath();
-    canvas_buffer.fill();
 
     canvas_buffer.fillStyle = split_state[0]
       ? colors[1]
@@ -91,47 +98,53 @@ function draw_logic(){
 
     // Draw right wall closer than split.
     if(canvas_width + player_position > precalc){
-        canvas_buffer.beginPath();
-        canvas_buffer.moveTo(
-          canvas_width + player_position,
-          canvas_y - canvas_x
+        canvas_draw_path(
+          [
+            {
+              'type': 'moveTo',
+              'x': canvas_width + player_position,
+              'y': canvas_y - canvas_x,
+            },
+            {
+              'x': precalc,
+              'y': (splits[2][1] * (1 / splits[2][2])) + canvas_y,
+            },
+            {
+              'x': precalc,
+              'y': (splits[3][1] * (1 / splits[3][2])) + canvas_y,
+            },
+            {
+              'x': canvas_width + player_position,
+              'y': canvas_y + canvas_x,
+            },
+          ],
+          {}
         );
-        canvas_buffer.lineTo(
-          precalc,
-          (splits[2][1] * (1 / splits[2][2])) + canvas_y
-        );
-        canvas_buffer.lineTo(
-          precalc,
-          (splits[3][1] * (1 / splits[3][2])) + canvas_y
-        );
-        canvas_buffer.lineTo(
-          canvas_width + player_position,
-          canvas_y + canvas_x
-        );
-        canvas_buffer.closePath();
-        canvas_buffer.fill();
     }
 
     // Draw right wall further than split.
-    canvas_buffer.fillStyle = split_state[0]
-      ? colors[0]
-      : colors[1];
-
-    canvas_buffer.beginPath();
-    canvas_buffer.moveTo(
-      precalc,
-      (splits[2][1] * (1 / splits[2][2])) + canvas_y
+    canvas_draw_path(
+      [
+        {
+          'type': 'moveTo',
+          'x': precalc,
+          'y': (splits[2][1] * (1 / splits[2][2])) + canvas_y,
+        },
+        {
+          'x': canvas_x,
+          'y': canvas_y,
+        },
+        {
+          'x': precalc,
+          'y': (splits[3][1] * (1 / splits[3][2])) + canvas_y,
+        },
+      ],
+      {
+        'fillStyle': split_state[0]
+          ? colors[0]
+          : colors[1],
+      }
     );
-    canvas_buffer.lineTo(
-      canvas_x,
-      canvas_y
-    );
-    canvas_buffer.lineTo(
-      precalc,
-      (splits[3][1] * (1 / splits[3][2])) + canvas_y
-    );
-    canvas_buffer.closePath();
-    canvas_buffer.fill();
 
     // Draw current frame count.
     canvas_buffer.fillStyle = '#fff';
