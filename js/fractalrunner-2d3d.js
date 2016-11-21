@@ -316,7 +316,9 @@ window.onload = function(){
     bests_init(
       'FractalRunner-2D3D.htm-',
       {
-        'score': 0,
+        'score': {
+          'default': 0,
+        },
       }
     );
     settings_init(
