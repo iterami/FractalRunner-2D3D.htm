@@ -221,10 +221,10 @@ function setmode_logic(newgame){
 
     // Main menu mode.
     if(canvas_mode === 0){
-        bests_update(
-          'score',
-          frame_counter
-        );
+        bests_update({
+          'key': 'score',
+          'value': frame_counter,
+        });
         document.body.innerHTML = '<div><div><ul><li><a onclick="canvas_setmode(1, true)">Cling to the Ground</a>'
           + '<li><a onclick="canvas_setmode(2, true)">Walled Corridor</a></ul></div><hr>'
           + '<div>Best: ' + bests_bests['score'] + '<br>'
@@ -290,10 +290,10 @@ window.onkeydown = function(e){
         key_right = true;
 
     }else if(key === settings_settings['restart-key']){
-        bests_update(
-          'score',
-          frame_counter
-        );
+        bests_update({
+          'key': 'score',
+          'value': frame_counter,
+        });
         canvas_setmode(mode);
 
     }else if(key === 'Q'){
@@ -313,14 +313,14 @@ window.onkeyup = function(e){
 };
 
 window.onload = function(){
-    bests_init(
-      'FractalRunner-2D3D.htm-',
-      {
+    bests_init({
+      'bests': {
         'score': {
           'default': 0,
         },
-      }
-    );
+      },
+      'prefix': 'FractalRunner-2D3D.htm-',
+    });
     settings_init(
       'FractalRunner-2D3D.htm-',
       {
