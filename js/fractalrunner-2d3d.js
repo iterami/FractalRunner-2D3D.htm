@@ -321,14 +321,14 @@ window.onload = function(){
       },
       'prefix': 'FractalRunner-2D3D.htm-',
     });
-    settings_init(
-      'FractalRunner-2D3D.htm-',
-      {
+    settings_init({
+      'prefix': 'FractalRunner-2D3D.htm-',
+      'settings': {
         'audio-volume':  1,
         'movement-keys': 'AD',
         'ms-per-frame': 25,
         'restart-key': 'H',
-      }
-    );
+      },
+    });
     canvas_init();
 };
