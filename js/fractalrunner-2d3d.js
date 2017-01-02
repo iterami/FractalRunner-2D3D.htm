@@ -29,8 +29,8 @@ function draw_logic(){
 
     // Draw left wall closer than split.
     if(player_position < precalc){
-        canvas_draw_path(
-          [
+        canvas_draw_path({
+          'vertices': [
             {
               'type': 'moveTo',
               'x': player_position,
@@ -49,13 +49,17 @@ function draw_logic(){
               'y': canvas_y + canvas_x,
             },
           ],
-          {}
-        );
+        });
     }
 
     // Draw left wall further than split.
-    canvas_draw_path(
-      [
+    canvas_draw_path({
+      'properties': {
+        'fillStyle': split_state[0]
+          ? colors[1]
+          : colors[0],
+      },
+      'vertices': [
         {
           'type': 'moveTo',
           'x': precalc,
@@ -70,12 +74,7 @@ function draw_logic(){
           'y': (splits[1][1] * (1 / splits[1][2])) + canvas_y,
         },
       ],
-      {
-        'fillStyle': split_state[0]
-          ? colors[1]
-          : colors[0],
-      }
-    );
+    });
 
     canvas_buffer.fillStyle = split_state[0]
       ? colors[1]
@@ -98,8 +97,8 @@ function draw_logic(){
 
     // Draw right wall closer than split.
     if(canvas_width + player_position > precalc){
-        canvas_draw_path(
-          [
+        canvas_draw_path({
+          'vertices': [
             {
               'type': 'moveTo',
               'x': canvas_width + player_position,
@@ -118,13 +117,17 @@ function draw_logic(){
               'y': canvas_y + canvas_x,
             },
           ],
-          {}
-        );
+        });
     }
 
     // Draw right wall further than split.
-    canvas_draw_path(
-      [
+    canvas_draw_path({
+      'properties': {
+        'fillStyle': split_state[0]
+          ? colors[0]
+          : colors[1],
+      },
+      'vertices': [
         {
           'type': 'moveTo',
           'x': precalc,
@@ -139,12 +142,7 @@ function draw_logic(){
           'y': (splits[3][1] * (1 / splits[3][2])) + canvas_y,
         },
       ],
-      {
-        'fillStyle': split_state[0]
-          ? colors[0]
-          : colors[1],
-      }
-    );
+    });
 
     // Draw current frame count.
     canvas_buffer.fillStyle = '#fff';
@@ -225,10 +223,10 @@ function setmode_logic(newgame){
           'key': 'score',
           'value': frame_counter,
         });
-        document.body.innerHTML = '<div><div><ul><li><a onclick="canvas_setmode(1, true)">Cling to the Ground</a>'
-          + '<li><a onclick="canvas_setmode(2, true)">Walled Corridor</a></ul></div><hr>'
+        document.body.innerHTML = '<div><div><ul><li><a onclick=canvas_setmode({mode:1,newgame:true})>Cling to the Ground</a>'
+          + '<li><a onclick=canvas_setmode({mode:2,newgame:true})>Walled Corridor</a></ul></div><hr>'
           + '<div>Best: ' + bests_bests['score'] + '<br>'
-          + '<a onclick=bests_reset();canvas_setmode(0)>Reset Best</a></div></div>'
+          + '<a onclick=bests_reset();canvas_setmode({mode:0})>Reset Best</a></div></div>'
           + '<div class=right><div><input disabled value=ESC>Menu<br>'
           + '<input id=movement-keys maxlength=2>Move ←→<br>'
           + '<input id=restart-key maxlength=1>Restart</div><hr>'
@@ -294,7 +292,9 @@ window.onkeydown = function(e){
           'key': 'score',
           'value': frame_counter,
         });
-        canvas_setmode(mode);
+        canvas_setmode({
+          'mode': canvas_mode,
+        });
 
     }else if(key === 'Q'){
         canvas_menu_quit();
