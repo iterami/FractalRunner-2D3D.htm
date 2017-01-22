@@ -152,7 +152,7 @@ function draw_logic(){
       25
     );
     canvas_buffer.fillText(
-      bests_bests['score'],
+      storage_data['score'],
       5,
       50
     );
@@ -219,14 +219,16 @@ function setmode_logic(newgame){
 
     // Main menu mode.
     if(canvas_mode === 0){
-        bests_update({
-          'key': 'score',
-          'value': frame_counter,
+        if(frame_counter > storage_data['score']){
+            storage_data['score'] = frame_counter;
+        }
+        storage_save({
+          'bests': true,
         });
         document.body.innerHTML = '<div><div><ul><li><a onclick=canvas_setmode({mode:1,newgame:true})>Cling to the Ground</a>'
           + '<li><a onclick=canvas_setmode({mode:2,newgame:true})>Walled Corridor</a></ul></div><hr>'
-          + '<div>Best: ' + bests_bests['score'] + '<br>'
-          + '<a onclick=bests_reset();canvas_setmode({mode:0})>Reset Best</a></div></div>'
+          + '<div>Best: ' + storage_data['score'] + '<br>'
+          + '<a onclick=storage_reset({bests:true});canvas_setmode({mode:0})>Reset Best</a></div></div>'
           + '<div class=right><div><input disabled value=ESC>Menu<br>'
           + '<input id=movement-keys maxlength=2>Move ←→<br>'
           + '<input id=restart-key maxlength=1>Restart</div><hr>'
@@ -267,20 +269,16 @@ var split_state = [];
 var splits = [];
 
 window.onload = function(){
-    bests_init({
-      'bests': {
-        'score': {
-          'default': 0,
-        },
-      },
-      'prefix': 'FractalRunner-2D3D.htm-',
-    });
     storage_init({
       'data': {
         'audio-volume':  1,
         'movement-keys': 'AD',
         'ms-per-frame': 25,
         'restart-key': 'H',
+        'score': {
+          'default': 0,
+          'type': 1,
+        },
       },
       'prefix': 'FractalRunner-2D3D.htm-',
     });
@@ -308,9 +306,8 @@ window.onload = function(){
             key_right = true;
 
         }else if(key === storage_data['restart-key']){
-            bests_update({
-              'key': 'score',
-              'value': frame_counter,
+            storage_save({
+              'bests': true,
             });
             canvas_setmode({
               'mode': canvas_mode,
