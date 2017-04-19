@@ -225,9 +225,11 @@ function setmode_logic(newgame){
         storage_save({
           'bests': true,
         });
+        frame_counter = 0;
+
         document.body.innerHTML = '<div><div><ul><li><a onclick=canvas_setmode({mode:1,newgame:true})>Cling to the Ground</a>'
           + '<li><a onclick=canvas_setmode({mode:2,newgame:true})>Walled Corridor</a></ul></div><hr>'
-          + '<div>Best: ' + storage_info['score']['best'] + '<br>'
+          + '<div>Best: <span id=score></span><br>'
           + '<a onclick=storage_reset({bests:true});canvas_setmode()>Reset Best</a></div></div>'
           + '<div class=right><div><input disabled value=ESC>Menu<br>'
           + '<input id=movement-keys maxlength=2>Move ←→<br>'
