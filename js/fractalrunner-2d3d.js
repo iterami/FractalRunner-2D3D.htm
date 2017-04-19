@@ -228,7 +228,7 @@ function setmode_logic(newgame){
         document.body.innerHTML = '<div><div><ul><li><a onclick=canvas_setmode({mode:1,newgame:true})>Cling to the Ground</a>'
           + '<li><a onclick=canvas_setmode({mode:2,newgame:true})>Walled Corridor</a></ul></div><hr>'
           + '<div>Best: ' + storage_info['score']['best'] + '<br>'
-          + '<a onclick=storage_reset({bests:true});canvas_setmode({mode:0})>Reset Best</a></div></div>'
+          + '<a onclick=storage_reset({bests:true});canvas_setmode()>Reset Best</a></div></div>'
           + '<div class=right><div><input disabled value=ESC>Menu<br>'
           + '<input id=movement-keys maxlength=2>Move ←→<br>'
           + '<input id=restart-key maxlength=1>Restart</div><hr>'
