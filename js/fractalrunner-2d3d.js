@@ -15,7 +15,7 @@ function draw_logic(){
       : colors[1];
 
     // Precalculate left wall split position.
-    var precalc = (splits[0][0] * (1 / splits[0][2])) + canvas_x;
+    var precalc = splits[0][0] * (1 / splits[0][2]) + canvas_x;
 
     // Draw left wall extra bit.
     if(player_position > 0){
@@ -81,7 +81,7 @@ function draw_logic(){
       : colors[0];
 
     // Precalculate right wall split position.
-    precalc = (splits[2][0] * (1 / splits[2][2])) + canvas_x;
+    precalc = splits[2][0] * (1 / splits[2][2]) + canvas_x;
 
     // Draw right wall extra bit.
     if(player_position < 0){
