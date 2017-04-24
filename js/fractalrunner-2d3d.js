@@ -159,10 +159,6 @@ function draw_logic(){
 }
 
 function logic(){
-    if(core_menu_open){
-        return;
-    }
-
     frame_counter += 1;
 
     // Get player movement.
