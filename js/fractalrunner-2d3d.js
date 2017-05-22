@@ -152,7 +152,7 @@ function draw_logic(){
       25
     );
     canvas_buffer.fillText(
-      storage_data['score'],
+      core_storage_data['score'],
       5,
       50
     );
@@ -215,10 +215,10 @@ function setmode_logic(newgame){
 
     // Main menu mode.
     if(canvas_mode === 0){
-        if(frame_counter > storage_data['score']){
-            storage_data['score'] = frame_counter;
+        if(frame_counter > core_storage_data['score']){
+            core_storage_data['score'] = frame_counter;
         }
-        storage_save({
+        core_storage_save({
           'bests': true,
         });
         frame_counter = 0;
@@ -226,19 +226,19 @@ function setmode_logic(newgame){
         document.body.innerHTML = '<div><div><ul><li><a onclick=canvas_setmode({mode:1,newgame:true})>Cling to the Ground</a>'
           + '<li><a onclick=canvas_setmode({mode:2,newgame:true})>Walled Corridor</a></ul></div><hr>'
           + '<div>Best: <span id=score></span><br>'
-          + '<a onclick=storage_reset({bests:true});canvas_setmode()>Reset Best</a></div></div>'
+          + '<a onclick=core_storage_reset({bests:true});canvas_setmode()>Reset Best</a></div></div>'
           + '<div class=right><div><input disabled value=ESC>Menu<br>'
           + '<input id=movement-keys maxlength=2>Move ←→<br>'
           + '<input id=restart-key maxlength=1>Restart</div><hr>'
           + '<div><input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br>'
           + '<input id=ms-per-frame>ms/Frame<br>'
-          + '<a onclick=storage_reset()>Reset Settings</a></div></div>';
-        storage_update();
+          + '<a onclick=core_storage_reset()>Reset Settings</a></div></div>';
+        core_storage_update();
 
     // New game mode.
     }else{
         if(newgame){
-            storage_save();
+            core_storage_save();
         }
 
         splits = [
@@ -267,7 +267,7 @@ var split_state = [];
 var splits = [];
 
 window.onload = function(){
-    storage_init({
+    core_storage_init({
       'data': {
         'audio-volume':  1,
         'movement-keys': 'AD',
@@ -297,14 +297,14 @@ window.onload = function(){
 
         key = String.fromCharCode(key);
 
-        if(key === storage_data['movement-keys'][0]){
+        if(key === core_storage_data['movement-keys'][0]){
             key_left = true;
 
-        }else if(key === storage_data['movement-keys'][1]){
+        }else if(key === core_storage_data['movement-keys'][1]){
             key_right = true;
 
-        }else if(key === storage_data['restart-key']){
-            storage_save({
+        }else if(key === core_storage_data['restart-key']){
+            core_storage_save({
               'bests': true,
             });
             canvas_setmode({
@@ -319,10 +319,10 @@ window.onload = function(){
     window.onkeyup = function(e){
         var key = String.fromCharCode(e.keyCode || e.which);
 
-        if(key === storage_data['movement-keys'][0]){
+        if(key === core_storage_data['movement-keys'][0]){
             key_left = false;
 
-        }else if(key === storage_data['movement-keys'][1]){
+        }else if(key === core_storage_data['movement-keys'][1]){
             key_right = false;
         }
     };
