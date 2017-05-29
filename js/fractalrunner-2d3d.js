@@ -203,6 +203,68 @@ function logic(){
     }
 }
 
+function repo_init(){
+    core_storage_init({
+      'data': {
+        'audio-volume':  1,
+        'movement-keys': 'AD',
+        'ms-per-frame': 25,
+        'restart-key': 'H',
+        'score': {
+          'default': 0,
+          'type': 1,
+        },
+      },
+      'prefix': 'FractalRunner-2D3D.htm-',
+    });
+    canvas_init();
+
+    window.onkeydown = function(e){
+        if(canvas_mode <= 0){
+            return;
+        }
+
+        var key = e.keyCode || e.which;
+
+        // ESC: menu.
+        if(key === 27){
+            core_menu_toggle();
+            return;
+        }
+
+        key = String.fromCharCode(key);
+
+        if(key === core_storage_data['movement-keys'][0]){
+            key_left = true;
+
+        }else if(key === core_storage_data['movement-keys'][1]){
+            key_right = true;
+
+        }else if(key === core_storage_data['restart-key']){
+            core_storage_save({
+              'bests': true,
+            });
+            canvas_setmode({
+              'mode': canvas_mode,
+            });
+
+        }else if(key === 'Q'){
+            canvas_menu_quit();
+        }
+    };
+
+    window.onkeyup = function(e){
+        var key = String.fromCharCode(e.keyCode || e.which);
+
+        if(key === core_storage_data['movement-keys'][0]){
+            key_left = false;
+
+        }else if(key === core_storage_data['movement-keys'][1]){
+            key_right = false;
+        }
+    };
+}
+
 function resize_logic(){
     floor_position = canvas_y * (canvas_mode - 1);
 }
@@ -265,65 +327,3 @@ var key_right = false;
 var player_position = 0;
 var split_state = [];
 var splits = [];
-
-window.onload = function(){
-    core_storage_init({
-      'data': {
-        'audio-volume':  1,
-        'movement-keys': 'AD',
-        'ms-per-frame': 25,
-        'restart-key': 'H',
-        'score': {
-          'default': 0,
-          'type': 1,
-        },
-      },
-      'prefix': 'FractalRunner-2D3D.htm-',
-    });
-    canvas_init();
-
-    window.onkeydown = function(e){
-        if(canvas_mode <= 0){
-            return;
-        }
-
-        var key = e.keyCode || e.which;
-
-        // ESC: menu.
-        if(key === 27){
-            core_menu_toggle();
-            return;
-        }
-
-        key = String.fromCharCode(key);
-
-        if(key === core_storage_data['movement-keys'][0]){
-            key_left = true;
-
-        }else if(key === core_storage_data['movement-keys'][1]){
-            key_right = true;
-
-        }else if(key === core_storage_data['restart-key']){
-            core_storage_save({
-              'bests': true,
-            });
-            canvas_setmode({
-              'mode': canvas_mode,
-            });
-
-        }else if(key === 'Q'){
-            canvas_menu_quit();
-        }
-    };
-
-    window.onkeyup = function(e){
-        var key = String.fromCharCode(e.keyCode || e.which);
-
-        if(key === core_storage_data['movement-keys'][0]){
-            key_left = false;
-
-        }else if(key === core_storage_data['movement-keys'][1]){
-            key_right = false;
-        }
-    };
-};
