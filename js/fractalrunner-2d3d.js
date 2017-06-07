@@ -204,8 +204,8 @@ function logic(){
 }
 
 function repo_init(){
-    core_storage_init({
-      'data': {
+    core_repo_init({
+      'storage': {
         'audio-volume':  1,
         'movement-keys': 'AD',
         'ms-per-frame': 25,
@@ -215,7 +215,7 @@ function repo_init(){
           'type': 1,
         },
       },
-      'prefix': 'FractalRunner-2D3D.htm-',
+      'title': 'FractalRunner-2D3D.htm',
     });
     canvas_init();
 
