@@ -285,7 +285,7 @@ function setmode_logic(newgame){
         });
         frame_counter = 0;
 
-        document.body.innerHTML = '<div><div><ul><li><a onclick=canvas_setmode({mode:1,newgame:true})>Cling to the Ground</a>'
+        document.getElementById('wrap').innerHTML = '<div><div><ul><li><a onclick=canvas_setmode({mode:1,newgame:true})>Cling to the Ground</a>'
           + '<li><a onclick=canvas_setmode({mode:2,newgame:true})>Walled Corridor</a></ul></div><hr>'
           + '<div>Best: <span id=score></span><br>'
           + '<a onclick=core_storage_reset({bests:true});canvas_setmode()>Reset Best</a></div></div>'
