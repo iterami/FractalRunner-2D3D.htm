@@ -163,10 +163,10 @@ function logic(){
 
     // Get player movement.
     var player_dx = 0;
-    if(key_left){
+    if(core_keys[65]['state']){
         player_dx += canvas_x / 20;
     }
-    if(key_right){
+    if(core_keys[68]['state']){
         player_dx -= canvas_x / 20;
     }
 
@@ -205,11 +205,26 @@ function logic(){
 
 function repo_init(){
     core_repo_init({
+      'keybinds': {
+        65: {},
+        68: {},
+        72: {
+          'todo': function(){
+              core_storage_save({
+                'bests': true,
+              });
+              canvas_setmode({
+                'mode': canvas_mode,
+              });
+          },
+        },
+        81: {
+          'todo': canvas_menu_quit,
+        },
+      },
       'storage': {
         'audio-volume':  1,
-        'movement-keys': 'AD',
         'ms-per-frame': 25,
-        'restart-key': 'H',
         'score': {
           'default': 0,
           'type': 1,
@@ -218,51 +233,6 @@ function repo_init(){
       'title': 'FractalRunner-2D3D.htm',
     });
     canvas_init();
-
-    window.onkeydown = function(e){
-        if(canvas_mode <= 0){
-            return;
-        }
-
-        var key = e.keyCode || e.which;
-
-        // ESC: menu.
-        if(key === 27){
-            core_escape();
-            return;
-        }
-
-        key = String.fromCharCode(key);
-
-        if(key === core_storage_data['movement-keys'][0]){
-            key_left = true;
-
-        }else if(key === core_storage_data['movement-keys'][1]){
-            key_right = true;
-
-        }else if(key === core_storage_data['restart-key']){
-            core_storage_save({
-              'bests': true,
-            });
-            canvas_setmode({
-              'mode': canvas_mode,
-            });
-
-        }else if(key === 'Q'){
-            canvas_menu_quit();
-        }
-    };
-
-    window.onkeyup = function(e){
-        var key = String.fromCharCode(e.keyCode || e.which);
-
-        if(key === core_storage_data['movement-keys'][0]){
-            key_left = false;
-
-        }else if(key === core_storage_data['movement-keys'][1]){
-            key_right = false;
-        }
-    };
 }
 
 function resize_logic(){
@@ -289,9 +259,7 @@ function setmode_logic(newgame){
           + '<li><a onclick=canvas_setmode({mode:2,newgame:true})>Walled Corridor</a></ul></div><hr>'
           + '<div>Best: <span id=score></span><br>'
           + '<a onclick=core_storage_reset({bests:true});canvas_setmode()>Reset Best</a></div></div>'
-          + '<div class=right><div><input disabled value=ESC>Menu<br>'
-          + '<input id=movement-keys maxlength=2>Move ←→<br>'
-          + '<input id=restart-key maxlength=1>Restart</div><hr>'
+          + '<div class=right><div><input disabled value=ESC>Menu</div><hr>'
           + '<div><input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br>'
           + '<input id=ms-per-frame>ms/Frame<br>'
           + '<a onclick=core_storage_reset()>Reset Settings</a></div></div>';
@@ -322,8 +290,6 @@ var colors = [
 ];
 var floor_position = 0;
 var frame_counter = 0;
-var key_left = false;
-var key_right = false;
 var player_position = 0;
 var split_state = [];
 var splits = [];
