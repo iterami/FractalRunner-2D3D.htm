@@ -5,7 +5,7 @@ function draw_logic(){
     canvas_buffer.fillStyle = colors[2];
     canvas_buffer.fillRect(
       0,
-      floor_position,
+      canvas_y * canvas_mode,
       canvas_width,
       canvas_y
     );
@@ -205,6 +205,7 @@ function logic(){
 
 function repo_init(){
     core_repo_init({
+      'info': '<ul><li><a onclick=canvas_setmode({mode:0,newgame:true})>Cling to the Ground</a><li><a onclick=canvas_setmode({mode:1,newgame:true})>Walled Corridor</a></ul>',
       'keybinds': {
         65: {},
         68: {},
@@ -218,10 +219,8 @@ function repo_init(){
               });
           },
         },
-        81: {
-          'todo': canvas_menu_quit,
-        },
       },
+      'menu': true,
       'storage': {
         'audio-volume':  1,
         'ms-per-frame': 25,
@@ -230,57 +229,10 @@ function repo_init(){
           'type': 1,
         },
       },
+      'storage-menu': 'Best: <span id=score></span><br><a onclick=core_storage_reset({bests:true})>Reset Best</a><br><input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br><input id=ms-per-frame>ms/Frame',
       'title': 'FractalRunner-2D3D.htm',
     });
     canvas_init();
-}
-
-function resize_logic(){
-    floor_position = canvas_y * (canvas_mode - 1);
-}
-
-function setmode_logic(newgame){
-    split_state = [
-      false,
-      false,
-    ];
-
-    // Main menu mode.
-    if(canvas_mode === 0){
-        if(frame_counter > core_storage_data['score']){
-            core_storage_data['score'] = frame_counter;
-        }
-        core_storage_save({
-          'bests': true,
-        });
-        frame_counter = 0;
-
-        document.getElementById('wrap').innerHTML = '<div><div><ul><li><a onclick=canvas_setmode({mode:1,newgame:true})>Cling to the Ground</a>'
-          + '<li><a onclick=canvas_setmode({mode:2,newgame:true})>Walled Corridor</a></ul></div><hr>'
-          + '<div>Best: <span id=score></span><br>'
-          + '<a onclick=core_storage_reset({bests:true});canvas_setmode()>Reset Best</a></div></div>'
-          + '<div class=right><div><input disabled value=ESC>Menu</div><hr>'
-          + '<div><input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br>'
-          + '<input id=ms-per-frame>ms/Frame<br>'
-          + '<a onclick=core_storage_reset()>Reset Settings</a></div></div>';
-        core_storage_update();
-
-    // New game mode.
-    }else{
-        if(newgame){
-            core_storage_save();
-        }
-
-        splits = [
-          [-50, -50, 25],
-          [-50, 50, 25],
-          [50, -50, 25],
-          [50, 50, 25],
-        ];
-
-        frame_counter = 0;
-        player_position = 0;
-    }
 }
 
 var colors = [
@@ -288,7 +240,6 @@ var colors = [
   '#666',
   '#131',
 ];
-var floor_position = 0;
 var frame_counter = 0;
 var player_position = 0;
 var split_state = [];
