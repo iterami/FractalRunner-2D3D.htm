@@ -5,7 +5,7 @@ function draw_logic(){
     canvas_buffer.fillStyle = colors[2];
     canvas_buffer.fillRect(
       0,
-      canvas_y * canvas_mode,
+      ground,
       canvas_width,
       canvas_y
     );
@@ -205,7 +205,7 @@ function logic(){
 
 function repo_init(){
     core_repo_init({
-      'info': '<ul><li><a onclick=canvas_setmode({mode:0,newgame:true})>Cling to the Ground</a><li><a onclick=canvas_setmode({mode:1,newgame:true})>Walled Corridor</a></ul>',
+      'info': '<ul><li><a onclick=canvas_setmode({mode:1,newgame:true})>Cling to the Ground</a><li><a onclick=canvas_setmode({mode:0,newgame:true})>Walled Corridor</a></ul>',
       'keybinds': {
         65: {},
         68: {},
@@ -241,6 +241,7 @@ var colors = [
   '#131',
 ];
 var frame_counter = 0;
+var ground = 0;
 var player_position = 0;
 var split_state = [];
 var splits = [];
