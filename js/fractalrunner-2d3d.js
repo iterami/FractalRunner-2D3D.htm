@@ -205,7 +205,7 @@ function logic(){
 
 function repo_init(){
     core_repo_init({
-      'info': '<ul><li><a onclick=canvas_setmode({mode:1,newgame:true})>Cling to the Ground</a><li><a onclick=canvas_setmode({mode:0,newgame:true})>Walled Corridor</a></ul>',
+      'info': '<a onclick=canvas_setmode({mode:1,newgame:true})>Cling to the Ground</a><br><a onclick=canvas_setmode({mode:0,newgame:true})>Walled Corridor</a><br>Best: <span id=score></span>',
       'keybinds': {
         65: {},
         68: {},
@@ -229,7 +229,7 @@ function repo_init(){
           'type': 1,
         },
       },
-      'storage-menu': 'Best: <span id=score></span><br><a onclick=core_storage_reset({bests:true})>Reset Best</a><br><input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br><input id=ms-per-frame>ms/Frame',
+      'storage-menu': '<input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br><input id=ms-per-frame>ms/Frame',
       'title': 'FractalRunner-2D3D.htm',
     });
     canvas_init();
