@@ -222,14 +222,13 @@ function repo_init(){
       },
       'menu': true,
       'storage': {
-        'audio-volume':  1,
         'ms-per-frame': 25,
         'score': {
           'default': 0,
           'type': 1,
         },
       },
-      'storage-menu': '<input id=audio-volume max=1 min=0 step=0.01 type=range>Audio<br><input id=ms-per-frame>ms/Frame',
+      'storage-menu': '<input id=ms-per-frame>ms/Frame',
       'title': 'FractalRunner-2D3D.htm',
     });
     canvas_init();
