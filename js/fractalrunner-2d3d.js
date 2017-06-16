@@ -222,13 +222,11 @@ function repo_init(){
       },
       'menu': true,
       'storage': {
-        'ms-per-frame': 25,
         'score': {
           'default': 0,
           'type': 1,
         },
       },
-      'storage-menu': '<input id=ms-per-frame>ms/Frame',
       'title': 'FractalRunner-2D3D.htm',
     });
     canvas_init();
