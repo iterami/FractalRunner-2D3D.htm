@@ -205,7 +205,7 @@ function logic(){
 
 function repo_init(){
     core_repo_init({
-      'info': '<input onclick=canvas_setmode({mode:1,newgame:true}) type=button value="Cling to the Ground"><br><input onclick=canvas_setmode({mode:0,newgame:true}) type=button value="Walled Corridor"><br>Best: <span id=score></span>',
+      'info': '<input onclick=canvas_setmode({mode:1,newgame:true}) type=button value="Cling to the Ground"><br><input onclick=canvas_setmode({newgame:true}) type=button value="Walled Corridor"><br>Best: <span id=score></span>',
       'keybinds': {
         65: {},
         68: {},
