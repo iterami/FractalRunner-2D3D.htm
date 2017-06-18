@@ -9,7 +9,7 @@ function load_data(id){
     });
 
     frame_counter = 0;
-    ground = canvas_y * (1 - canvas_mode);
+    ground = canvas_y * (1 - id);
     player_position = 0;
     split_state = [
       false,

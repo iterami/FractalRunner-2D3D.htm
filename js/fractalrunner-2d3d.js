@@ -215,7 +215,7 @@ function repo_init(){
                 'bests': true,
               });
               canvas_setmode({
-                'mode': canvas_mode,
+                'mode': core_mode,
               });
           },
         },
