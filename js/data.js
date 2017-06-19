@@ -1,6 +1,6 @@
 'use strict';
 
-function load_data(id){
+function load_data(){
     if(frame_counter > core_storage_data['score']){
         core_storage_data['score'] = frame_counter;
     }
@@ -9,7 +9,7 @@ function load_data(id){
     });
 
     frame_counter = 0;
-    ground = canvas_y * (1 - id);
+    ground = canvas_y * (1 - core_storage_data['level']);
     player_position = 0;
     split_state = [
       false,
