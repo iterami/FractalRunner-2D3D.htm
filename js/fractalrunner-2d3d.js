@@ -143,19 +143,6 @@ function draw_logic(){
         },
       ],
     });
-
-    // Draw current frame count.
-    canvas_buffer.fillStyle = '#fff';
-    canvas_buffer.fillText(
-      frame_counter,
-      5,
-      25
-    );
-    canvas_buffer.fillText(
-      core_storage_data['score'],
-      5,
-      50
-    );
 }
 
 function logic(){
@@ -201,6 +188,13 @@ function logic(){
         split_state[1] = false;
         split_state[0] = !split_state[0];
     }
+
+    core_ui_update({
+      'ids': {
+        'best': core_storage_data['score'],
+        'score': frame_counter,
+      },
+    });
 }
 
 function repo_init(){
@@ -228,6 +222,7 @@ function repo_init(){
       },
       'storage-menu': '<table><tr><td><select id=level><option value=0>0 - Walled Corridor</option><option value=1>1 - Cling to the Ground</option></select><td>Level</table>',
       'title': 'FractalRunner-2D3D.htm',
+      'ui': '<input id=ui-best>Best<br><input id=ui-score>Score',
     });
     canvas_init();
 }
