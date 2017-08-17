@@ -2,7 +2,11 @@
 
 function draw_logic(){
     // Draw ground grass.
-    canvas_buffer.fillStyle = colors[2];
+    canvas_setproperties({
+      'properties': {
+        'fillStyle': colors[2],
+      },
+    });
     canvas_buffer.fillRect(
       0,
       ground,
@@ -10,9 +14,13 @@ function draw_logic(){
       canvas_y
     );
 
-    canvas_buffer.fillStyle = split_state[0]
-      ? colors[0]
-      : colors[1];
+    canvas_setproperties({
+      'properties': {
+        'fillStyle': split_state[0]
+          ? colors[0]
+          : colors[1],
+      },
+    });
 
     // Precalculate left wall split position.
     var precalc = splits[0][0] * (1 / splits[0][2]) + canvas_x;
@@ -76,9 +84,13 @@ function draw_logic(){
       ],
     });
 
-    canvas_buffer.fillStyle = split_state[0]
-      ? colors[1]
-      : colors[0];
+    canvas_setproperties({
+      'properties': {
+        'fillStyle': split_state[0]
+          ? colors[1]
+          : colors[0],
+      },
+    });
 
     // Precalculate right wall split position.
     precalc = splits[2][0] * (1 / splits[2][2]) + canvas_x;
