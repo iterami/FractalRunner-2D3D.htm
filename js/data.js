@@ -1,8 +1,8 @@
 'use strict';
 
 function load_data(){
-    if(frame_counter > core_storage_data['score']){
-        core_storage_data['score'] = frame_counter;
+    if(score > core_storage_data['score']){
+        core_storage_data['score'] = score;
         core_storage_update({
           'bests': true,
         });
@@ -11,7 +11,7 @@ function load_data(){
       'bests': true,
     });
 
-    frame_counter = 0;
+    score = 0;
     ground = canvas_y * (1 - core_storage_data['level']);
     player_position = 0;
     split_state = [

@@ -158,8 +158,6 @@ function draw_logic(){
 }
 
 function logic(){
-    frame_counter += 1;
-
     // Get player movement.
     var player_dx = 0;
     if(core_keys[65]['state']){
@@ -199,12 +197,14 @@ function logic(){
         // Switch split.
         split_state[1] = false;
         split_state[0] = !split_state[0];
+
+        score += 1;
     }
 
     core_ui_update({
       'ids': {
         'best': core_storage_data['score'],
-        'score': frame_counter,
+        'score': score,
       },
     });
 }
@@ -253,8 +253,8 @@ var colors = [
   '#666',
   '#131',
 ];
-var frame_counter = 0;
 var ground = 0;
 var player_position = 0;
+var score = 0;
 var split_state = [];
 var splits = [];
