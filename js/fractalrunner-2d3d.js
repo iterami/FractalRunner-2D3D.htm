@@ -10,7 +10,7 @@ function draw_logic(){
     canvas_buffer.fillRect(
       0,
       ground,
-      canvas_width,
+      canvas_properties['width'],
       canvas_y
     );
 
@@ -31,7 +31,7 @@ function draw_logic(){
           0,
           0,
           1 + (player_position >= precalc ? precalc : player_position),
-          canvas_height
+          canvas_properties['height']
         );
     }
 
@@ -98,22 +98,22 @@ function draw_logic(){
     // Draw right wall extra bit.
     if(player_position < 0){
         canvas_buffer.fillRect(
-          canvas_width + player_position < precalc
+          canvas_properties['width'] + player_position < precalc
             ? precalc - 1
-            : canvas_width + player_position - 1,
+            : canvas_properties['width'] + player_position - 1,
           0,
           -player_position,
-          canvas_height
+          canvas_properties['height']
         );
     }
 
     // Draw right wall closer than split.
-    if(canvas_width + player_position > precalc){
+    if(canvas_properties['width'] + player_position > precalc){
         canvas_draw_path({
           'vertices': [
             {
               'type': 'moveTo',
-              'x': canvas_width + player_position,
+              'x': canvas_properties['width'] + player_position,
               'y': canvas_y - canvas_x,
             },
             {
@@ -125,7 +125,7 @@ function draw_logic(){
               'y': (splits[3][1] * (1 / splits[3][2])) + canvas_y,
             },
             {
-              'x': canvas_width + player_position,
+              'x': canvas_properties['width'] + player_position,
               'y': canvas_y + canvas_x,
             },
           ],
