@@ -11,7 +11,7 @@ function draw_logic(){
       0,
       ground,
       canvas_properties['width'],
-      canvas_y
+      canvas_properties['height-half']
     );
 
     canvas_setproperties({
@@ -23,7 +23,7 @@ function draw_logic(){
     });
 
     // Precalculate left wall split position.
-    var precalc = splits[0][0] * (1 / splits[0][2]) + canvas_x;
+    var precalc = splits[0][0] * (1 / splits[0][2]) + canvas_properties['width-half'];
 
     // Draw left wall extra bit.
     if(player_position > 0){
@@ -42,19 +42,19 @@ function draw_logic(){
             {
               'type': 'moveTo',
               'x': player_position,
-              'y': canvas_y - canvas_x,
+              'y': canvas_properties['height-half'] - canvas_properties['width-half'],
             },
             {
               'x': precalc,
-              'y': (splits[0][1] * (1 / splits[0][2])) + canvas_y,
+              'y': (splits[0][1] * (1 / splits[0][2])) + canvas_properties['height-half'],
             },
             {
               'x': precalc,
-              'y': (splits[1][1] * (1 / splits[1][2])) + canvas_y,
+              'y': (splits[1][1] * (1 / splits[1][2])) + canvas_properties['height-half'],
             },
             {
               'x': player_position,
-              'y': canvas_y + canvas_x,
+              'y': canvas_properties['height-half'] + canvas_properties['width-half'],
             },
           ],
         });
@@ -71,15 +71,15 @@ function draw_logic(){
         {
           'type': 'moveTo',
           'x': precalc,
-          'y': (splits[0][1] * (1 / splits[0][2])) + canvas_y,
+          'y': (splits[0][1] * (1 / splits[0][2])) + canvas_properties['height-half'],
         },
         {
-          'x': canvas_x,
-          'y': canvas_y,
+          'x': canvas_properties['width-half'],
+          'y': canvas_properties['height-half'],
         },
         {
           'x': precalc,
-          'y': (splits[1][1] * (1 / splits[1][2])) + canvas_y,
+          'y': (splits[1][1] * (1 / splits[1][2])) + canvas_properties['height-half'],
         },
       ],
     });
@@ -93,7 +93,7 @@ function draw_logic(){
     });
 
     // Precalculate right wall split position.
-    precalc = splits[2][0] * (1 / splits[2][2]) + canvas_x;
+    precalc = splits[2][0] * (1 / splits[2][2]) + canvas_properties['width-half'];
 
     // Draw right wall extra bit.
     if(player_position < 0){
@@ -114,19 +114,19 @@ function draw_logic(){
             {
               'type': 'moveTo',
               'x': canvas_properties['width'] + player_position,
-              'y': canvas_y - canvas_x,
+              'y': canvas_properties['height-half'] - canvas_properties['width-half'],
             },
             {
               'x': precalc,
-              'y': (splits[2][1] * (1 / splits[2][2])) + canvas_y,
+              'y': (splits[2][1] * (1 / splits[2][2])) + canvas_properties['height-half'],
             },
             {
               'x': precalc,
-              'y': (splits[3][1] * (1 / splits[3][2])) + canvas_y,
+              'y': (splits[3][1] * (1 / splits[3][2])) + canvas_properties['height-half'],
             },
             {
               'x': canvas_properties['width'] + player_position,
-              'y': canvas_y + canvas_x,
+              'y': canvas_properties['height-half'] + canvas_properties['width-half'],
             },
           ],
         });
@@ -143,15 +143,15 @@ function draw_logic(){
         {
           'type': 'moveTo',
           'x': precalc,
-          'y': (splits[2][1] * (1 / splits[2][2])) + canvas_y,
+          'y': (splits[2][1] * (1 / splits[2][2])) + canvas_properties['height-half'],
         },
         {
-          'x': canvas_x,
-          'y': canvas_y,
+          'x': canvas_properties['width-half'],
+          'y': canvas_properties['height-half'],
         },
         {
           'x': precalc,
-          'y': (splits[3][1] * (1 / splits[3][2])) + canvas_y,
+          'y': (splits[3][1] * (1 / splits[3][2])) + canvas_properties['height-half'],
         },
       ],
     });
@@ -161,21 +161,21 @@ function logic(){
     // Get player movement.
     var player_dx = 0;
     if(core_keys[65]['state']){
-        player_dx += canvas_x / 20;
+        player_dx += canvas_properties['width-half'] / 20;
     }
     if(core_keys[68]['state']){
-        player_dx -= canvas_x / 20;
+        player_dx -= canvas_properties['width-half'] / 20;
     }
 
     // Update player position.
     player_position += player_dx;
 
     // Make sure player stays in bounds.
-    if(player_position > canvas_x / 1.5){
-        player_position = canvas_x / 1.5;
+    if(player_position > canvas_properties['width-half'] / 1.5){
+        player_position = canvas_properties['width-half'] / 1.5;
 
-    }else if(player_position < -canvas_x / 1.5){
-        player_position = -canvas_x / 1.5;
+    }else if(player_position < -canvas_properties['width-half'] / 1.5){
+        player_position = -canvas_properties['width-half'] / 1.5;
     }
 
     // Move player forward by moving splits closer.
