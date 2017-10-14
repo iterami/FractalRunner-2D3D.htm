@@ -161,21 +161,21 @@ function logic(){
     // Get player movement.
     var player_dx = 0;
     if(core_keys[65]['state']){
-        player_dx += canvas_properties['width-half'] / 20;
+        player_dx += player_speed;
     }
     if(core_keys[68]['state']){
-        player_dx -= canvas_properties['width-half'] / 20;
+        player_dx -= player_speed;
     }
 
     // Update player position.
     player_position += player_dx;
 
     // Make sure player stays in bounds.
-    if(player_position > canvas_properties['width-half'] / 1.5){
-        player_position = canvas_properties['width-half'] / 1.5;
+    if(player_position > player_bounds){
+        player_position = player_bounds;
 
-    }else if(player_position < -canvas_properties['width-half'] / 1.5){
-        player_position = -canvas_properties['width-half'] / 1.5;
+    }else if(player_position < -player_bounds){
+        player_position = -player_bounds;
     }
 
     // Move player forward by moving splits closer.
@@ -248,13 +248,20 @@ function repo_init(){
     canvas_init();
 }
 
+function resize_logic(){
+    player_bounds = canvas_properties['width-half'] / 1.5;
+    player_speed = canvas_properties['width-half'] / 20;
+}
+
 var colors = [
   '#333',
   '#666',
   '#131',
 ];
 var ground = 0;
+var player_bounds = 0;
 var player_position = 0;
+var player_speed = 0;
 var score = 0;
 var split_state = [];
 var splits = [];
