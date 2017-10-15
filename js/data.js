@@ -25,3 +25,16 @@ function load_data(){
       [50, 50, 25],
     ];
 }
+
+var colors = [
+  '#333',
+  '#666',
+  '#131',
+];
+var ground = 0;
+var player_bounds = 0;
+var player_position = 0;
+var player_speed = 0;
+var score = 0;
+var split_state = [];
+var splits = [];

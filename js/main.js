@@ -252,16 +252,3 @@ function resize_logic(){
     player_bounds = canvas_properties['width-half'] / 1.5;
     player_speed = canvas_properties['width-half'] / 20;
 }
-
-var colors = [
-  '#333',
-  '#666',
-  '#131',
-];
-var ground = 0;
-var player_bounds = 0;
-var player_position = 0;
-var player_speed = 0;
-var score = 0;
-var split_state = [];
-var splits = [];
