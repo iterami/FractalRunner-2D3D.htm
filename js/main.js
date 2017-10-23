@@ -211,6 +211,20 @@ function logic(){
 
 function repo_init(){
     core_repo_init({
+      'globals': {
+        'colors': [
+          '#333',
+          '#666',
+          '#131',
+        ],
+        'ground': 0,
+        'player_bounds': 0,
+        'player_position': 0,
+        'player_speed': 0,
+        'score': 0,
+        'split_state': [],
+        'splits': [],
+      },
       'info': '<input id=start type=button value="Start New Run"> Best: <span id=score></span>',
       'info-events': {
         'start': {
