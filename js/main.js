@@ -211,6 +211,15 @@ function logic(){
 
 function repo_init(){
     core_repo_init({
+      'events': {
+        'start': {
+          'onclick': function(){
+              canvas_setmode({
+                'newgame': true,
+              });
+          },
+        },
+      },
       'globals': {
         'colors': [
           '#333',
@@ -226,15 +235,6 @@ function repo_init(){
         'splits': [],
       },
       'info': '<input id=start type=button value="Start New Run"> Best: <span id=score></span>',
-      'info-events': {
-        'start': {
-          'todo': function(){
-              canvas_setmode({
-                'newgame': true,
-              });
-          },
-        },
-      },
       'keybinds': {
         65: {},
         68: {},
