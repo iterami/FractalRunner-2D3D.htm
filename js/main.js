@@ -203,7 +203,6 @@ function logic(){
 
     core_ui_update({
       'ids': {
-        'best': core_storage_data['score'],
         'score': score,
       },
     });
@@ -234,30 +233,21 @@ function repo_init(){
         'split_state': [],
         'splits': [],
       },
-      'info': '<input id=start type=button value="Start New Run"> Best: <span id=score></span>',
+      'info': '<input id=start type=button value="Start New Run">',
       'keybinds': {
         65: {},
         68: {},
         72: {
-          'todo': function(){
-              core_storage_save({
-                'bests': true,
-              });
-              canvas_setmode();
-          },
+          'todo': canvas_setmode,
         },
       },
       'menu': true,
       'storage': {
         'level': 0,
-        'score': {
-          'default': 0,
-          'type': 1,
-        },
       },
       'storage-menu': '<table><tr><td><select id=level><option value=0>0 - Walled Corridor</option><option value=1>1 - Cling to the Ground</option></select><td>Level</table>',
       'title': 'FractalRunner-2D3D.htm',
-      'ui': 'Best: <span id=ui-best></span><br>Score: <span id=ui-score></span>',
+      'ui': 'Score: <span id=ui-score></span>',
     });
     canvas_init();
 }
