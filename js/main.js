@@ -160,10 +160,10 @@ function draw_logic(){
 function logic(){
     // Get player movement.
     var player_dx = 0;
-    if(core_keys[65]['state']){
+    if(core_keys[core_storage_data['move-←']]['state']){
         player_dx += player_speed;
     }
-    if(core_keys[68]['state']){
+    if(core_keys[core_storage_data['move-→']]['state']){
         player_dx -= player_speed;
     }
 
@@ -235,8 +235,6 @@ function repo_init(){
       },
       'info': '<input id=start type=button value="Start New Run">',
       'keybinds': {
-        65: {},
-        68: {},
         72: {
           'todo': canvas_setmode,
         },
