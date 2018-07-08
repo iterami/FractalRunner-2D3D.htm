@@ -23,7 +23,7 @@ function draw_logic(){
     });
 
     // Precalculate left wall split position.
-    var precalc = splits[0][0] * (1 / splits[0][2]) + canvas_properties['width-half'];
+    let precalc = splits[0][0] * (1 / splits[0][2]) + canvas_properties['width-half'];
 
     // Draw left wall extra bit.
     if(player_position > 0){
@@ -159,7 +159,7 @@ function draw_logic(){
 
 function logic(){
     // Get player movement.
-    var player_dx = 0;
+    let player_dx = 0;
     if(core_keys[core_storage_data['move-←']]['state']){
         player_dx += player_speed;
     }
@@ -179,7 +179,7 @@ function logic(){
     }
 
     // Move player forward by moving splits closer.
-    for(var id in splits){
+    for(let id in splits){
         splits[id][2] -= .05;
 
         // If splits reach player, reset splits.
