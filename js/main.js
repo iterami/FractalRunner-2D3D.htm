@@ -245,7 +245,7 @@ function repo_init(){
       },
       'storage-menu': '<table><tr><td><select id=level><option value=0>0 - Walled Corridor</option><option value=1>1 - Cling to the Ground</option></select><td>Level</table>',
       'title': 'FractalRunner-2D3D.htm',
-      'ui': 'Score: <span id=ui-score></span>',
+      'ui': 'Score: <span id=score></span>',
     });
     canvas_init();
 }
