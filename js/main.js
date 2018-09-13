@@ -233,7 +233,7 @@ function repo_init(){
         'split_state': [],
         'splits': [],
       },
-      'info': '<input id=start type=button value="Start New Run">',
+      'info': '<select id=level><option value=0>0 - Walled Corridor</option><option value=1>1 - Cling to the Ground</option></select><input id=start type=button value="Start New Run">',
       'keybinds': {
         72: {
           'todo': canvas_setmode,
@@ -243,7 +243,6 @@ function repo_init(){
       'storage': {
         'level': 0,
       },
-      'storage-menu': '<table><tr><td><select id=level><option value=0>0 - Walled Corridor</option><option value=1>1 - Cling to the Ground</option></select><td>Level</table>',
       'title': 'FractalRunner-2D3D.htm',
       'ui': 'Score: <span id=score></span>',
     });
