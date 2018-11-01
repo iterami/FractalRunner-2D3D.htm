@@ -199,6 +199,9 @@ function logic(){
         split_state[0] = !split_state[0];
 
         score += 1;
+        core_audio_start({
+          'id': 'boop',
+        });
     }
 
     core_ui_update({
@@ -210,6 +213,11 @@ function logic(){
 
 function repo_init(){
     core_repo_init({
+      'audios': {
+        'boop': {
+          'duration': .1,
+        },
+      },
       'events': {
         'start': {
           'onclick': function(){
