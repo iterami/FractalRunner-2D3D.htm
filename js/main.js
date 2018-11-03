@@ -239,7 +239,12 @@ function repo_init(){
         'player_speed': 0,
         'score': 0,
         'split_state': [],
-        'splits': [],
+        'splits': [
+          [-50, -50, 25],
+          [-50, 50, 25],
+          [50, -50, 25],
+          [50, 50, 25],
+        ],
       },
       'info': '<select id=level><option value=0>0 - Walled Corridor</option><option value=1>1 - Cling to the Ground</option></select><input id=start type=button value="Start New Run">',
       'keybinds': {
@@ -255,6 +260,8 @@ function repo_init(){
       'ui': 'Score: <span id=score></span>',
     });
     canvas_init();
+
+    ground = canvas_properties['height-half'];
 }
 
 function resize_logic(){
