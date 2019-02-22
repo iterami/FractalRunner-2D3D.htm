@@ -202,13 +202,13 @@ function logic(){
         core_audio_start({
           'id': 'boop',
         });
-    }
 
-    core_ui_update({
-      'ids': {
-        'score': score,
-      },
-    });
+        core_ui_update({
+          'ids': {
+            'score': score,
+          },
+        });
+    }
 }
 
 function repo_init(){
