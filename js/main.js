@@ -199,7 +199,7 @@ function logic(){
         split_state[0] = !split_state[0];
 
         score += 1;
-        core_audio_start({
+        audio_start({
           'id': 'boop',
         });
 
@@ -213,11 +213,6 @@ function logic(){
 
 function repo_init(){
     core_repo_init({
-      'audios': {
-        'boop': {
-          'duration': .1,
-        },
-      },
       'events': {
         'start': {
           'onclick': function(){
@@ -258,6 +253,13 @@ function repo_init(){
       },
       'title': 'FractalRunner-2D3D.htm',
       'ui': 'Score: <span id=score></span>',
+    });
+    audio_create({
+      'audios': {
+        'boop': {
+          'duration': .1,
+        },
+      },
     });
     canvas_init();
 
