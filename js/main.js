@@ -158,7 +158,6 @@ function draw_logic(){
 }
 
 function logic(){
-    // Get player movement.
     let player_dx = 0;
     if(core_keys[core_storage_data['move-←']]['state']){
         player_dx += player_speed;
@@ -167,10 +166,8 @@ function logic(){
         player_dx -= player_speed;
     }
 
-    // Update player position.
     player_position += player_dx;
 
-    // Make sure player stays in bounds.
     if(player_position > player_bounds){
         player_position = player_bounds;
 
@@ -178,7 +175,6 @@ function logic(){
         player_position = -player_bounds;
     }
 
-    // Move player forward by moving splits closer.
     for(let id in splits){
         splits[id][2] -= .05;
 
@@ -189,9 +185,7 @@ function logic(){
         }
     }
 
-    // If it is time to reset split.
     if(split_state[1]){
-        // Reset player position to start of new section.
         player_position = 0;
 
         // Switch split.
