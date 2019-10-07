@@ -209,11 +209,7 @@ function repo_init(){
     core_repo_init({
       'events': {
         'start': {
-          'onclick': function(){
-              canvas_setmode({
-                'newgame': true,
-              });
-          },
+          'onclick': core_repo_reset,
         },
       },
       'globals': {
@@ -236,12 +232,8 @@ function repo_init(){
         ],
       },
       'info': '<select id=level><option value=0>0 - Walled Corridor</option><option value=1>1 - Cling to the Ground</option></select><input id=start type=button value="Start New Run">',
-      'keybinds': {
-        72: {
-          'todo': canvas_setmode,
-        },
-      },
       'menu': true,
+      'reset': canvas_setmode,
       'storage': {
         'level': 0,
       },
