@@ -175,7 +175,7 @@ function logic(){
         player_position = -player_bounds;
     }
 
-    for(let id in splits){
+    for(const id in splits){
         splits[id][2] -= .05;
 
         // If splits reach player, reset splits.
