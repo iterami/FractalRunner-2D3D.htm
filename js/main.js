@@ -1,6 +1,6 @@
 'use strict';
 
-function draw_logic(){
+function repo_drawlogic(){
     // Draw ground grass.
     canvas_setproperties({
       'properties': {
@@ -157,7 +157,7 @@ function draw_logic(){
     });
 }
 
-function logic(){
+function repo_logic(){
     let player_dx = 0;
     if(core_keys[core_storage_data['move-←']]['state']){
         player_dx += player_speed;
@@ -259,7 +259,7 @@ function repo_init(){
     ground = canvas_properties['height-half'];
 }
 
-function resize_logic(){
+function repo_resizelogic(){
     player_bounds = canvas_properties['width-half'] / 1.5;
     player_speed = canvas_properties['width-half'] / 20;
 }
