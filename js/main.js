@@ -1,7 +1,6 @@
 'use strict';
 
 function repo_drawlogic(){
-    // Draw ground grass.
     canvas_setproperties({
       'properties': {
         'fillStyle': colors[2],
@@ -22,10 +21,7 @@ function repo_drawlogic(){
       },
     });
 
-    // Precalculate left wall split position.
     let precalc = splits[0][0] * (1 / splits[0][2]) + canvas_properties['width-half'];
-
-    // Draw left wall extra bit.
     if(player_position > 0){
         canvas_buffer.fillRect(
           0,
@@ -35,7 +31,6 @@ function repo_drawlogic(){
         );
     }
 
-    // Draw left wall closer than split.
     if(player_position < precalc){
         canvas_draw_path({
           'vertices': [
@@ -60,7 +55,6 @@ function repo_drawlogic(){
         });
     }
 
-    // Draw left wall further than split.
     canvas_draw_path({
       'properties': {
         'fillStyle': split_state[0]
@@ -92,10 +86,7 @@ function repo_drawlogic(){
       },
     });
 
-    // Precalculate right wall split position.
     precalc = splits[2][0] * (1 / splits[2][2]) + canvas_properties['width-half'];
-
-    // Draw right wall extra bit.
     if(player_position < 0){
         canvas_buffer.fillRect(
           canvas_properties['width'] + player_position < precalc
@@ -107,7 +98,6 @@ function repo_drawlogic(){
         );
     }
 
-    // Draw right wall closer than split.
     if(canvas_properties['width'] + player_position > precalc){
         canvas_draw_path({
           'vertices': [
@@ -132,7 +122,6 @@ function repo_drawlogic(){
         });
     }
 
-    // Draw right wall further than split.
     canvas_draw_path({
       'properties': {
         'fillStyle': split_state[0]
@@ -178,7 +167,6 @@ function repo_logic(){
     for(const id in splits){
         splits[id][2] -= .05;
 
-        // If splits reach player, reset splits.
         if(splits[id][2] < 0){
             splits[id][2] = 25;
             split_state[1] = true;
@@ -188,7 +176,6 @@ function repo_logic(){
     if(split_state[1]){
         player_position = 0;
 
-        // Switch split.
         split_state[1] = false;
         split_state[0] = !split_state[0];
 
