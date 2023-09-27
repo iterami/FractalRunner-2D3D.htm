@@ -26,7 +26,7 @@ function repo_drawlogic(){
         'fillStyle': colors[2],
       },
     });
-    canvas_buffer.fillRect(
+    canvas.fillRect(
       0,
       ground,
       canvas_properties['width'],
@@ -43,7 +43,7 @@ function repo_drawlogic(){
 
     let precalc = splits[0][0] * (1 / splits[0][2]) + canvas_properties['width-half'];
     if(player_position > 0){
-        canvas_buffer.fillRect(
+        canvas.fillRect(
           0,
           0,
           1 + (player_position >= precalc ? precalc : player_position),
@@ -108,7 +108,7 @@ function repo_drawlogic(){
 
     precalc = splits[2][0] * (1 / splits[2][2]) + canvas_properties['width-half'];
     if(player_position < 0){
-        canvas_buffer.fillRect(
+        canvas.fillRect(
           canvas_properties['width'] + player_position < precalc
             ? precalc - 1
             : canvas_properties['width'] + player_position - 1,
