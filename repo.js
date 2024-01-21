@@ -245,7 +245,7 @@ function repo_init(){
           [50, 50, 25],
         ],
       },
-      'info': '<select id=level><option value=0>0 - Walled Corridor<option value=1>1 - Cling to the Ground</select><input id=start type=button value="Start New Run">',
+      'info': '<select id=level><option value=0>0 - Walled Corridor<option value=1>1 - Cling to the Ground</select><button id=start type=button>Start New Run</button>',
       'menu': true,
       'reset': canvas_setmode,
       'storage': {
