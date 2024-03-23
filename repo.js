@@ -22,9 +22,7 @@ function load_data(){
 
 function repo_drawlogic(){
     canvas_setproperties({
-      'properties': {
-        'fillStyle': colors[2],
-      },
+      'fillStyle': colors[2],
     });
     canvas.fillRect(
       0,
@@ -34,11 +32,9 @@ function repo_drawlogic(){
     );
 
     canvas_setproperties({
-      'properties': {
-        'fillStyle': split_state[0]
-          ? colors[0]
-          : colors[1],
-      },
+      'fillStyle': split_state[0]
+        ? colors[0]
+        : colors[1],
     });
 
     let precalc = splits[0][0] * (1 / splits[0][2]) + canvas_properties['width-half'];
@@ -99,11 +95,9 @@ function repo_drawlogic(){
     });
 
     canvas_setproperties({
-      'properties': {
-        'fillStyle': split_state[0]
-          ? colors[1]
-          : colors[0],
-      },
+      'fillStyle': split_state[0]
+        ? colors[1]
+        : colors[0],
     });
 
     precalc = splits[2][0] * (1 / splits[2][2]) + canvas_properties['width-half'];
