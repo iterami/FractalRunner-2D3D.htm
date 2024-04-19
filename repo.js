@@ -247,11 +247,10 @@ function repo_init(){
       'ui': 'Score: <span id=score></span>',
     });
     canvas_init();
-
-    ground = canvas_properties['height-half'];
 }
 
 function repo_resizelogic(){
+    ground = canvas_properties['height-half'] * (1 - core_storage_data['level']);
     player_bounds = canvas_properties['width-half'] / 1.5;
     player_speed = canvas_properties['width-half'] / 20;
 }
