@@ -50,23 +50,26 @@ function repo_drawlogic(){
     if(player_position < precalc){
         canvas_draw_path({
           'vertices': [
-            {
-              'type': 'moveTo',
-              'x': player_position,
-              'y': canvas_properties['height-half'] - canvas_properties['width-half'],
-            },
-            {
-              'x': precalc,
-              'y': (splits[0][1] * (1 / splits[0][2])) + canvas_properties['height-half'],
-            },
-            {
-              'x': precalc,
-              'y': (splits[1][1] * (1 / splits[1][2])) + canvas_properties['height-half'],
-            },
-            {
-              'x': player_position,
-              'y': canvas_properties['height-half'] + canvas_properties['width-half'],
-            },
+            [
+              'moveTo',
+              player_position,
+              canvas_properties['height-half'] - canvas_properties['width-half'],
+            ],
+            [
+              'lineTo',
+              precalc,
+              (splits[0][1] * (1 / splits[0][2])) + canvas_properties['height-half'],
+            ],
+            [
+              'lineTo',
+              precalc,
+              (splits[1][1] * (1 / splits[1][2])) + canvas_properties['height-half'],
+            ],
+            [
+              'lineTo',
+              player_position,
+              canvas_properties['height-half'] + canvas_properties['width-half'],
+            ],
           ],
         });
     }
@@ -78,19 +81,21 @@ function repo_drawlogic(){
           : colors[0],
       },
       'vertices': [
-        {
-          'type': 'moveTo',
-          'x': precalc,
-          'y': (splits[0][1] * (1 / splits[0][2])) + canvas_properties['height-half'],
-        },
-        {
-          'x': canvas_properties['width-half'],
-          'y': canvas_properties['height-half'],
-        },
-        {
-          'x': precalc,
-          'y': (splits[1][1] * (1 / splits[1][2])) + canvas_properties['height-half'],
-        },
+        [
+          'moveTo',
+          precalc,
+          (splits[0][1] * (1 / splits[0][2])) + canvas_properties['height-half'],
+        ],
+        [
+          'lineTo',
+          canvas_properties['width-half'],
+          canvas_properties['height-half'],
+        ],
+        [
+          'lineTo',
+          precalc,
+          (splits[1][1] * (1 / splits[1][2])) + canvas_properties['height-half'],
+        ],
       ],
     });
 
@@ -115,23 +120,26 @@ function repo_drawlogic(){
     if(canvas_properties['width'] + player_position > precalc){
         canvas_draw_path({
           'vertices': [
-            {
-              'type': 'moveTo',
-              'x': canvas_properties['width'] + player_position,
-              'y': canvas_properties['height-half'] - canvas_properties['width-half'],
-            },
-            {
-              'x': precalc,
-              'y': (splits[2][1] * (1 / splits[2][2])) + canvas_properties['height-half'],
-            },
-            {
-              'x': precalc,
-              'y': (splits[3][1] * (1 / splits[3][2])) + canvas_properties['height-half'],
-            },
-            {
-              'x': canvas_properties['width'] + player_position,
-              'y': canvas_properties['height-half'] + canvas_properties['width-half'],
-            },
+            [
+              'moveTo',
+              canvas_properties['width'] + player_position,
+              canvas_properties['height-half'] - canvas_properties['width-half'],
+            ],
+            [
+              'lineTo',
+              precalc,
+              (splits[2][1] * (1 / splits[2][2])) + canvas_properties['height-half'],
+            ],
+            [
+              'lineTo',
+              precalc,
+              (splits[3][1] * (1 / splits[3][2])) + canvas_properties['height-half'],
+            ],
+            [
+              'lineTo',
+              canvas_properties['width'] + player_position,
+              canvas_properties['height-half'] + canvas_properties['width-half'],
+            ],
           ],
         });
     }
@@ -143,19 +151,21 @@ function repo_drawlogic(){
           : colors[1],
       },
       'vertices': [
-        {
-          'type': 'moveTo',
-          'x': precalc,
-          'y': (splits[2][1] * (1 / splits[2][2])) + canvas_properties['height-half'],
-        },
-        {
-          'x': canvas_properties['width-half'],
-          'y': canvas_properties['height-half'],
-        },
-        {
-          'x': precalc,
-          'y': (splits[3][1] * (1 / splits[3][2])) + canvas_properties['height-half'],
-        },
+        [
+          'moveTo',
+          precalc,
+          (splits[2][1] * (1 / splits[2][2])) + canvas_properties['height-half'],
+        ],
+        [
+          'lineTo',
+          canvas_properties['width-half'],
+          canvas_properties['height-half'],
+        ],
+        [
+          'lineTo',
+          precalc,
+          (splits[3][1] * (1 / splits[3][2])) + canvas_properties['height-half'],
+        ],
       ],
     });
 }
