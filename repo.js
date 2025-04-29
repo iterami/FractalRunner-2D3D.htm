@@ -217,7 +217,7 @@ function repo_logic(){
 function repo_escape(){
     if(split_state.length === 0
       && !core_menu_open){
-        canvas_setmode();
+        start();
     }
 }
 
@@ -225,7 +225,7 @@ function repo_init(){
     core_repo_init({
       'events': {
         'start': {
-          'onclick': canvas_setmode,
+          'onclick': start,
         },
       },
       'globals': {
@@ -263,4 +263,12 @@ function repo_resizelogic(){
     ground = canvas_properties['height-half'] * (1 - core_storage_data['level']);
     player_bounds = canvas_properties['width-half'] / 1.5;
     player_speed = canvas_properties['width-half'] / 20;
+}
+
+function start(){
+    if(score > 0
+      && !globalThis.confirm('Start new run?')){
+        return;
+    }
+    canvas_setmode();
 }
