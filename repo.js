@@ -217,7 +217,7 @@ function repo_logic(){
 function repo_escape(){
     if(split_state.length === 0
       && !core_menu_open){
-        core_repo_reset();
+        canvas_setmode();
     }
 }
 
@@ -225,7 +225,7 @@ function repo_init(){
     core_repo_init({
       'events': {
         'start': {
-          'onclick': core_repo_reset,
+          'onclick': canvas_setmode,
         },
       },
       'globals': {
@@ -249,10 +249,10 @@ function repo_init(){
       },
       'info': '<select id=level><option value=0>0 - Walled Corridor<option value=1>1 - Cling to the Ground</select><button id=start type=button>Start New Run</button>',
       'menu': true,
-      'reset': canvas_setmode,
       'storage': {
         'level': 0,
       },
+      'storage-controls': true,
       'title': 'FractalRunner-2D3D.htm',
       'ui': 'Score: <span id=score></span>',
     });
