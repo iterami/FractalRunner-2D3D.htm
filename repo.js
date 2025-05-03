@@ -175,10 +175,11 @@ function repo_logic(){
     let move_right = false;
     if(core_mobile){
         if(core_mouse['down-0']){
-            if(core_mouse['movement-x'] > 0){
+            const x = core_mouse['x'] - canvas_properties['width-half'];
+            if(x > 0){
                 move_right = true;
 
-            }else if(core_mouse['movement-x'] < -0){
+            }else if(x < 0){
                 move_left = true;
             }
         }
