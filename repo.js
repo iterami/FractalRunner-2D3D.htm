@@ -174,8 +174,8 @@ function repo_logic(){
     let move_left = false;
     let move_right = false;
     if(core_mobile){
-        if(core_mouse['down-0']){
-            const x = core_mouse['x'] - canvas_properties['width-half'];
+        if(core_pointer['down-0']){
+            const x = core_pointer['x'] - canvas_properties['width-half'];
             if(x > 0){
                 move_right = true;
 
@@ -267,7 +267,7 @@ function repo_init(){
       },
       'info': '<select id=level><option value=0>0 - Walled Corridor<option value=1>1 - Cling to the Ground</select><button id=start type=button>Start New Run</button>',
       'menu': true,
-      'mousebinds': core_mobile
+      'pointerbinds': core_mobile
         ? {}
         : void 0,
       'storage': {
