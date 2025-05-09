@@ -171,22 +171,15 @@ function repo_drawlogic(){
 }
 
 function repo_logic(){
-    let move_left = false;
-    let move_right = false;
-    if(core_mobile){
-        if(core_pointer['down-0']){
-            const x = core_pointer['x'] - canvas_properties['width-half'];
-            if(x > 0){
-                move_right = true;
+    let move_left = core_keys[core_storage_data['move-←']]['state'];
+    let move_right = core_keys[core_storage_data['move-→']]['state'];
+    if(core_pointer['down-0']){
+        if(core_pointer['x'] > canvas_properties['width-half']){
+            move_right = true;
 
-            }else if(x < 0){
-                move_left = true;
-            }
+        }else{
+            move_left = true;
         }
-
-    }else{
-        move_left = core_keys[core_storage_data['move-←']]['state'];
-        move_right = core_keys[core_storage_data['move-→']]['state'];
     }
 
     let player_dx = 0;
@@ -267,9 +260,7 @@ function repo_init(){
       },
       'info': '<select id=level><option value=0>0 - Walled Corridor<option value=1>1 - Cling to the Ground</select><button id=start type=button>Start New Run</button>',
       'menu': true,
-      'pointerbinds': core_mobile
-        ? {}
-        : void 0,
+      'pointerbinds': {},
       'storage': {
         'level': 0,
       },
