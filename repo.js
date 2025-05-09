@@ -31,141 +31,59 @@ function repo_drawlogic(){
       canvas_properties['height-half']
     );
 
+    const left = splits[0][0] * (1 / splits[0][2]) + canvas_properties['width-half'];
+    const right = splits[2][0] * (1 / splits[2][2]) + canvas_properties['width-half'];
+
     canvas_setproperties({
       'fillStyle': split_state[0]
         ? colors[0]
         : colors[1],
     });
-
-    let precalc = splits[0][0] * (1 / splits[0][2]) + canvas_properties['width-half'];
-    if(player_position < precalc){
-        canvas_draw_path({
-          'vertices': [
-            [
-              'moveTo',
-              player_position,
-              Math.min(
-                canvas_properties['height-half'] - canvas_properties['width-half'],
-                0
-              )
-            ],
-            [
-              'lineTo',
-              precalc,
-              (splits[0][1] * (1 / splits[0][2])) + canvas_properties['height-half'],
-            ],
-            [
-              'lineTo',
-              precalc,
-              (splits[1][1] * (1 / splits[1][2])) + canvas_properties['height-half'],
-            ],
-            [
-              'lineTo',
-              player_position,
-              Math.max(
-                canvas_properties['height-half'] + canvas_properties['width-half'],
-                canvas_properties['height']
-              )
-            ],
-            [
-              'lineTo',
-              0,
-              canvas_properties['height'],
-            ],
-            [
-              'lineTo',
-              0,
-              0,
-            ],
-          ],
-        });
-    }
-
     canvas_draw_path({
-      'properties': {
-        'fillStyle': split_state[0]
-          ? colors[1]
-          : colors[0],
-      },
       'vertices': [
         [
           'moveTo',
-          precalc,
+          player_position,
+          Math.min(
+            canvas_properties['height-half'] - canvas_properties['width-half'],
+            0
+          )
+        ],
+        [
+          'lineTo',
+          left,
           (splits[0][1] * (1 / splits[0][2])) + canvas_properties['height-half'],
         ],
         [
           'lineTo',
-          canvas_properties['width-half'],
-          canvas_properties['height-half'],
+          left,
+          (splits[1][1] * (1 / splits[1][2])) + canvas_properties['height-half'],
         ],
         [
           'lineTo',
-          precalc,
-          (splits[1][1] * (1 / splits[1][2])) + canvas_properties['height-half'],
+          player_position,
+          Math.max(
+            canvas_properties['height-half'] + canvas_properties['width-half'],
+            canvas_properties['height']
+          )
+        ],
+        [
+          'lineTo',
+          0,
+          canvas_properties['height'],
+        ],
+        [
+          'lineTo',
+          0,
+          0,
         ],
       ],
     });
-
-    canvas_setproperties({
-      'fillStyle': split_state[0]
-        ? colors[1]
-        : colors[0],
-    });
-
-    precalc = splits[2][0] * (1 / splits[2][2]) + canvas_properties['width-half'];
-    if(canvas_properties['width'] + player_position > precalc){
-        canvas_draw_path({
-          'vertices': [
-            [
-              'moveTo',
-              canvas_properties['width'] + player_position,
-              Math.min(
-                canvas_properties['height-half'] - canvas_properties['width-half'],
-                0
-              )
-            ],
-            [
-              'lineTo',
-              precalc,
-              (splits[2][1] * (1 / splits[2][2])) + canvas_properties['height-half'],
-            ],
-            [
-              'lineTo',
-              precalc,
-              (splits[3][1] * (1 / splits[3][2])) + canvas_properties['height-half'],
-            ],
-            [
-              'lineTo',
-              canvas_properties['width'] + player_position,
-              Math.max(
-                canvas_properties['height-half'] + canvas_properties['width-half'],
-                canvas_properties['height']
-              )
-            ],
-            [
-              'lineTo',
-              canvas_properties['width'],
-              canvas_properties['height'],
-            ],
-            [
-              'lineTo',
-              canvas_properties['width'],
-              0,
-            ],
-          ],
-        });
-    }
-
     canvas_draw_path({
-      'properties': {
-        'fillStyle': split_state[0]
-          ? colors[0]
-          : colors[1],
-      },
       'vertices': [
         [
           'moveTo',
-          precalc,
+          right,
           (splits[2][1] * (1 / splits[2][2])) + canvas_properties['height-half'],
         ],
         [
@@ -175,8 +93,73 @@ function repo_drawlogic(){
         ],
         [
           'lineTo',
-          precalc,
+          right,
           (splits[3][1] * (1 / splits[3][2])) + canvas_properties['height-half'],
+        ],
+      ],
+    });
+
+    canvas_setproperties({
+      'fillStyle': split_state[0]
+        ? colors[1]
+        : colors[0],
+    });
+    canvas_draw_path({
+      'vertices': [
+        [
+          'moveTo',
+          canvas_properties['width'] + player_position,
+          Math.min(
+            canvas_properties['height-half'] - canvas_properties['width-half'],
+            0
+          )
+        ],
+        [
+          'lineTo',
+          right,
+          (splits[2][1] * (1 / splits[2][2])) + canvas_properties['height-half'],
+        ],
+        [
+          'lineTo',
+          right,
+          (splits[3][1] * (1 / splits[3][2])) + canvas_properties['height-half'],
+        ],
+        [
+          'lineTo',
+          canvas_properties['width'] + player_position,
+          Math.max(
+            canvas_properties['height-half'] + canvas_properties['width-half'],
+            canvas_properties['height']
+          )
+        ],
+        [
+          'lineTo',
+          canvas_properties['width'],
+          canvas_properties['height'],
+        ],
+        [
+          'lineTo',
+          canvas_properties['width'],
+          0,
+        ],
+      ],
+    });
+    canvas_draw_path({
+      'vertices': [
+        [
+          'moveTo',
+          left,
+          (splits[0][1] * (1 / splits[0][2])) + canvas_properties['height-half'],
+        ],
+        [
+          'lineTo',
+          canvas_properties['width-half'],
+          canvas_properties['height-half'],
+        ],
+        [
+          'lineTo',
+          left,
+          (splits[1][1] * (1 / splits[1][2])) + canvas_properties['height-half'],
         ],
       ],
     });
