@@ -38,22 +38,16 @@ function repo_drawlogic(){
     });
 
     let precalc = splits[0][0] * (1 / splits[0][2]) + canvas_properties['width-half'];
-    if(player_position > 0){
-        canvas.fillRect(
-          0,
-          0,
-          1 + (player_position >= precalc ? precalc : player_position),
-          canvas_properties['height']
-        );
-    }
-
     if(player_position < precalc){
         canvas_draw_path({
           'vertices': [
             [
               'moveTo',
               player_position,
-              canvas_properties['height-half'] - canvas_properties['width-half'],
+              Math.min(
+                canvas_properties['height-half'] - canvas_properties['width-half'],
+                0
+              )
             ],
             [
               'lineTo',
@@ -68,7 +62,20 @@ function repo_drawlogic(){
             [
               'lineTo',
               player_position,
-              canvas_properties['height-half'] + canvas_properties['width-half'],
+              Math.max(
+                canvas_properties['height-half'] + canvas_properties['width-half'],
+                canvas_properties['height']
+              )
+            ],
+            [
+              'lineTo',
+              0,
+              canvas_properties['height'],
+            ],
+            [
+              'lineTo',
+              0,
+              0,
             ],
           ],
         });
@@ -106,24 +113,16 @@ function repo_drawlogic(){
     });
 
     precalc = splits[2][0] * (1 / splits[2][2]) + canvas_properties['width-half'];
-    if(player_position < 0){
-        canvas.fillRect(
-          canvas_properties['width'] + player_position < precalc
-            ? precalc - 1
-            : canvas_properties['width'] + player_position - 1,
-          0,
-          -player_position,
-          canvas_properties['height']
-        );
-    }
-
     if(canvas_properties['width'] + player_position > precalc){
         canvas_draw_path({
           'vertices': [
             [
               'moveTo',
               canvas_properties['width'] + player_position,
-              canvas_properties['height-half'] - canvas_properties['width-half'],
+              Math.min(
+                canvas_properties['height-half'] - canvas_properties['width-half'],
+                0
+              )
             ],
             [
               'lineTo',
@@ -138,7 +137,20 @@ function repo_drawlogic(){
             [
               'lineTo',
               canvas_properties['width'] + player_position,
-              canvas_properties['height-half'] + canvas_properties['width-half'],
+              Math.max(
+                canvas_properties['height-half'] + canvas_properties['width-half'],
+                canvas_properties['height']
+              )
+            ],
+            [
+              'lineTo',
+              canvas_properties['width'],
+              canvas_properties['height'],
+            ],
+            [
+              'lineTo',
+              canvas_properties['width'],
+              0,
             ],
           ],
         });
