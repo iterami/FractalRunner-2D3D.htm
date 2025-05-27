@@ -215,7 +215,9 @@ function repo_init(){
       'title': 'FractalRunner-2D3D.htm',
       'ui': 'Score: <span id=score></span>',
     });
-    canvas_init();
+    canvas_init({
+      'cursor': 'pointer',
+    });
 }
 
 function repo_logic(){
