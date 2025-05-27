@@ -165,6 +165,59 @@ function repo_drawlogic(){
     });
 }
 
+function repo_escape(){
+    if(split_state.length === 0
+      && !core_menu_open){
+        start();
+    }
+}
+
+function repo_init(){
+    core_repo_init({
+      'beforeunload': {
+        'todo': function(event){
+            if(score > 0){
+                event.preventDefault();
+            }
+        },
+      },
+      'events': {
+        'start': {
+          'onclick': start,
+        },
+      },
+      'globals': {
+        'colors': [
+          '#333',
+          '#666',
+          '#131',
+        ],
+        'ground': 0,
+        'player_bounds': 0,
+        'player_position': 0,
+        'player_speed': 0,
+        'score': 0,
+        'split_state': [],
+        'splits': [
+          [-50, -50, 25],
+          [-50, 50, 25],
+          [50, -50, 25],
+          [50, 50, 25],
+        ],
+      },
+      'info': '<select id=level><option value=0>0 - Walled Corridor<option value=1>1 - Cling to the Ground</select><button id=start type=button>Start New Run</button>',
+      'menu': true,
+      'pointerbinds': {},
+      'storage': {
+        'level': 0,
+      },
+      'storage-controls': true,
+      'title': 'FractalRunner-2D3D.htm',
+      'ui': 'Score: <span id=score></span>',
+    });
+    canvas_init();
+}
+
 function repo_logic(){
     let move_left = core_keys[core_storage_data['move-←']]['state'];
     let move_right = core_keys[core_storage_data['move-→']]['state'];
@@ -218,59 +271,6 @@ function repo_logic(){
           },
         });
     }
-}
-
-function repo_escape(){
-    if(split_state.length === 0
-      && !core_menu_open){
-        start();
-    }
-}
-
-function repo_init(){
-    core_repo_init({
-      'beforeunload': {
-        'todo': function(event){
-            if(score > 0){
-                event.preventDefault();
-            }
-        },
-      },
-      'events': {
-        'start': {
-          'onclick': start,
-        },
-      },
-      'globals': {
-        'colors': [
-          '#333',
-          '#666',
-          '#131',
-        ],
-        'ground': 0,
-        'player_bounds': 0,
-        'player_position': 0,
-        'player_speed': 0,
-        'score': 0,
-        'split_state': [],
-        'splits': [
-          [-50, -50, 25],
-          [-50, 50, 25],
-          [50, -50, 25],
-          [50, 50, 25],
-        ],
-      },
-      'info': '<select id=level><option value=0>0 - Walled Corridor<option value=1>1 - Cling to the Ground</select><button id=start type=button>Start New Run</button>',
-      'menu': true,
-      'pointerbinds': {},
-      'storage': {
-        'level': 0,
-      },
-      'storage-controls': true,
-      'title': 'FractalRunner-2D3D.htm',
-      'ui': 'Score: <span id=score></span>',
-    });
-    canvas_init();
 }
 
 function repo_resizelogic(){
