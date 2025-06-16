@@ -1,7 +1,7 @@
 'use strict';
 
 function load_data(){
-    ground = canvas_properties['height-half'] * (1 - core_storage_data['level']);
+    ground = canvas_properties.height_half * (1 - core_storage_data.level);
     player_position = 0;
     score = 0;
     split_state = [
@@ -27,12 +27,12 @@ function repo_drawlogic(){
     canvas.fillRect(
       0,
       ground,
-      canvas_properties['width'],
-      canvas_properties['height-half']
+      canvas_properties.width,
+      canvas_properties.height_half
     );
 
-    const left = splits[0][0] * (1 / splits[0][2]) + canvas_properties['width-half'];
-    const right = splits[2][0] * (1 / splits[2][2]) + canvas_properties['width-half'];
+    const left = splits[0][0] * (1 / splits[0][2]) + canvas_properties.width_half;
+    const right = splits[2][0] * (1 / splits[2][2]) + canvas_properties.width_half;
 
     canvas_setproperties({
       'fillStyle': split_state[0]
@@ -45,32 +45,32 @@ function repo_drawlogic(){
           'moveTo',
           player_position,
           Math.min(
-            canvas_properties['height-half'] - canvas_properties['width-half'],
+            canvas_properties.height_half - canvas_properties.width_half,
             0
           )
         ],
         [
           'lineTo',
           left,
-          (splits[0][1] * (1 / splits[0][2])) + canvas_properties['height-half'],
+          (splits[0][1] * (1 / splits[0][2])) + canvas_properties.height_half,
         ],
         [
           'lineTo',
           left,
-          (splits[1][1] * (1 / splits[1][2])) + canvas_properties['height-half'],
+          (splits[1][1] * (1 / splits[1][2])) + canvas_properties.height_half,
         ],
         [
           'lineTo',
           player_position,
           Math.max(
-            canvas_properties['height-half'] + canvas_properties['width-half'],
-            canvas_properties['height']
+            canvas_properties.height_half + canvas_properties.width_half,
+            canvas_properties.height
           )
         ],
         [
           'lineTo',
           0,
-          canvas_properties['height'],
+          canvas_properties.height,
         ],
         [
           'lineTo',
@@ -84,17 +84,17 @@ function repo_drawlogic(){
         [
           'moveTo',
           right,
-          (splits[2][1] * (1 / splits[2][2])) + canvas_properties['height-half'],
+          (splits[2][1] * (1 / splits[2][2])) + canvas_properties.height_half,
         ],
         [
           'lineTo',
-          canvas_properties['width-half'],
-          canvas_properties['height-half'],
+          canvas_properties.width_half,
+          canvas_properties.height_half,
         ],
         [
           'lineTo',
           right,
-          (splits[3][1] * (1 / splits[3][2])) + canvas_properties['height-half'],
+          (splits[3][1] * (1 / splits[3][2])) + canvas_properties.height_half,
         ],
       ],
     });
@@ -108,38 +108,38 @@ function repo_drawlogic(){
       'vertices': [
         [
           'moveTo',
-          canvas_properties['width'] + player_position,
+          canvas_properties.width + player_position,
           Math.min(
-            canvas_properties['height-half'] - canvas_properties['width-half'],
+            canvas_properties.height_half - canvas_properties.width_half,
             0
           )
         ],
         [
           'lineTo',
           right,
-          (splits[2][1] * (1 / splits[2][2])) + canvas_properties['height-half'],
+          (splits[2][1] * (1 / splits[2][2])) + canvas_properties.height_half,
         ],
         [
           'lineTo',
           right,
-          (splits[3][1] * (1 / splits[3][2])) + canvas_properties['height-half'],
+          (splits[3][1] * (1 / splits[3][2])) + canvas_properties.height_half,
         ],
         [
           'lineTo',
-          canvas_properties['width'] + player_position,
+          canvas_properties.width + player_position,
           Math.max(
-            canvas_properties['height-half'] + canvas_properties['width-half'],
-            canvas_properties['height']
+            canvas_properties.height_half + canvas_properties.width_half,
+            canvas_properties.height
           )
         ],
         [
           'lineTo',
-          canvas_properties['width'],
-          canvas_properties['height'],
+          canvas_properties.width,
+          canvas_properties.height,
         ],
         [
           'lineTo',
-          canvas_properties['width'],
+          canvas_properties.width,
           0,
         ],
       ],
@@ -149,17 +149,17 @@ function repo_drawlogic(){
         [
           'moveTo',
           left,
-          (splits[0][1] * (1 / splits[0][2])) + canvas_properties['height-half'],
+          (splits[0][1] * (1 / splits[0][2])) + canvas_properties.height_half,
         ],
         [
           'lineTo',
-          canvas_properties['width-half'],
-          canvas_properties['height-half'],
+          canvas_properties.width_half,
+          canvas_properties.height_half,
         ],
         [
           'lineTo',
           left,
-          (splits[1][1] * (1 / splits[1][2])) + canvas_properties['height-half'],
+          (splits[1][1] * (1 / splits[1][2])) + canvas_properties.height_half,
         ],
       ],
     });
@@ -221,10 +221,10 @@ function repo_init(){
 }
 
 function repo_logic(){
-    let move_left = core_keys[core_storage_data['move-←']]['state'];
-    let move_right = core_keys[core_storage_data['move-→']]['state'];
+    let move_left = core_keys[core_storage_data['move-←']].state;
+    let move_right = core_keys[core_storage_data['move-→']].state;
     if(core_pointer['down-0']){
-        if(core_pointer['x'] > canvas_properties['width-half']){
+        if(core_pointer.x > canvas_properties.width_half){
             move_right = true;
 
         }else{
@@ -276,9 +276,9 @@ function repo_logic(){
 }
 
 function repo_resizelogic(){
-    ground = canvas_properties['height-half'] * (1 - core_storage_data['level']);
-    player_bounds = canvas_properties['width-half'] / 1.5;
-    player_speed = canvas_properties['width-half'] / 20;
+    ground = canvas_properties.height_half * (1 - core_storage_data.level);
+    player_bounds = canvas_properties.width_half / 1.5;
+    player_speed = canvas_properties.width_half / 20;
 }
 
 function start(){
