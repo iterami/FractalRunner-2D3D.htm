@@ -211,7 +211,7 @@ function repo_init(){
       'storage': {
         'level': 0,
       },
-      'storage-controls': true,
+      'storage_controls': true,
       'title': 'FractalRunner-2D3D.htm',
       'ui': 'Score: <span id=score></span>',
     });
