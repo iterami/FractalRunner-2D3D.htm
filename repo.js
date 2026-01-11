@@ -1,25 +1,5 @@
 'use strict';
 
-function load_data(){
-    ground = canvas_properties.height_half * (1 - core_storage_data.level);
-    player_position = 0;
-    score = 0;
-    split_state = [
-      false,
-      false,
-    ];
-    splits[0][2] = 25;
-    splits[1][2] = 25;
-    splits[2][2] = 25;
-    splits[3][2] = 25;
-
-    core_ui_update({
-      'ids': {
-        'score': score,
-      },
-    });
-}
-
 function repo_drawlogic(){
     canvas_setproperties({
       'fillStyle': colors[2],
@@ -218,6 +198,26 @@ function repo_init(){
     });
     canvas_init({
       'cursor': 'pointer',
+    });
+}
+
+function repo_load(){
+    ground = canvas_properties.height_half * (1 - core_storage_data.level);
+    player_position = 0;
+    score = 0;
+    split_state = [
+      false,
+      false,
+    ];
+    splits[0][2] = 25;
+    splits[1][2] = 25;
+    splits[2][2] = 25;
+    splits[3][2] = 25;
+
+    core_ui_update({
+      'ids': {
+        'score': score,
+      },
     });
 }
 
