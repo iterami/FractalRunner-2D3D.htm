@@ -186,7 +186,8 @@ function repo_init(){
           [50, 50, 25],
         ],
       },
-      'info': '<select id=level><option value=0>0 - Walled Corridor<option value=1>1 - Cling to the Ground</select><button id=start type=button>Start New Run</button>',
+      'info': '<button class=medium id=start type=button>Start New Run</button><br>'
+        + '<select id=level><option value=0>0 - Walled Corridor<option value=1>1 - Cling to the Ground</select>',
       'menu': true,
       'pointerbinds': {},
       'storage': {
