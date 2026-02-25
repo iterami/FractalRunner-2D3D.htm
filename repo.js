@@ -11,8 +11,21 @@ function repo_drawlogic(){
       canvas_properties.height_half
     );
 
+    const backbottomleft = Math.max(
+      canvas_properties.height_half + canvas_properties.width_half,
+      canvas_properties.height
+    );
+    const backtopleft = Math.min(
+      canvas_properties.height_half - canvas_properties.width_half,
+      0
+    );
+    const bottomleft = (splits[1][1] * (1 / splits[1][2])) + canvas_properties.height_half;
+    const bottomright = (splits[3][1] * (1 / splits[3][2])) + canvas_properties.height_half;
     const left = splits[0][0] * (1 / splits[0][2]) + canvas_properties.width_half;
+    const position = canvas_properties.width + player_position;
     const right = splits[2][0] * (1 / splits[2][2]) + canvas_properties.width_half;
+    const topleft = (splits[0][1] * (1 / splits[0][2])) + canvas_properties.height_half;
+    const topright = (splits[2][1] * (1 / splits[2][2])) + canvas_properties.height_half;
 
     canvas_setproperties({
       'fillStyle': split_state[0]
@@ -24,28 +37,22 @@ function repo_drawlogic(){
         [
           'moveTo',
           player_position,
-          Math.min(
-            canvas_properties.height_half - canvas_properties.width_half,
-            0
-          )
+          backtopleft
         ],
         [
           'lineTo',
           left,
-          (splits[0][1] * (1 / splits[0][2])) + canvas_properties.height_half,
+          topleft,
         ],
         [
           'lineTo',
           left,
-          (splits[1][1] * (1 / splits[1][2])) + canvas_properties.height_half,
+          bottomleft,
         ],
         [
           'lineTo',
           player_position,
-          Math.max(
-            canvas_properties.height_half + canvas_properties.width_half,
-            canvas_properties.height
-          )
+          backbottomleft
         ],
         [
           'lineTo',
@@ -64,7 +71,7 @@ function repo_drawlogic(){
         [
           'moveTo',
           right,
-          (splits[2][1] * (1 / splits[2][2])) + canvas_properties.height_half,
+          topright,
         ],
         [
           'lineTo',
@@ -74,7 +81,7 @@ function repo_drawlogic(){
         [
           'lineTo',
           right,
-          (splits[3][1] * (1 / splits[3][2])) + canvas_properties.height_half,
+          bottomright,
         ],
       ],
     });
@@ -88,29 +95,23 @@ function repo_drawlogic(){
       'vertices': [
         [
           'moveTo',
-          canvas_properties.width + player_position,
-          Math.min(
-            canvas_properties.height_half - canvas_properties.width_half,
-            0
-          )
+          position,
+          backtopleft
         ],
         [
           'lineTo',
           right,
-          (splits[2][1] * (1 / splits[2][2])) + canvas_properties.height_half,
+          topright,
         ],
         [
           'lineTo',
           right,
-          (splits[3][1] * (1 / splits[3][2])) + canvas_properties.height_half,
+          bottomright,
         ],
         [
           'lineTo',
-          canvas_properties.width + player_position,
-          Math.max(
-            canvas_properties.height_half + canvas_properties.width_half,
-            canvas_properties.height
-          )
+          position,
+          backbottomleft
         ],
         [
           'lineTo',
@@ -129,7 +130,7 @@ function repo_drawlogic(){
         [
           'moveTo',
           left,
-          (splits[0][1] * (1 / splits[0][2])) + canvas_properties.height_half,
+          topleft,
         ],
         [
           'lineTo',
@@ -139,7 +140,7 @@ function repo_drawlogic(){
         [
           'lineTo',
           left,
-          (splits[1][1] * (1 / splits[1][2])) + canvas_properties.height_half,
+          bottomleft,
         ],
       ],
     });
@@ -241,7 +242,6 @@ function repo_logic(){
     if(move_right){
         player_dx -= player_speed;
     }
-
     player_position += player_dx;
 
     if(player_position > player_bounds){
