@@ -147,6 +147,8 @@ function repo_drawlogic(){
 }
 
 function repo_escape(){
+    audio_state_all(!core_menu_open);
+
     if(split_state.length === 0
       && !core_menu_open){
         start();
