@@ -198,7 +198,7 @@ function repo_init(){
       },
       'storage_controls': true,
       'title': 'FractalRunner-2D3D.htm',
-      'ui': 'Score: <span id=score></span>',
+      'ui': ' <span id=score></span>',
     });
     canvas_init({
       'cursor': 'pointer',
@@ -263,17 +263,16 @@ function repo_logic(){
     }
 
     if(split_state[1]){
+        audio_start('boop');
+
         player_position = 0;
 
         split_state[1] = false;
         split_state[0] = !split_state[0];
 
-        score += 1;
-        audio_start('boop');
-
         core_ui_update({
           'ids': {
-            'score': score,
+            'score': ++score,
           },
         });
     }
