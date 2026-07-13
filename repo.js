@@ -52,7 +52,7 @@ function repo_drawlogic(){
         [
           'lineTo',
           player_position,
-          backbottomleft
+          backbottomleft,
         ],
         [
           'lineTo',
@@ -96,7 +96,7 @@ function repo_drawlogic(){
         [
           'moveTo',
           position,
-          backtopleft
+          backtopleft,
         ],
         [
           'lineTo',
@@ -111,7 +111,7 @@ function repo_drawlogic(){
         [
           'lineTo',
           position,
-          backbottomleft
+          backbottomleft,
         ],
         [
           'lineTo',
@@ -157,13 +157,11 @@ function repo_escape(){
 
 function repo_init(){
     core_repo_init({
-      'beforeunload': {
-        'todo': function(event){
-            if(score !== 0){
-                core_escape(true);
-                event.preventDefault();
-            }
-        },
+      'beforeunload': function(event){
+          if(score !== 0){
+              core_escape(true);
+              event.preventDefault();
+          }
       },
       'events': {
         'start': {
@@ -209,10 +207,7 @@ function repo_load(){
     ground = canvas_properties.height_half * (1 - core_storage_data.level);
     player_position = 0;
     score = 0;
-    split_state = [
-      false,
-      false,
-    ];
+    split_state = [false,false];
     splits[0][2] = 25;
     splits[1][2] = 25;
     splits[2][2] = 25;
